@@ -11,12 +11,11 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
     // Special handling for disease resistance that might be in either category
     const diseaseResistances = ['fusarium resistant', 'macrophomina resistant'] as const;
     
-    if (diseaseResistances.includes(value as any)) {
+    if (diseaseResistances.includes(value as typeof diseaseResistances[number])) {
       // For disease resistance, check which category actually has this attribute
       // in the currently available cultivars
       const availableOptions = getAvailableOptions();
       const inAttributes = availableOptions.attributes.includes(value);
-      const inAttribute2 = availableOptions.attribute2.includes(value);
       
       // Use the category where it's actually available, preferring attributes
       const actualCategory = inAttributes ? 'attributes' : 'attribute2';

@@ -17,19 +17,19 @@ export default function CultivarCard({ cultivar, isSelected, onClick }: Cultivar
         <div className="flex-1 min-w-0">
           <h3 className="font-bold text-primary text-lg mb-1 truncate">{cultivar.name}</h3>
           <p className="text-secondary text-sm mb-3 flex items-center space-x-2">
-            <span>{cultivar.type === 'Day-Neutral' ? '☀️' : '🌙'}</span>
-            <span>{cultivar.type}</span>
+            <span>{cultivar.flowerType === 'DN' ? '☀️' : '🌙'}</span>
+            <span>{cultivar.flowerType === 'DN' ? 'Day-Neutral' : 'Short-Day'}</span>
           </p>
           
           <div className="flex flex-wrap gap-2 mb-4">
-            {cultivar.traits.slice(0, 2).map((trait) => (
+            {cultivar.attributes.slice(0, 2).map((trait) => (
               <span key={trait} className="trait-badge">
                 {trait}
               </span>
             ))}
-            {cultivar.traits.length > 2 && (
+            {cultivar.attributes.length > 2 && (
               <span className="trait-badge opacity-60">
-                +{cultivar.traits.length - 2} more
+                +{cultivar.attributes.length - 2} more
               </span>
             )}
           </div>

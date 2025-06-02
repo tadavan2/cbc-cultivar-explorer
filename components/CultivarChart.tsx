@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend } from 'recharts';
 import { getChartDataFromCSV, chartMetrics, ChartDataResponse } from '../data/chartData';
 
+// Type for Recharts tick props
+interface TickProps {
+  x?: number;
+  y?: number;
+  payload?: {
+    value: string | number;
+  };
+}
+
 interface CultivarChartProps {
   cultivarId: string;
   comparisonCultivarId?: string;
@@ -138,7 +147,7 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
     color: '#D1D5DB',
   };
 
-  const RotatedYAxisTick = (props: any) => {
+  const RotatedYAxisTick = (props: TickProps) => {
     const { x, y, payload } = props;
     return (
       <text
@@ -152,7 +161,7 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
         fontFamily="var(--font-body, system-ui)"
         transform={`rotate(-90, ${x}, ${y})`}
       >
-        {payload.value}
+        {payload?.value}
       </text>
     );
   };

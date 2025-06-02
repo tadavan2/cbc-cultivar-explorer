@@ -1,0 +1,42 @@
+{
+  "id": "artesia",
+  "name": "Artesia",
+  "displayName": "Artesia™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Artesia™ - Premium Organic Day-Neutral Strawberry",
+    "paragraphs": [
+      "Artesia™ represents the pinnacle of organic strawberry production, delivering exceptional yields and quality in organic growing environments. This premium day-neutral cultivar combines outstanding performance with comprehensive disease resistance, making it the ideal choice for organic growers seeking maximum productivity and reliability.",
+      "Distinguished by its superior performance in organic production systems, Artesia™ consistently delivers high yields, excellent fruit quality, and strong overall vigor in standard field trials. Growers operating in organic systems report superior results compared to other commercial varieties, particularly in terms of marketable yield, firmness, and appearance.",
+      "Engineered for organic success, Artesia™ offers robust resistance or moderate resistance to all major soil-borne pathogens affecting California strawberry production. This comprehensive disease resistance package reduces field losses and simplifies disease management for organic growers, providing reliable performance across diverse growing conditions.",
+      "From establishment through harvest, Artesia™ delivers the yields, quality, and disease resistance that define successful organic strawberry operations. Experience the advantage of genetics specifically optimized for sustainable, organic production systems."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/artesia/banner.jpg",
+    "carousel": [
+      "/images/cultivars/artesia/artesia_1.jpg",
+      "/images/cultivars/artesia/artesia_2.jpg",
+      "/images/cultivars/artesia/artesia_3.jpg"
+    ]
+  },
+  "features": [
+    "Organic production optimized",
+    "Comprehensive disease resistance",
+    "High marketable yields",
+    "Superior organic performance",
+    "Early bloom set"
+  ],
+  "performanceMetrics": {
+    "yield": "49.2t/ha",
+    "size": "Large",
+    "appearance": "Premium",
+    "firmness": "Very High"
+  },
+  "recommendations": {
+    "plantingDate": "Santa Maria: Oct 15 - Oct 30, Salinas/Watsonville: Oct 25 - Nov 15",
+    "chill": "Plant performs better with supplemental chill. We recommend 2-3 weeks, particularly under organic conditions. Bloom set is early - begin bloom removal and sprays accordingly.",
+    "fertility": "Organic fertilizer programs should emphasize soil health and gradual nutrient release. Recommended organic fertilizer rates depend on soil conditions and organic matter levels. Regular soil testing recommended for organic systems.",
+    "other": "Excellent for organic production systems. Strong resistance to Fusarium, moderate resistance to Macrophomina, Verticillium, and Colletotrichum. Minimal disease expression across major soil-borne pathogens. Follow organic-approved spray programs."
+  }
+} 

@@ -1,0 +1,31 @@
+{
+  "id": "debug",
+  "name": "CBC Cultivar Explorer",
+  "displayName": "Welcome to CBC Cultivar Explorer",
+  "type": "intro-page",
+  "description": {
+    "title": "Welcome to CBC Cultivar Explorer",
+    "paragraphs": [
+      "Discover California Berry Cultivars' premium strawberry varieties through our interactive explorer."
+    ]
+  },
+  "images": {
+    "banner": "/images/backgrounds/open_page_bg.jpg",
+    "carousel": [
+      "/images/backgrounds/open_page_bg.jpg"
+    ]
+  },
+  "features": [],
+  "performanceMetrics": {
+    "yield": "",
+    "size": "",
+    "appearance": "",
+    "firmness": ""
+  },
+  "recommendations": {
+    "plantingDate": "",
+    "chill": "",
+    "fertility": "",
+    "other": ""
+  }
+} 

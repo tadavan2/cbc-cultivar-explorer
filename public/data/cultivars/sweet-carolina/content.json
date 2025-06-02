@@ -1,0 +1,42 @@
+{
+  "id": "sweet-carolina",
+  "name": "Sweet Carolina",
+  "displayName": "Sweet Carolina™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Early Yielding Day-Neutral with Strong Disease Resistance",
+    "paragraphs": [
+      "Sweet Carolina is an early yielding day-neutral with firm, medium-large sized fruit and good flavor. Taste test results suggest flavor on-par with Ruby June, with overall appearance being better and demonstrating excellent rain tolerance.",
+      "Disease resistance is a key strength with strong resistance to both Fusarium and Phytophthora. This dual resistance profile makes Sweet Carolina particularly valuable for operations dealing with soil-borne disease pressure.",
+      "The variety shows consistent performance with first harvest in North Carolina typically occurring in mid-March, depending on location and year. The planting date recommendation for North Carolina is approximately October 10th.",
+      "Limited availability of clean stock is planned for grower trials in 2025, with full scale commercial availability beginning in the 2026 season, providing growers time to evaluate performance in their specific growing conditions."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/sweetcarolina/banner.jpg",
+    "carousel": [
+      "/images/cultivars/sweetcarolina/sweetcarolina_1.jpg",
+      "/images/cultivars/sweetcarolina/sweetcarolina_2.jpg",
+      "/images/cultivars/sweetcarolina/sweetcarolina_3.jpg"
+    ]
+  },
+  "features": [
+    "Early yielding day-neutral",
+    "Strong disease resistance",
+    "Good rain tolerance",
+    "Firm fruit texture",
+    "Medium-large fruit size"
+  ],
+  "performanceMetrics": {
+    "yield": "26.2t/ha",
+    "size": "24.7g",
+    "appearance": "Excellent", 
+    "firmness": "High"
+  },
+  "recommendations": {
+    "plantingDate": "~ October 10 (North Carolina)",
+    "chill": "Standard day-neutral chill requirements. Performance optimized with adequate winter chill accumulation.",
+    "fertility": "Standard fertility program suitable for day-neutral strawberries. Adjust based on soil test results and regional recommendations.", 
+    "other": "Strong resistance to Fusarium and Phytophthora. Limited availability of clean stock for grower trials in 2025. Full scale commercial availability will begin in the 2026 season."
+  }
+} 

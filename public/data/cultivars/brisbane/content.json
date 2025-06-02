@@ -1,0 +1,42 @@
+{
+  "id": "brisbane",
+  "name": "Brisbane",
+  "displayName": "Brisbane™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Moderate Day-Neutral with Excellent Appearance and Superior Taste",
+    "paragraphs": [
+      "Brisbane is a moderate day-neutral with excellent appearance. It is a larger plant, with fruit of similar firmness and size compared to other commercially available cultivars. In taste-tests Brisbane consistently ranks near the top.",
+      "Disease resistance is a key strength with strong resistance to Fusarium and moderate resistance to Macrophomina and Verticillium. The variety performs better with more chill, requiring at least 2 weeks supplemental chill for optimal performance.",
+      "Brisbane shows general market availability as of 2024, making it accessible for commercial operations. The variety demonstrates consistent performance across trial conditions with reliable yield patterns from April through September.",
+      "For member operations, large acreage trials are available for Fall 2022 planting. Commercial nurseries provide limited volume for small acreage trials for non-member growers through sales representatives."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/brisbane/banner.jpg",
+    "carousel": [
+      "/images/cultivars/brisbane/brisbane_1.jpg",
+      "/images/cultivars/brisbane/brisbane_2.jpg",
+      "/images/cultivars/brisbane/brisbane_3.jpg"
+    ]
+  },
+  "features": [
+    "Moderate day-neutral variety",
+    "Excellent appearance quality",
+    "Superior taste test rankings",
+    "Strong Fusarium resistance",
+    "Larger plant structure"
+  ],
+  "performanceMetrics": {
+    "yield": "41.0t/ha",
+    "size": "Large",
+    "appearance": "Excellent",
+    "firmness": "High"
+  },
+  "recommendations": {
+    "plantingDate": "Oct 15 - Oct 30 (Santa Maria), Oct 25 - Nov 15 (Salinas/Watsonville)",
+    "chill": "Performs better with more chill. At least 2 weeks supplemental chill required for optimal performance.",
+    "fertility": "Standard fertility program. Regular fertilizer regime during fruiting season will depend on ranch specific requirements.",
+    "other": "Strong resistance to Fusarium, moderate resistance to Macrophomina and Verticillium. General market availability as of 2024."
+  }
+} 

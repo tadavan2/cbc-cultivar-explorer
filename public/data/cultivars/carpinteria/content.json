@@ -1,0 +1,42 @@
+{
+  "id": "carpinteria",
+  "name": "Carpinteria", 
+  "displayName": "Carpinteria™",
+  "type": "day-neutral",
+  "description": {
+    "title": "High-Yielding Day-Neutral with Superior Disease Resistance",
+    "paragraphs": [
+      "Carpinteria is a high-yielding day-neutral with even-colored, glossy, large fruit. Flavor is good. Early and late yields are higher than controls, while the summer peak is more moderate than Alturas. Fruit is firmer than Alturas and Monterey and maintains good size in the summer.",
+      "Fertilizer recommendations include pre-plant fertilizer with ranges varying by location, but between 500 and 600 lbs of 18-8-13 is sufficient in sandy soils. Heavier soils will require less fertilizer. A regular fertilizer regime during the fruiting season will depend on ranch specific requirements.",
+      "The variety shows strong resistance to Fusarium, moderate resistance to Macrophomina and Verticillium. For supplemental chill, as with most day-neutrals, supplemental chill can improve quality. We recommend between 1-2 weeks of supplemental chill. Plants with too much chill will become larger and difficult to manage late in the season.",
+      "No special spray requirements. Follow standard sprays for powdery mildew, botrytis, and mites. Availability for 2025 is limited at California nurseries, with wider availability expected for fall 2026 planting."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/carpinteria/banner.jpg",
+    "carousel": [
+      "/images/cultivars/carpinteria/carpinteria_1.jpg",
+      "/images/cultivars/carpinteria/carpinteria_2.jpg", 
+      "/images/cultivars/carpinteria/carpinteria_3.jpg"
+    ]
+  },
+  "features": [
+    "High-yielding day-neutral variety",
+    "Even-colored, glossy, large fruit", 
+    "Good flavor profile",
+    "Firmer than Alturas and Monterey",
+    "Strong resistance to Fusarium"
+  ],
+  "performanceMetrics": {
+    "yield": "43.0t/ha",
+    "size": "Large",
+    "appearance": "Excellent", 
+    "firmness": "High"
+  },
+  "recommendations": {
+    "plantingDate": "Oct 15 - Oct 30 (Santa Maria), Oct 25 - Nov 15 (Salinas/Watsonville)",
+    "chill": "As with most day-neutrals, supplemental chill can improve quality. We recommend between 1-2 weeks of supplemental chill. Plants with too much chill will become larger and difficult to manage late in the season.",
+    "fertility": "We recommend pre-plant fertilizer. Ranges vary, but between 500 and 600 lbs of 18-8-13 is sufficient in sandy soils. Heavier soils will require less fertilizer. A regular fertilizer regime during the fruiting season will depend on ranch specific requirements.",
+    "other": "No special requirements. Follow standard sprays for powdery mildew, botrytis, and mites."
+  }
+} 

@@ -1,0 +1,42 @@
+{
+  "id": "alturas",
+  "name": "Alturas",
+  "displayName": "Alturas™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Alturas™ - Premium Day-Neutral Strawberry",
+    "paragraphs": [
+      "Alturas™ represents the pinnacle of day-neutral strawberry breeding, delivering exceptional performance across extended harvest windows. This premium cultivar combines robust yields with superior fruit quality, making it the ideal choice for commercial operations demanding consistency and profitability.",
+      "Distinguished by its vibrant, attractive berries that maintain size and quality throughout the season, Alturas™ offers excellent shelf life and shipping characteristics. The variety's balanced flavor profile and striking visual appeal make it a favorite among both growers and consumers.",
+      "Built for efficiency, Alturas™ features an open plant architecture that facilitates easy harvesting while reducing labor costs. Its strong disease resistance package and adaptive growing characteristics ensure reliable performance across diverse growing conditions and climates.",
+      "From field to market, Alturas™ delivers the quality, consistency, and economic returns that define successful strawberry operations. Experience the difference that advanced breeding and proven genetics can make in your production program."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/alturas/banner.jpg",
+    "carousel": [
+      "/images/cultivars/alturas/alturas_1.jpg",
+      "/images/cultivars/alturas/alturas_2.jpg",
+      "/images/cultivars/alturas/alturas_3.jpg"
+    ]
+  },
+  "features": [
+    "Premium day-neutral variety",
+    "Superior fruit quality",
+    "Extended shelf life",
+    "Disease resistance package",
+    "Efficient harvesting"
+  ],
+  "performanceMetrics": {
+    "yield": "48.2t/ha",
+    "size": "Large",
+    "appearance": "Premium",
+    "firmness": "Very High"
+  },
+  "recommendations": {
+    "plantingDate": "Santa Maria: Oct 15 - Oct 30, Salinas/Watsonville: Oct 25 - Nov 15",
+    "chill": "As with most day-neutrals, supplemental chill can improve quality. We recommend between 1-2 weeks of supplemental chill. Plants with too much chill will become larger and difficult to manage late in the season.",
+    "fertility": "We recommend pre-plant fertilizer. Ranges vary, but between 500 and 600 lbs of 18-8-13 is sufficient in sandy soils. Heavier soils will require less fertilizer. A regular fertilizer regime during the fruiting season will depend on ranch specific requirements.",
+    "other": "No special requirements. Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium. Moderately resistant to Macrophomina and Verticillium."
+  }
+} 

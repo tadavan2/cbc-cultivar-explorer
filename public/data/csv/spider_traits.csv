@@ -1,0 +1,17 @@
+cultivar_id,yield,size,appearance,flavor,shelf_life,disease_resistance,firmness,earliness
+debug,4,3,4,3,3,3,3,3
+alturas,5,4,4,3,3,5,4,3
+adelanto,4,4,4,3,4,3,4,5
+alhambra,3,3,4,5,3,3,3,3
+artesia,4,4,5,4,3,3,4,3
+belvedere,3,4,5,4,4,4,4,2
+brisbane,4,3,4,3,3,4,3,3
+castaic,5,4,3,3,3,3,3,2
+carpinteria,4,4,4,3,4,4,4,3
+sweet-carolina,3,3,4,4,3,4,3,4
+ruby-june,3,3,3,4,3,3,3,3
+monterey,4,3,3,3,4,3,3,3
+cabrillo,3,4,4,4,3,4,4,4
+portola,4,4,4,4,4,4,4,3
+fronteras,5,3,3,2,3,2,2,1
+san-andreas,3,3,3,3,3,3,3,3 

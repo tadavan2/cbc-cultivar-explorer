@@ -1,0 +1,42 @@
+{
+  "id": "castaic",
+  "name": "Castaic",
+  "displayName": "Castaic™",
+  "type": "short-day",
+  "description": {
+    "title": "High-Yielding Short-Day Leader",
+    "paragraphs": [
+      "Castaic is a high-yielding short-day variety with even-colored, firm, large fruit. Flavor is good with no color issues after the peak, and skin remains firm throughout the season. The variety demonstrates impressive yield potential with strong production consistency.",
+      "With its larger plant structure, Castaic maintains plant size with dark plastic and lower fertility management. The cultivar shows excellent adaptability to various growing conditions while delivering premium fruit quality that meets market demands.",
+      "Performance trials demonstrate Castaic's superior yield potential, with cumulative production reaching 8,896 trays per acre by season end. The variety outperforms standard cultivars in total yield while maintaining excellent fruit firmness and appearance scores.",
+      "Current testing suggests Castaic is moderately resistant to most soil-borne diseases, with further data becoming available soon. The variety represents the next generation of high-performance short-day cultivars for California growers."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/castaic/banner.jpg",
+    "carousel": [
+      "/images/cultivars/castaic/castaic_1.jpg",
+      "/images/cultivars/castaic/castaic_2.jpg",
+      "/images/cultivars/castaic/castaic_3.jpg"
+    ]
+  },
+  "features": [
+    "High-yielding short-day variety",
+    "Even-colored, firm, large fruit",
+    "Good flavor profile",
+    "No color issues after peak",
+    "Excellent production consistency"
+  ],
+  "performanceMetrics": {
+    "yield": "48.0t/ha",
+    "size": "Large",
+    "appearance": "Excellent",
+    "firmness": "High"
+  },
+  "recommendations": {
+    "plantingDate": "Oct 1 - Oct 5 (Oxnard), Oct 1 - Oct 15 (Santa Maria)",
+    "chill": "As with most short day strawberries it is difficult to accumulate chill from the nursery. While we test low to no-chill plants, most short-days will suffer yield gaps if planted too early. We recommend a standard planting window, similar to Fronteras.",
+    "fertility": "We recommend pre-plant fertilizer. Ranges will vary by location, but on the low to moderate side. Heavier soils will require less fertilizer. A regular fertilizer regime during the fruiting season will depend on ranch specific requirements.",
+    "other": "No special requirements. Follow standard sprays for powdery mildew, botrytis, and mites."
+  }
+} 

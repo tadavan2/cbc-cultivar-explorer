@@ -1,0 +1,43 @@
+{
+  "id": "belvedere",
+  "name": "Belvedere",
+  "displayName": "Belvedere™",
+  "type": "short-day",
+  "description": {
+    "title": "Early Yielding Excellence",
+    "paragraphs": [
+      "Belvedere is an early yielding short-day variety with firm, evenly colored, high-quality fruit that delivers exceptional market performance. This vigorous cultivar combines excellent flavor with high brix content, making it ideal for both fresh market and processing applications.",
+      "The variety stands out for its excellent shelf-life and ship-ability characteristics, ensuring fruit maintains quality from field to consumer. Belvedere's robust plant architecture performs best on darker row-mulch with less fertility, making it an efficient choice for sustainable production systems.",
+      "With strong resistance to Macrophomina and moderate resistance to Verticillium and Phytophthora, Belvedere offers reliable disease protection while delivering consistent yields. The variety's early harvest timing and premium fruit quality make it an excellent choice for growers seeking market advantage.",
+      "From first harvest in late December through peak season, Belvedere delivers the consistency, quality, and disease resistance that define successful strawberry operations. Experience the advantage of early market timing with proven genetics and superior performance."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/BelvedereBannerFull.jpg",
+    "carousel": [
+      "/images/cultivars/belvedere/belvedere_1.jpg",
+      "/images/cultivars/belvedere/belvedere_2.jpg",
+      "/images/cultivars/belvedere/belvedere_3.jpg",
+      "/images/cultivars/belvedere/belvedere_4.jpg"
+    ]
+  },
+  "features": [
+    "Early yielding short-day variety",
+    "High brix content (11.0 avg)",
+    "Strong Macrophomina resistance",
+    "Excellent shelf-life and shipping",
+    "Premium fruit quality"
+  ],
+  "performanceMetrics": {
+    "yield": "35.0t/ha",
+    "size": "Large",
+    "appearance": "Excellent",
+    "firmness": "High"
+  },
+  "recommendations": {
+    "plantingDate": "Oct 1 - Oct 5 (Oxnard), Oct 1 (Baja)",
+    "chill": "As a short-day variety, Belvedere benefits from natural chilling periods. Plant in fall for optimal spring production.",
+    "fertility": "Pre-plant fertilizer: 400 lbs of 18-8-13. Vigorous plant - manage with less fertilizer and cooler row-mulch. Apply 3 lbs of N per week after first bloom.",
+    "other": "Begin sprays for botrytis after first bloom appearance. Apply standard powdery mildew sprays. Performs best on darker row-mulch with reduced fertility."
+  }
+} 

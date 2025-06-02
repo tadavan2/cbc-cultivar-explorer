@@ -1,0 +1,42 @@
+{
+  "id": "adelanto",
+  "name": "Adelanto",
+  "displayName": "Adelanto™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Adelanto™ - Ultra Early Day-Neutral Strawberry",
+    "paragraphs": [
+      "Adelanto™ sets the standard for ultra-early day-neutral strawberry production, delivering exceptional yields at the beginning of the season when market prices are at their peak. This premium cultivar combines early vigor with consistent fruit quality, making it the ideal choice for growers seeking to maximize early season profitability.",
+      "Renowned for its rapid establishment and early fruit production, Adelanto™ produces attractive, well-sized berries with excellent shelf life characteristics. The variety's balanced sweetness and firm texture make it ideal for both fresh market and processing applications.",
+      "Engineered for reliability, Adelanto™ features robust plant architecture and strong root systems that support sustained production throughout the growing season. Its proven disease resistance and adaptability ensure consistent performance across various growing environments.",
+      "From early season through peak harvest, Adelanto™ delivers the earliness, quality, and economic returns that drive successful strawberry operations. Experience the advantage of getting to market first with proven genetics and superior performance."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/adelanto/banner.jpg",
+    "carousel": [
+      "/images/cultivars/adelanto/adelanto_1.jpg",
+      "/images/cultivars/adelanto/adelanto_2.jpg",
+      "/images/cultivars/adelanto/adelanto_3.jpg"
+    ]
+  },
+  "features": [
+    "Ultra early day-neutral variety",
+    "High early season yields",
+    "Excellent shelf life",
+    "Strong disease resistance",
+    "Rapid establishment"
+  ],
+  "performanceMetrics": {
+    "yield": "42.8t/ha",
+    "size": "Large",
+    "appearance": "Excellent",
+    "firmness": "High"
+  },
+  "recommendations": {
+    "plantingDate": "Santa Maria: Oct 10 - Oct 25, Salinas/Watsonville: Oct 20 - Nov 10",
+    "chill": "Adelanto benefits from minimal to moderate chill requirements. We recommend 1-2 weeks of supplemental chill for optimal early season production. Excessive chill may delay the early harvest advantage.",
+    "fertility": "Pre-plant fertilizer recommendations include 450-550 lbs of 18-8-13 in sandy soils. Lighter applications may be sufficient in heavier soils. Early season nitrogen management is critical for maximizing early yields.",
+    "other": "Standard spray programs for powdery mildew, botrytis, and mites. Good resistance to Fusarium and moderate resistance to Verticillium. Monitor closely for early season pests due to rapid early growth."
+  }
+} 

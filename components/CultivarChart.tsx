@@ -138,6 +138,25 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
     color: '#D1D5DB',
   };
 
+  const RotatedYAxisTick = (props: any) => {
+    const { x, y, payload } = props;
+    return (
+      <text
+        x={x}
+        y={y}
+        dy={0}
+        dx={12}
+        textAnchor="end"
+        fill="#9CA3AF"
+        fontSize={12}
+        fontFamily="var(--font-body, system-ui)"
+        transform={`rotate(-90, ${x}, ${y})`}
+      >
+        {payload.value}
+      </text>
+    );
+  };
+
   return (
     <div 
       style={{
@@ -199,22 +218,23 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
               axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
             />
             
-            <YAxis 
-              tick={{ fill: '#9CA3AF', fontSize: 12, fontFamily: 'var(--font-body, system-ui)', angle: -90, textAnchor: 'middle' }}
-              axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
-              domain={[0, metric.yAxisMax]}
-              label={{ 
-                value: metric.label, 
-                angle: -90, 
-                position: 'outsideLeft',
-                style: { 
-                  textAnchor: 'middle', 
-                  fill: '#9CA3AF', 
-                  fontSize: '12px',
-                  fontFamily: 'var(--font-body, system-ui)'
-                } 
-              }}
-            />
+            <YAxis
+  tick={<RotatedYAxisTick />}
+  label={{ 
+    value: metric.label, 
+    angle: -90, 
+    position: 'outsideLeft',
+    style: { 
+      textAnchor: 'middle', 
+      fill: '#9CA3AF', 
+      fontSize: '12px',
+      fontFamily: 'var(--font-body, system-ui)'
+    }
+  }}
+  axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
+  domain={[0, metric.yAxisMax]}
+/>
+
             
             <Legend 
               wrapperStyle={{ color: '#9CA3AF', fontFamily: 'var(--font-body, system-ui)' }}

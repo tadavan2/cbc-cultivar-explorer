@@ -13,12 +13,11 @@
     ]
   },
   "images": {
-    "banner": "/images/cultivars/BelvedereBannerFull.jpg",
+    "banner": "/images/cultivars/banner.jpg",
     "carousel": [
       "/images/cultivars/belvedere/belvedere_1.jpg",
       "/images/cultivars/belvedere/belvedere_2.jpg",
-      "/images/cultivars/belvedere/belvedere_3.jpg",
-      "/images/cultivars/belvedere/belvedere_4.jpg"
+      "/images/cultivars/belvedere/belvedere_3.jpg"
     ]
   },
   "features": [

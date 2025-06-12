@@ -38,7 +38,7 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
     id: 'yield',
     label: 'Yield (kg/hectare)',
     unit: 'kg/ha',
-    yAxisMax: 3000,
+    yAxisMax: 1750,
     showCumulative: true,
     color: '#3B82F6'
   },
@@ -46,15 +46,15 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
     id: 'firmness',
     label: 'Firmness (N)',
     unit: 'N',
-    yAxisMax: 10,
+    yAxisMax: 2.0,
     showCumulative: false,
     color: '#10B981'
   },
   size: {
     id: 'size',
-    label: 'Berry Size (g)',
+    label: 'Size (g)',
     unit: 'g',
-    yAxisMax: 25,
+    yAxisMax: 60,
     showCumulative: false,
     color: '#F59E0B'
   },
@@ -62,7 +62,7 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
     id: 'appearance',
     label: 'Appearance Score (1-10)',
     unit: 'score',
-    yAxisMax: 10,
+    yAxisMax: 5,
     showCumulative: false,
     color: '#8B5CF6'
   }
@@ -102,422 +102,7 @@ export const cultivarChartData: { [cultivarId: string]: CultivarChartData } = {
       { month: 'Jan', value: 8.8 }
     ]
   },
-  portola: {
-    cultivarId: 'portola',
-    cultivarName: 'Portola',
-    yield: [
-      { month: 'Sep', value: 1147 },
-      { month: 'Oct', value: 1440 },
-      { month: 'Nov', value: 494 },
-      { month: 'Dec', value: 277 },
-      { month: 'Jan', value: 127 }
-    ],
-    firmness: [
-      { month: 'Sep', value: 7.8 },
-      { month: 'Oct', value: 8.1 },
-      { month: 'Nov', value: 7.9 },
-      { month: 'Dec', value: 7.6 },
-      { month: 'Jan', value: 7.5 }
-    ],
-    size: [
-      { month: 'Sep', value: 16.2 },
-      { month: 'Oct', value: 17.8 },
-      { month: 'Nov', value: 16.9 },
-      { month: 'Dec', value: 15.1 },
-      { month: 'Jan', value: 15.8 }
-    ],
-    appearance: [
-      { month: 'Sep', value: 8.4 },
-      { month: 'Oct', value: 8.8 },
-      { month: 'Nov', value: 8.5 },
-      { month: 'Dec', value: 8.1 },
-      { month: 'Jan', value: 8.2 }
-    ]
-  },
-  alhambra: {
-    cultivarId: 'alhambra',
-    cultivarName: 'Alhambra',
-    yield: [
-      { month: 'Sep', value: 1200 },
-      { month: 'Oct', value: 1800 },
-      { month: 'Nov', value: 580 },
-      { month: 'Dec', value: 520 },
-      { month: 'Jan', value: 180 }
-    ],
-    firmness: [
-      { month: 'Sep', value: 7.9 },
-      { month: 'Oct', value: 8.2 },
-      { month: 'Nov', value: 8.0 },
-      { month: 'Dec', value: 7.8 },
-      { month: 'Jan', value: 7.7 }
-    ],
-    size: [
-      { month: 'Sep', value: 17.2 },
-      { month: 'Oct', value: 18.5 },
-      { month: 'Nov', value: 17.8 },
-      { month: 'Dec', value: 16.5 },
-      { month: 'Jan', value: 16.8 }
-    ],
-    appearance: [
-      { month: 'Sep', value: 8.8 },
-      { month: 'Oct', value: 9.1 },
-      { month: 'Nov', value: 8.9 },
-      { month: 'Dec', value: 8.6 },
-      { month: 'Jan', value: 8.4 }
-    ]
-  },
-  artesia: {
-    cultivarId: 'artesia',
-    cultivarName: 'Artesia',
-    yield: [
-      { month: 'Mar', value: 310 },
-      { month: 'Apr', value: 1485 },
-      { month: 'May', value: 2940 },
-      { month: 'Jun', value: 3647 },
-      { month: 'Jul', value: 2719 },
-      { month: 'Aug', value: 2412 },
-      { month: 'Sep', value: 609 },
-      { month: 'Oct', value: 610 }
-    ],
-    firmness: [
-      { month: 'Mar', value: 8.1 },
-      { month: 'Apr', value: 8.4 },
-      { month: 'May', value: 8.7 },
-      { month: 'Jun', value: 8.8 },
-      { month: 'Jul', value: 8.6 },
-      { month: 'Aug', value: 8.3 },
-      { month: 'Sep', value: 8.1 },
-      { month: 'Oct', value: 7.9 }
-    ],
-    size: [
-      { month: 'Mar', value: 16.8 },
-      { month: 'Apr', value: 18.2 },
-      { month: 'May', value: 19.8 },
-      { month: 'Jun', value: 20.1 },
-      { month: 'Jul', value: 19.5 },
-      { month: 'Aug', value: 18.9 },
-      { month: 'Sep', value: 17.8 },
-      { month: 'Oct', value: 17.2 }
-    ],
-    appearance: [
-      { month: 'Mar', value: 8.5 },
-      { month: 'Apr', value: 9.0 },
-      { month: 'May', value: 9.3 },
-      { month: 'Jun', value: 9.4 },
-      { month: 'Jul', value: 9.2 },
-      { month: 'Aug', value: 8.9 },
-      { month: 'Sep', value: 8.7 },
-      { month: 'Oct', value: 8.4 }
-    ]
-  },
-  brisbane: {
-    cultivarId: 'brisbane',
-    cultivarName: 'Brisbane',
-    yield: [
-      { month: 'Mar', value: 280 },
-      { month: 'Apr', value: 1420 },
-      { month: 'May', value: 2890 },
-      { month: 'Jun', value: 3520 },
-      { month: 'Jul', value: 2680 },
-      { month: 'Aug', value: 2350 },
-      { month: 'Sep', value: 1180 },
-      { month: 'Oct', value: 580 }
-    ],
-    firmness: [
-      { month: 'Mar', value: 8.2 },
-      { month: 'Apr', value: 8.5 },
-      { month: 'May', value: 8.8 },
-      { month: 'Jun', value: 8.9 },
-      { month: 'Jul', value: 8.7 },
-      { month: 'Aug', value: 8.4 },
-      { month: 'Sep', value: 8.2 },
-      { month: 'Oct', value: 8.0 }
-    ],
-    size: [
-      { month: 'Mar', value: 17.1 },
-      { month: 'Apr', value: 18.5 },
-      { month: 'May', value: 19.9 },
-      { month: 'Jun', value: 20.2 },
-      { month: 'Jul', value: 19.6 },
-      { month: 'Aug', value: 19.0 },
-      { month: 'Sep', value: 18.1 },
-      { month: 'Oct', value: 17.5 }
-    ],
-    appearance: [
-      { month: 'Mar', value: 8.6 },
-      { month: 'Apr', value: 9.1 },
-      { month: 'May', value: 9.4 },
-      { month: 'Jun', value: 9.5 },
-      { month: 'Jul', value: 9.3 },
-      { month: 'Aug', value: 9.0 },
-      { month: 'Sep', value: 8.8 },
-      { month: 'Oct', value: 8.5 }
-    ]
-  },
-  adelanto: {
-    cultivarId: 'adelanto',
-    cultivarName: 'Adelanto',
-    yield: [
-      { month: 'Sep', value: 1320 },
-      { month: 'Oct', value: 2180 },
-      { month: 'Nov', value: 625 },
-      { month: 'Dec', value: 548 },
-      { month: 'Jan', value: 198 }
-    ],
-    firmness: [
-      { month: 'Sep', value: 8.4 },
-      { month: 'Oct', value: 8.7 },
-      { month: 'Nov', value: 8.5 },
-      { month: 'Dec', value: 8.3 },
-      { month: 'Jan', value: 8.2 }
-    ],
-    size: [
-      { month: 'Sep', value: 17.8 },
-      { month: 'Oct', value: 18.9 },
-      { month: 'Nov', value: 18.2 },
-      { month: 'Dec', value: 16.8 },
-      { month: 'Jan', value: 17.1 }
-    ],
-    appearance: [
-      { month: 'Sep', value: 9.2 },
-      { month: 'Oct', value: 9.4 },
-      { month: 'Nov', value: 9.1 },
-      { month: 'Dec', value: 8.9 },
-      { month: 'Jan', value: 8.7 }
-    ]
-  },
-  belvedere: {
-    cultivarId: 'belvedere',
-    cultivarName: 'Belvedere',
-    yield: [
-      { month: 'Sep', value: 1250 },
-      { month: 'Oct', value: 2100 },
-      { month: 'Nov', value: 590 },
-      { month: 'Dec', value: 510 },
-      { month: 'Jan', value: 180 }
-    ],
-    firmness: [
-      { month: 'Sep', value: 8.3 },
-      { month: 'Oct', value: 8.6 },
-      { month: 'Nov', value: 8.4 },
-      { month: 'Dec', value: 8.2 },
-      { month: 'Jan', value: 8.1 }
-    ],
-    size: [
-      { month: 'Sep', value: 18.1 },
-      { month: 'Oct', value: 19.2 },
-      { month: 'Nov', value: 18.6 },
-      { month: 'Dec', value: 17.4 },
-      { month: 'Jan', value: 17.7 }
-    ],
-    appearance: [
-      { month: 'Sep', value: 9.0 },
-      { month: 'Oct', value: 9.2 },
-      { month: 'Nov', value: 8.9 },
-      { month: 'Dec', value: 8.6 },
-      { month: 'Jan', value: 8.5 }
-    ]
-  },
-  castaic: {
-    cultivarId: 'castaic',
-    cultivarName: 'Castaic',
-    yield: [
-      { month: 'Sep', value: 1480 },
-      { month: 'Oct', value: 2650 },
-      { month: 'Nov', value: 720 },
-      { month: 'Dec', value: 640 },
-      { month: 'Jan', value: 250 }
-    ],
-    firmness: [
-      { month: 'Sep', value: 8.1 },
-      { month: 'Oct', value: 8.4 },
-      { month: 'Nov', value: 8.2 },
-      { month: 'Dec', value: 8.0 },
-      { month: 'Jan', value: 7.9 }
-    ],
-    size: [
-      { month: 'Sep', value: 19.2 },
-      { month: 'Oct', value: 20.1 },
-      { month: 'Nov', value: 19.5 },
-      { month: 'Dec', value: 18.3 },
-      { month: 'Jan', value: 18.8 }
-    ],
-    appearance: [
-      { month: 'Sep', value: 8.7 },
-      { month: 'Oct', value: 9.0 },
-      { month: 'Nov', value: 8.8 },
-      { month: 'Dec', value: 8.5 },
-      { month: 'Jan', value: 8.3 }
-    ]
-  },
-  carpinteria: {
-    cultivarId: 'carpinteria',
-    cultivarName: 'Carpinteria',
-    yield: [
-      { month: 'Mar', value: 890 },
-      { month: 'Apr', value: 1650 },
-      { month: 'May', value: 2180 },
-      { month: 'Jun', value: 1720 },
-      { month: 'Jul', value: 1450 },
-      { month: 'Aug', value: 1250 },
-      { month: 'Sep', value: 1100 },
-      { month: 'Oct', value: 980 }
-    ],
-    firmness: [
-      { month: 'Mar', value: 8.4 },
-      { month: 'Apr', value: 8.6 },
-      { month: 'May', value: 8.5 },
-      { month: 'Jun', value: 8.3 },
-      { month: 'Jul', value: 8.2 },
-      { month: 'Aug', value: 8.1 },
-      { month: 'Sep', value: 8.0 },
-      { month: 'Oct', value: 8.2 }
-    ],
-    size: [
-      { month: 'Mar', value: 17.8 },
-      { month: 'Apr', value: 18.9 },
-      { month: 'May', value: 19.2 },
-      { month: 'Jun', value: 18.6 },
-      { month: 'Jul', value: 18.3 },
-      { month: 'Aug', value: 18.0 },
-      { month: 'Sep', value: 17.9 },
-      { month: 'Oct', value: 18.1 }
-    ],
-    appearance: [
-      { month: 'Mar', value: 8.9 },
-      { month: 'Apr', value: 9.1 },
-      { month: 'May', value: 9.0 },
-      { month: 'Jun', value: 8.8 },
-      { month: 'Jul', value: 8.7 },
-      { month: 'Aug', value: 8.6 },
-      { month: 'Sep', value: 8.5 },
-      { month: 'Oct', value: 8.7 }
-    ]
-  },
-  fronteras: {
-    cultivarId: 'fronteras',
-    cultivarName: 'Fronteras',
-    yield: [
-      { month: 'Sep', value: 1200 },
-      { month: 'Oct', value: 2100 },
-      { month: 'Nov', value: 580 },
-      { month: 'Dec', value: 490 },
-      { month: 'Jan', value: 170 }
-    ],
-    firmness: [
-      { month: 'Sep', value: 8.0 },
-      { month: 'Oct', value: 8.3 },
-      { month: 'Nov', value: 8.1 },
-      { month: 'Dec', value: 7.9 },
-      { month: 'Jan', value: 7.8 }
-    ],
-    size: [
-      { month: 'Sep', value: 17.5 },
-      { month: 'Oct', value: 18.7 },
-      { month: 'Nov', value: 18.1 },
-      { month: 'Dec', value: 16.9 },
-      { month: 'Jan', value: 17.2 }
-    ],
-    appearance: [
-      { month: 'Sep', value: 8.4 },
-      { month: 'Oct', value: 8.7 },
-      { month: 'Nov', value: 8.5 },
-      { month: 'Dec', value: 8.2 },
-      { month: 'Jan', value: 8.0 }
-    ]
-  },
-  'sweet-carolina': {
-    cultivarId: 'sweet-carolina',
-    cultivarName: 'Sweet Carolina',
-    yield: [
-      { month: 'Mar', value: 420 },
-      { month: 'Apr', value: 1850 },
-      { month: 'May', value: 3200 },
-      { month: 'Jun', value: 3840 },
-      { month: 'Jul', value: 2950 },
-      { month: 'Aug', value: 2580 },
-      { month: 'Sep', value: 1420 },
-      { month: 'Oct', value: 890 }
-    ],
-    firmness: [
-      { month: 'Mar', value: 8.3 },
-      { month: 'Apr', value: 8.6 },
-      { month: 'May', value: 8.9 },
-      { month: 'Jun', value: 9.0 },
-      { month: 'Jul', value: 8.8 },
-      { month: 'Aug', value: 8.5 },
-      { month: 'Sep', value: 8.3 },
-      { month: 'Oct', value: 8.1 }
-    ],
-    size: [
-      { month: 'Mar', value: 24.7 },
-      { month: 'Apr', value: 30.2 },
-      { month: 'May', value: 32.1 },
-      { month: 'Jun', value: 30.8 },
-      { month: 'Jul', value: 28.9 },
-      { month: 'Aug', value: 25.2 },
-      { month: 'Sep', value: 22.3 },
-      { month: 'Oct', value: 21.8 }
-    ],
-    appearance: [
-      { month: 'Mar', value: 8.8 },
-      { month: 'Apr', value: 9.2 },
-      { month: 'May', value: 9.4 },
-      { month: 'Jun', value: 9.3 },
-      { month: 'Jul', value: 9.1 },
-      { month: 'Aug', value: 8.9 },
-      { month: 'Sep', value: 8.7 },
-      { month: 'Oct', value: 8.5 }
-    ]
-  },
-  'ruby-june': {
-    cultivarId: 'ruby-june',
-    cultivarName: 'Ruby June',
-    yield: [
-      { month: 'Mar', value: 380 },
-      { month: 'Apr', value: 1650 },
-      { month: 'May', value: 2890 },
-      { month: 'Jun', value: 3420 },
-      { month: 'Jul', value: 2680 },
-      { month: 'Aug', value: 2320 },
-      { month: 'Sep', value: 1290 },
-      { month: 'Oct', value: 780 }
-    ],
-    firmness: [
-      { month: 'Mar', value: 8.1 },
-      { month: 'Apr', value: 8.4 },
-      { month: 'May', value: 8.7 },
-      { month: 'Jun', value: 8.8 },
-      { month: 'Jul', value: 8.6 },
-      { month: 'Aug', value: 8.3 },
-      { month: 'Sep', value: 8.1 },
-      { month: 'Oct', value: 7.9 }
-    ],
-    size: [
-      { month: 'Mar', value: 24.1 },
-      { month: 'Apr', value: 28.5 },
-      { month: 'May', value: 30.1 },
-      { month: 'Jun', value: 28.8 },
-      { month: 'Jul', value: 26.9 },
-      { month: 'Aug', value: 24.2 },
-      { month: 'Sep', value: 21.8 },
-      { month: 'Oct', value: 20.9 }
-    ],
-    appearance: [
-      { month: 'Mar', value: 8.3 },
-      { month: 'Apr', value: 8.7 },
-      { month: 'May', value: 8.9 },
-      { month: 'Jun', value: 8.8 },
-      { month: 'Jul', value: 8.6 },
-      { month: 'Aug', value: 8.4 },
-      { month: 'Sep', value: 8.2 },
-      { month: 'Oct', value: 8.0 }
-    ]
-  }
-};
-
-// Add more cultivar data for common IDs
-cultivarChartData['debug'] = {
+  debug: {
   cultivarId: 'debug',
   cultivarName: 'Debug',
   yield: [
@@ -548,10 +133,11 @@ cultivarChartData['debug'] = {
     { month: 'Dec', value: 8.7 },
     { month: 'Jan', value: 8.8 }
   ]
+  }
 };
 
 // Default comparison cultivar
-export const defaultComparisonCultivar = 'portola';
+export const defaultComparisonCultivar = 'alturas';
 
 // Utility function to calculate cumulative values for yield
 function calculateCumulative(data: MonthlyDataPoint[]): MonthlyDataPoint[] {
@@ -610,7 +196,10 @@ export function getChartData(cultivarId: string, metricId: string, comparisonCul
 
     // Add comparison data if available
     if (comparisonMetricData && comparisonData) {
-      dataPoint[comparisonData.cultivarName] = comparisonMetricData[index]?.value || 0;
+      const comparisonPoint = comparisonMetricData.find(cp => cp.month === point.month);
+      if (comparisonPoint) {
+        dataPoint[comparisonData.cultivarName] = comparisonPoint.value;
+      }
     }
 
     // Add cumulative data for yield
@@ -684,10 +273,22 @@ export async function loadCultivarDataFromCSV(cultivarId: string): Promise<Culti
     for (const row of dataRows) {
       const [cultivar, month, yield_value, firmness, size, appearance] = row.split(',');
       
+      // Only add data points if the value is not empty/blank
+      if (yield_value && yield_value.trim() !== '') {
       cultivarData.yield.push({ month: month.trim(), value: parseFloat(yield_value) });
+      }
+      
+      if (firmness && firmness.trim() !== '') {
       cultivarData.firmness.push({ month: month.trim(), value: parseFloat(firmness) });
+      }
+      
+      if (size && size.trim() !== '') {
       cultivarData.size.push({ month: month.trim(), value: parseFloat(size) });
+      }
+      
+      if (appearance && appearance.trim() !== '') {
       cultivarData.appearance.push({ month: month.trim(), value: parseFloat(appearance) });
+      }
     }
     
     return cultivarData;
@@ -778,8 +379,10 @@ export async function getChartDataFromCSV(
 
       // Add comparison data if available
       if (comparisonMetricData && comparisonData) {
-        // Safety check for array bounds - comparison cultivar might have different months
-        dataPoint[comparisonData.cultivarName] = comparisonMetricData[index]?.value || 0;
+        const comparisonPoint = comparisonMetricData.find(cp => cp.month === point.month);
+        if (comparisonPoint) {
+          dataPoint[comparisonData.cultivarName] = comparisonPoint.value;
+        }
       }
 
       // Add cumulative data for yield
@@ -789,7 +392,6 @@ export async function getChartDataFromCSV(
         
         dataPoint[`${primaryData.cultivarName}Cumulative`] = primaryCumulative[index].value;
         
-        // Safety check for comparison cumulative data - arrays might have different lengths
         if (comparisonCumulative && comparisonData && comparisonCumulative[index]) {
           dataPoint[`${comparisonData.cultivarName}Cumulative`] = comparisonCumulative[index].value;
         }

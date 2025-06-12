@@ -228,22 +228,31 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
             />
             
             <YAxis
-  tick={<RotatedYAxisTick />}
-  label={{ 
-    value: metric.label, 
-    angle: -90, 
-    position: 'outsideLeft',
-    style: { 
-      textAnchor: 'middle', 
-      fill: '#9CA3AF', 
-      fontSize: '12px',
-      fontFamily: 'var(--font-body, system-ui)'
-    }
-  }}
-  axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
-  domain={[0, metric.yAxisMax]}
-/>
-
+              tick={<RotatedYAxisTick />}
+              label={{ 
+                value: metric.label, 
+                angle: -90, 
+                position: 'outsideLeft',
+                style: { 
+                  textAnchor: 'middle', 
+                  fill: '#9CA3AF', 
+                  fontSize: '12px',
+                  fontFamily: 'var(--font-body, system-ui)'
+                }
+              }}
+              axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
+              domain={
+                selectedMetric === 'firmness' ? [0.75, 1.75] : 
+                selectedMetric === 'appearance' ? [0, 5] : 
+                selectedMetric === 'size' ? [15, 60] : 
+                [0, metric.yAxisMax]
+              }
+              ticks={
+                selectedMetric === 'firmness' ? [0.75, 1.0, 1.25, 1.5, 1.75] : 
+                selectedMetric === 'appearance' ? [0, 1, 2, 3, 4, 5] : 
+                undefined
+              }
+            />
             
             <Legend 
               wrapperStyle={{ color: '#9CA3AF', fontFamily: 'var(--font-body, system-ui)' }}
@@ -287,24 +296,55 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
               }}
             />
             
-            {/* Bar charts for monthly data */}
-            <Bar 
-              dataKey={primaryCultivar} 
-              fill="#5B7FDB" 
-              name={primaryCultivar}
-              radius={[4, 4, 0, 0]}
-            />
-            
-            {comparisonCultivar && (
+            {/* Main Chart - Bar for yield, Line for others */}
+            {selectedMetric === 'yield' ? (
+              // Bar chart for yield
               <Bar 
-                dataKey={comparisonCultivar} 
-                fill="#8BA574" 
-                name={comparisonCultivar}
+                dataKey={primaryCultivar} 
+                fill="#5B7FDB" 
+                name={primaryCultivar}
                 radius={[4, 4, 0, 0]}
+              />
+            ) : (
+              // Line chart for firmness, size, appearance
+              <Line 
+                type="monotone" 
+                dataKey={primaryCultivar} 
+                stroke="#5B7FDB" 
+                strokeWidth={4}
+                dot={{ fill: '#5B7FDB', strokeWidth: 3, r: 6 }}
+                name={primaryCultivar}
+                connectNulls={false}
+                activeDot={{ r: 8, stroke: '#5B7FDB', strokeWidth: 2 }}
               />
             )}
             
-            {/* Line charts for cumulative/trend data */}
+            {/* Comparison Chart - Bar for yield, Line for others */}
+            {comparisonCultivar && (
+              selectedMetric === 'yield' ? (
+                // Bar chart for yield comparison
+                <Bar 
+                  dataKey={comparisonCultivar} 
+                  fill="#8BA574" 
+                  name={comparisonCultivar}
+                  radius={[4, 4, 0, 0]}
+                />
+              ) : (
+                // Line chart for firmness, size, appearance comparison
+                <Line 
+                  type="monotone" 
+                  dataKey={comparisonCultivar} 
+                  stroke="#8BA574" 
+                  strokeWidth={4}
+                  dot={{ fill: '#8BA574', strokeWidth: 3, r: 6 }}
+                  name={comparisonCultivar}
+                  connectNulls={false}
+                  activeDot={{ r: 8, stroke: '#8BA574', strokeWidth: 2 }}
+                />
+              )
+            )}
+            
+            {/* Cumulative lines - ONLY for yield */}
             {metric.showCumulative && (
               <>
                 <Line 

@@ -12,7 +12,7 @@ export const AVAILABLE_BACKGROUNDS: BackgroundImage[] = [
   {
     id: 'blue_swirl',
     name: 'Blue Swirl',
-    filename: 'bg_blue_swirl.png',
+    filename: 'bg_blue_swirl.jpg',
     description: 'Elegant blue swirl pattern',
     opacity: 0.3,
     position: 'center',

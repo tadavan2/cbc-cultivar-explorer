@@ -1,9 +1,8 @@
 cultivar,month,yield,firmness,size,appearance
-monterey,Mar,1320,8.5,18.9,9.2
-monterey,Apr,1980,8.7,19.4,9.4
-monterey,May,2200,8.8,19.7,9.5
-monterey,Jun,2050,8.6,19.5,9.3
-monterey,Jul,1750,8.4,19.1,9.1
-monterey,Aug,1520,8.3,18.8,8.9
-monterey,Sep,1280,8.2,18.5,8.7
-monterey,Oct,1020,8.1,18.2,8.5 
+monterey,Mar,9,,26,
+monterey,Apr,249,,38,2.98
+monterey,May,568,1.16,41.2,3.22
+monterey,Jun,770,1.12,31.5,3.18
+monterey,Jul,670,1.03,24.7,3.16
+monterey,Aug,422,,23,2.97
+monterey,Sep,215,,20.1,2.85

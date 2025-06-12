@@ -49,7 +49,7 @@ html::-webkit-scrollbar {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('/images/backgrounds/bg_blue_swirl.png');
+  background-image: url('/images/backgrounds/bg_blue_swirl.jpg');
   background-size: cover; /* Back to cover for full screen coverage */
   background-position: center;
   background-repeat: no-repeat;
@@ -1342,8 +1342,20 @@ html::-webkit-scrollbar {
     transform: scale(0.95);
   }
   
-  .filter-drawer-button:active {
-    transform: translateX(-2px) scale(0.95);
+  .mobile-filter-drawer-button:hover {
+    transform: none;
+  }
+  
+  .mobile-filter-drawer-button:active {
+    transform: scale(0.95);
+  }
+  
+  .mobile-drawer-button:hover {
+    transform: translateX(-50%);
+  }
+  
+  .mobile-drawer-button:active {
+    transform: translateX(-50%) scale(0.95);
   }
   
   .cultivar-drawer-handle:active {
@@ -1796,7 +1808,7 @@ html::-webkit-scrollbar {
   }
 }
 
-/* Gentle bouncing animation for mobile drawer buttons - FIXED: Use separate animation property */
+/* Gentle bouncing animation for mobile drawer buttons - UPDATED for pill shape */
 @keyframes gentle-bounce {
   0%, 100% { 
     translate: 0 0;
@@ -1804,9 +1816,9 @@ html::-webkit-scrollbar {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.2);
   }
   50% { 
-    translate: 0 -6px;
-    scale: 1.05;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 136, 0.3);
+    translate: 0 -8px; /* Slightly more bounce for pill shape */
+    scale: 1.08; /* Slightly more scale for pill shape */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 136, 0.35);
   }
 }
 
@@ -1815,11 +1827,12 @@ html::-webkit-scrollbar {
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  will-change: bottom, transform;
 }
 
 .mobile-drawer-button:active {
   transform: translateX(-50%) scale(0.95) !important;
-  transition: transform 0.1s ease !important;
+  transition: transform 0.15s ease !important;
 }
 
 @keyframes scanner-pulse {
@@ -2199,5 +2212,76 @@ html::-webkit-scrollbar {
   color: #ffffff;
   transform: scale(1.1);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Airport landing strip light animations for mobile drawer arrows */
+@keyframes airport-lights-down {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(2px);
+  }
+}
+
+@keyframes airport-lights-up {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes airport-lights-left {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes airport-lights-right {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+}
+
+/* Mobile drawer button styling */
+.mobile-drawer-button {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: bottom, transform;
+}
+
+.mobile-drawer-button:active {
+  transform: translateX(-50%) scale(0.95) !important;
+  transition: transform 0.15s ease !important;
+}
+
+/* Mobile filter drawer button styling */
+.mobile-filter-drawer-button {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: right, transform;
+}
+
+.mobile-filter-drawer-button:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.15s ease !important;
 }
 

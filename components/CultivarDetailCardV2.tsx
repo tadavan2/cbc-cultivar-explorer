@@ -915,6 +915,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   borderRadius: '20px',
                   width: '100%',
                   marginTop: '16px', // Added margin between spider chart and banner
+                  marginBottom: '50px', // ADDED: Extra scroll space at bottom for mobile users, REMOVE IF ADDING MORE BELOW BANNER!!!!!
                   overflow: 'visible', // Allow buttons to hover above
                   // Add glassy container effects
                   backdropFilter: 'blur(10px) saturate(180%)',

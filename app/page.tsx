@@ -9,6 +9,9 @@ import CultivarFilterPanel from '../components/CultivarFilterPanel';
 
 export default function Home() {
   const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
+  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   const [filters, setFilters] = useState<FilterState>({
     flowerType: [],
     marketType: [],
@@ -18,9 +21,44 @@ export default function Home() {
 
   // Mobile drawer states
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
-  const [isCultivarDrawerOpen, setIsCultivarDrawerOpen] = useState(false);
+  const [isCultivarDrawerOpen, setIsCultivarDrawerOpen] = useState(true);
   const [isLandscape, setIsLandscape] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Handle cultivar change with fade transition
+  const handleCultivarChange = (newCultivar: Cultivar) => {
+    if (newCultivar.id === selectedCultivar.id) return;
+    
+    setIsTransitioning(true);
+    
+    // Start fade out
+    setTimeout(() => {
+      setSelectedCultivar(newCultivar);
+      setDisplayedCultivar(newCultivar);
+      
+      // MOBILE ONLY: Scroll to top during transition (after fade out, before fade in)
+      if (isMobile) {
+        // Find the scrollable container and scroll to top
+        const mainContent = document.querySelector('.flex-1.relative.overflow-hidden');
+        if (mainContent) {
+          mainContent.scrollTo({ top: 0, behavior: 'auto' });
+        }
+        
+        // Also scroll any nested scrollable content within CultivarDetailCardV2
+        const scrollableElements = document.querySelectorAll('[class*="overflow-"], [class*="scroll-"]');
+        scrollableElements.forEach(element => {
+          if (element.scrollTop > 0) {
+            element.scrollTo({ top: 0, behavior: 'auto' });
+          }
+        });
+      }
+      
+      // Start fade in
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 300); // Short delay to ensure DOM update
+    }, 500); // Fade out duration
+  };
 
   // Detect screen size and orientation
   useEffect(() => {
@@ -65,57 +103,106 @@ export default function Home() {
   if (isMobile) {
     return (
       <>
-        {/* IMPROVED: Fixed positioned filter handle with bouncing animation and white circle */}
+        {/* FILTER DRAWER: Exact copy of cultivar drawer but transposed 90 degrees */}
         <button
           onClick={() => setIsFilterDrawerOpen(!isFilterDrawerOpen)}
-          className="mobile-drawer-button"
+          className="mobile-filter-drawer-button"
           style={{
             position: 'fixed',
             top: isLandscape ? '55px' : '55px',
             right: isFilterDrawerOpen ? (isLandscape ? '220px' : '160px') : '12px',
+            // TRANSPOSED: No centering transform needed for right-side positioning
             transform: 'none',
-            background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white circle
+            background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white pill
             backdropFilter: 'blur(10px) saturate(180%)',
             border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '50%', // Perfect circle
-            padding: '12px',
+            borderRadius: '28px', // Same pill radius as cultivar drawer
+            padding: '0px 0px', // TRANSPOSED: vertical horizontal (was 8px 20px)
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 999,
-            width: '56px',
-            height: '56px',
-            transition: 'right 0.6s ease, transform 0.3s ease',
+            width: '33px', // TRANSPOSED: narrow width (was 72px height)
+            height: '72px', // TRANSPOSED: tall height (was 33px width)
+            transition: 'right 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Much slower like cultivar drawer
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.2)',
-            // Bouncing animation
-            animation: isFilterDrawerOpen ? 'none' : 'gentle-bounce 2s ease-in-out infinite'
+            transformOrigin: 'center center',
+            willChange: 'right, transform' // TRANSPOSED: right instead of bottom
           }}
         >
+          {/* Airport landing strip light effect arrows - EXACT COPY of cultivar drawer but transposed */}
           <svg 
             style={{
-              width: '24px',
-              height: '24px',
+              width: '25px', // EXACT SAME as cultivar drawer (was 25px)
+              height: '35px', // EXACT SAME as cultivar drawer (was 35px) - swapped for horizontal layout
               fill: 'rgba(255, 255, 255, 0.9)',
-              transform: isFilterDrawerOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-              transition: 'transform 0.4s ease',
+              transition: 'transform 0.4s ease, opacity 0.3s ease',
               filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
             }}
             viewBox="0 0 24 24"
           >
             <defs>
-              <linearGradient id="buttonGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient id="buttonGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="rgba(255, 255, 255, 0.95)" />
                 <stop offset="50%" stopColor="rgba(255, 255, 255, 0.8)" />
                 <stop offset="100%" stopColor="rgba(255, 255, 255, 0.7)" />
               </linearGradient>
             </defs>
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="url(#buttonGradient1)" />
+            
+            {/* EXACT COPY: Using same path coordinates as cultivar drawer but left/right arrows */}
+            {isFilterDrawerOpen ? (
+              /* Drawer is OPEN - show RIGHT arrows (away from screen, suggesting close) */
+              <g fill="url(#buttonGradient3)">
+                <path 
+                  d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z" 
+                  className="airport-arrow-1"
+                  style={{animation: 'airport-lights-right 2s ease-in-out infinite'}}
+                />
+                <path 
+                  d="M6.59 16.59L11.17 12l-4.58-4.59L8 6l6 6-6 6z" 
+                  className="airport-arrow-2"
+                  style={{animation: 'airport-lights-right 2s ease-in-out infinite 0.3s'}}
+                />
+                <path 
+                  d="M4.59 16.59L9.17 12l-4.58-4.59L6 6l6 6-6 6z" 
+                  className="airport-arrow-3"
+                  style={{animation: 'airport-lights-right 2s ease-in-out infinite 0.6s'}}
+                />
+              </g>
+            ) : (
+              /* Drawer is CLOSED - show LEFT arrows (toward screen, inviting open) */
+              <g fill="url(#buttonGradient3)">
+                <path 
+                  d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" 
+                  className="airport-arrow-1"
+                  style={{animation: 'airport-lights-left 2s ease-in-out infinite'}}
+                />
+                <path 
+                  d="M17.41 7.41L16 6l-6 6 6 6 1.41-1.41L12.83 12z" 
+                  className="airport-arrow-2"
+                  style={{animation: 'airport-lights-left 2s ease-in-out infinite 0.3s'}}
+                />
+                <path 
+                  d="M19.41 7.41L18 6l-6 6 6 6 1.41-1.41L14.83 12z" 
+                  className="airport-arrow-3"
+                  style={{animation: 'airport-lights-left 2s ease-in-out infinite 0.6s'}}
+                />
+              </g>
+            )}
           </svg>
         </button>
 
-        {/* IMPROVED: Fixed positioned cultivar drawer handle with bouncing animation - FIXED CENTERING */}
+        {/* IMPROVED: Fixed positioned cultivar drawer handle with bouncing animation - PILL SHAPED */}
         <button
-          onClick={() => setIsCultivarDrawerOpen(!isCultivarDrawerOpen)}
+          onClick={() => {
+            const newCultivarState = !isCultivarDrawerOpen;
+            setIsCultivarDrawerOpen(newCultivarState);
+            
+            // AUTO-OPEN FILTER DRAWER: When cultivar drawer opens, auto-open filter drawer too
+            if (newCultivarState) {
+              setIsFilterDrawerOpen(true);
+            }
+          }}
           className="mobile-drawer-button"
           style={{
             position: 'fixed',
@@ -123,33 +210,32 @@ export default function Home() {
             left: '50%',
             // FIXED: Always use the same transform, never let it be undefined
             transform: 'translateX(-50%)',
-            background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white circle
+            background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white pill
             backdropFilter: 'blur(10px) saturate(180%)',
             border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '50%', // Perfect circle
-            padding: '12px',
+            borderRadius: '28px', // Pill shape instead of 50%
+            padding: '0px 0px', // Reduced vertical padding for shorter pill
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 999,
-            width: '56px',
-            height: '56px',
-            transition: 'bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // FIXED: Only animate bottom position
+            width: '72px', // Same width
+            height: '33px', // 25% shorter (was 44px)
+            transition: 'bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Back to original slow smooth timing
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.2)',
-            // Bouncing animation - only when drawer is closed
-            animation: isCultivarDrawerOpen ? 'none' : 'gentle-bounce 2s ease-in-out infinite 0.5s', // Slight delay
+            // NO MORE bouncing animation - user didn't like it
             transformOrigin: 'center center',
             // FIXED: Ensure animation doesn't override the centering during transition
             willChange: 'bottom, transform' // Optimize for transitions
           }}
         >
+          {/* Airport landing strip light effect arrows */}
           <svg 
             style={{
-              width: '24px',
-              height: '24px',
+              width: '35px', // 25% larger (was 28px)
+              height: '25px', // 25% larger (was 20px)
               fill: 'rgba(255, 255, 255, 0.9)',
-              transform: isCultivarDrawerOpen ? 'rotate(0deg)' : 'rotate(180deg)',
-              transition: 'transform 0.4s ease',
+              transition: 'transform 0.4s ease, opacity 0.3s ease',
               filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
             }}
             viewBox="0 0 24 24"
@@ -161,7 +247,47 @@ export default function Home() {
                 <stop offset="100%" stopColor="rgba(255, 255, 255, 0.7)" />
               </linearGradient>
             </defs>
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="url(#buttonGradient2)" />
+            
+            {/* FIXED DIRECTION: When drawer is open, arrows point DOWN; when closed, arrows point UP */}
+            {isCultivarDrawerOpen ? (
+              /* Drawer is OPEN - show DOWN arrows with landing strip effect */
+              <g fill="url(#buttonGradient2)">
+                <path 
+                  d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" 
+                  className="airport-arrow-1"
+                  style={{animation: 'airport-lights-down 2s ease-in-out infinite'}}
+                />
+                <path 
+                  d="M7.41 6.59L12 11.17l4.59-4.58L18 8l-6 6-6-6z" 
+                  className="airport-arrow-2" 
+                  style={{animation: 'airport-lights-down 2s ease-in-out infinite 0.3s'}}
+                />
+                <path 
+                  d="M7.41 4.59L12 9.17l4.59-4.58L18 6l-6 6-6-6z" 
+                  className="airport-arrow-3"
+                  style={{animation: 'airport-lights-down 2s ease-in-out infinite 0.6s'}}
+                />
+              </g>
+            ) : (
+              /* Drawer is CLOSED - show UP arrows with landing strip effect */
+              <g fill="url(#buttonGradient2)">
+                <path 
+                  d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" 
+                  className="airport-arrow-1"
+                  style={{animation: 'airport-lights-up 2s ease-in-out infinite'}}
+                />
+                <path 
+                  d="M7.41 17.41L12 12.83l4.59 4.58L18 16l-6-6-6 6z" 
+                  className="airport-arrow-2"
+                  style={{animation: 'airport-lights-up 2s ease-in-out infinite 0.3s'}}
+                />
+                <path 
+                  d="M7.41 19.41L12 14.83l4.59 4.58L18 18l-6-6-6 6z" 
+                  className="airport-arrow-3"
+                  style={{animation: 'airport-lights-up 2s ease-in-out infinite 0.6s'}}
+                />
+              </g>
+            )}
           </svg>
         </button>
 
@@ -175,12 +301,12 @@ export default function Home() {
           <div className="flex-1 relative overflow-hidden">
             <div className="absolute inset-0">
               <div 
-                className={`w-full ${isLandscape ? 'p-4' : 'p-6'}`}
+                className={`w-full ${isLandscape ? 'p-4' : 'p-6'} transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                 style={{
                   height: `calc(100vh - ${isLandscape ? '48px' : '64px'})`
                 }}
               >
-                <CultivarDetailCardV2 cultivar={selectedCultivar} />
+                <CultivarDetailCardV2 cultivar={displayedCultivar} />
               </div>
             </div>
           </div>
@@ -230,8 +356,10 @@ export default function Home() {
                     <div
                       key={cultivar.id}
                       onClick={() => {
-                        setSelectedCultivar(cultivar);
+                        handleCultivarChange(cultivar);
+                        // CLOSE BOTH DRAWERS: When cultivar is selected, close both drawers
                         setIsCultivarDrawerOpen(false);
+                        setIsFilterDrawerOpen(false);
                       }}
                       className={`
                         flex-shrink-0 cultivar-card-mobile cursor-pointer relative
@@ -364,7 +492,9 @@ export default function Home() {
         <div className="flex-1 flex flex-col h-full overflow-hidden">
           {/* Detail Card Area - 70% height to accommodate larger bottom panel */}
           <div className="h-[99%] overflow-hidden" style={{padding: '24px 24px 12px 24px'}}>
-            <CultivarDetailCardV2 cultivar={selectedCultivar} />
+            <div className={`h-full transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+              <CultivarDetailCardV2 cultivar={displayedCultivar} />
+            </div>
           </div>
           
           {/* Bottom Cultivar Cards - 30% height for larger cards - NO TOP PADDING */}
@@ -380,7 +510,12 @@ export default function Home() {
               {filteredCultivars.map((cultivar, index) => (
                 <div
                   key={cultivar.id}
-                  onClick={() => setSelectedCultivar(cultivar)}
+                  onClick={() => {
+                    handleCultivarChange(cultivar);
+                    // CLOSE BOTH DRAWERS: When cultivar is selected, close both drawers
+                    setIsCultivarDrawerOpen(false);
+                    setIsFilterDrawerOpen(false);
+                  }}
                   className={`
                     flex-shrink-0 w-25 h-25 cultivar-card-glass cursor-pointer relative
                     ${selectedCultivar.id === cultivar.id ? 'selected-glass' : ''}

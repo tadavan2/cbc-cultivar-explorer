@@ -28,15 +28,15 @@
     "Efficient harvesting"
   ],
   "performanceMetrics": {
-    "yield": "48.2t/ha",
-    "size": "Large",
-    "appearance": "Premium",
-    "firmness": "Very High"
+    "yield": "3,955 grams/plant",
+    "size": "36.5 gram average",
+    "appearance": "3.9 average",
+    "firmness": "1.1 lb/in²"
   },
   "recommendations": {
     "plantingDate": "Santa Maria: Oct 15 - Oct 30, Salinas/Watsonville: Oct 25 - Nov 15",
-    "chill": "As with most day-neutrals, supplemental chill can improve quality. We recommend between 1-2 weeks of supplemental chill. Plants with too much chill will become larger and difficult to manage late in the season.",
+    "chill": "As with most day-neutrals, supplemental chill can improve quality. We recommend between 10-15 days of supplemental chill. Increased levels of chill, up to 25 days slightly increase firmness and appearance during the peak. However, plants with too much chill will become larger and difficult to manage late in the season.",
     "fertility": "We recommend pre-plant fertilizer. Ranges vary, but between 500 and 600 lbs of 18-8-13 is sufficient in sandy soils. Heavier soils will require less fertilizer. A regular fertilizer regime during the fruiting season will depend on ranch specific requirements.",
-    "other": "No special requirements. Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium. Moderately resistant to Macrophomina and Verticillium."
+    "other": "No special requirements. Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium. Moderately resistant to Macrophomina. Moderately susceptible to Verticillium."
   }
 } 

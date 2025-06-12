@@ -2,13 +2,13 @@
   "id": "adelanto",
   "name": "Adelanto",
   "displayName": "Adelanto™",
-  "type": "day-neutral",
+  "type": "short-day",
   "description": {
-    "title": "Adelanto™ - Ultra Early Day-Neutral Strawberry",
+    "title": "Adelanto™ - Ultra Early Short Day Strawberry",
     "paragraphs": [
-      "Adelanto™ sets the standard for ultra-early day-neutral strawberry production, delivering exceptional yields at the beginning of the season when market prices are at their peak. This premium cultivar combines early vigor with consistent fruit quality, making it the ideal choice for growers seeking to maximize early season profitability.",
+      "Adelanto™ sets the standard for ultra-early short strawberry production, delivering exceptional yields at the beginning of the season when market prices are at their peak. This premium cultivar combines early vigor with an excellent freezer crop, making it the ideal choice for growers seeking to maximize profitability.",
       "Renowned for its rapid establishment and early fruit production, Adelanto™ produces attractive, well-sized berries with excellent shelf life characteristics. The variety's balanced sweetness and firm texture make it ideal for both fresh market and processing applications.",
-      "Engineered for reliability, Adelanto™ features robust plant architecture and strong root systems that support sustained production throughout the growing season. Its proven disease resistance and adaptability ensure consistent performance across various growing environments.",
+      "Breed for high-performance, Adelanto™ features robust plant architecture and strong root systems that support sustained production throughout the growing season. Its proven disease resistance to Macrophomina and adaptability to different growing systems, from open-field to protected-culture, ensure consistent performance across various growing environments.",
       "From early season through peak harvest, Adelanto™ delivers the earliness, quality, and economic returns that drive successful strawberry operations. Experience the advantage of getting to market first with proven genetics and superior performance."
     ]
   },
@@ -21,22 +21,21 @@
     ]
   },
   "features": [
-    "Ultra early day-neutral variety",
+    "Ultra early short-day variety",
     "High early season yields",
     "Excellent shelf life",
-    "Strong disease resistance",
-    "Rapid establishment"
+    "Strong disease resistance"
   ],
   "performanceMetrics": {
-    "yield": "42.8t/ha",
-    "size": "Large",
-    "appearance": "Excellent",
-    "firmness": "High"
+    "yield": "1,500 grams/plant",
+    "size": "34.9 grams",
+    "appearance": "3.6 average",
+    "firmness": "1.3 lb/in²"
   },
   "recommendations": {
-    "plantingDate": "Santa Maria: Oct 10 - Oct 25, Salinas/Watsonville: Oct 20 - Nov 10",
-    "chill": "Adelanto benefits from minimal to moderate chill requirements. We recommend 1-2 weeks of supplemental chill for optimal early season production. Excessive chill may delay the early harvest advantage.",
+    "plantingDate": "Baja, MX: Sept 25, Oxnard, CA: Sept 30 - Oct 2",
+    "chill": "Adelanto benefits from 50-100 hours of inground chill, but it is not required. The plant will establish well given enough fertility. Excessive chill may delay the early harvest advantage.",
     "fertility": "Pre-plant fertilizer recommendations include 450-550 lbs of 18-8-13 in sandy soils. Lighter applications may be sufficient in heavier soils. Early season nitrogen management is critical for maximizing early yields.",
-    "other": "Standard spray programs for powdery mildew, botrytis, and mites. Good resistance to Fusarium and moderate resistance to Verticillium. Monitor closely for early season pests due to rapid early growth."
+    "other": "Standard spray programs for powdery mildew, botrytis, and mites. Good resistance to Macrophomina and moderate resistance to Verticillium. Monitor closely for early season pests due to rapid early growth."
   }
 } 

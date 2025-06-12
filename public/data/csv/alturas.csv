@@ -1,9 +1,8 @@
 cultivar,month,yield,firmness,size,appearance
-alturas,Mar,1200,8.1,18.2,9.0
-alturas,Apr,1850,8.3,18.8,9.2
-alturas,May,2100,8.4,19.1,9.3
-alturas,Jun,1950,8.2,18.9,9.1
-alturas,Jul,1650,8.0,18.5,8.9
-alturas,Aug,1400,7.9,18.0,8.7
-alturas,Sep,1100,7.8,17.8,8.5
-alturas,Oct,850,7.7,17.5,8.3 
+alturas,Mar,37,,41.3,
+alturas,Apr,313,,42,3.34
+alturas,May,647,1.15,48.4,3.88
+alturas,Jun,1223,1.11,41.6,4.12
+alturas,Jul,1039,1.05,31.7,4.26
+alturas,Aug,441,,26.9,3.82
+alturas,Sep,255,,23.9,3.89

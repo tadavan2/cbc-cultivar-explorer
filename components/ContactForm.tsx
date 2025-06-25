@@ -114,7 +114,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
           fontSize: '14px', 
           color: '#d1d5db' 
         }}>
-          We'll get back to you within 24 hours.
+          We will get back to you within 24 hours.
         </div>
       </div>
     );

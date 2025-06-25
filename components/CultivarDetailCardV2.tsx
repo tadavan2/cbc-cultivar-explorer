@@ -884,7 +884,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   {/* Contact Form */}
                   <ContactForm 
                     cultivarName={cultivarContent?.displayName || cultivar.name}
-                    prefilledMessage={`I'm interested in learning more about ${cultivarContent?.displayName || cultivar.name} for my operation. Please provide more information about licensing, availability, and growing recommendations.`}
                   />
                 </div>
               </div>
@@ -1289,7 +1288,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                     {/* Contact Form */}
                     <ContactForm 
                       cultivarName={cultivarContent?.displayName || cultivar.name}
-                      prefilledMessage={`I'm interested in learning more about ${cultivarContent?.displayName || cultivar.name} for my operation. Please provide more information about licensing, availability, and growing recommendations.`}
                     />
                   </div>
                 </div>

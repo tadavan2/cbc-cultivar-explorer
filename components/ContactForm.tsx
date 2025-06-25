@@ -8,7 +8,9 @@ interface ContactFormProps {
 export default function ContactForm({ cultivarName, prefilledMessage }: ContactFormProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [startTime] = useState(Date.now()); // Track when component mounted
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,6 +33,19 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
     setIsSubmitting(true);
 
     try {
+      // Calculate time on site
+      const timeOnSite = Math.round((Date.now() - startTime) / 1000); // seconds
+      const timeOnSiteFormatted = `${Math.floor(timeOnSite / 60)}m ${timeOnSite % 60}s`;
+
+      // Collect additional tracking data
+      const trackingData = {
+        timeOnSite: timeOnSiteFormatted,
+        visitedPages: window.location.pathname,
+        referrer: document.referrer || 'Direct',
+        screenResolution: `${window.screen.width}x${window.screen.height}`,
+        viewportSize: `${window.innerWidth}x${window.innerHeight}`
+      };
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -39,28 +54,31 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
         body: JSON.stringify({
           ...formData,
           cultivar: cultivarName,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          ...trackingData
         }),
       });
 
-      if (response.ok) {
-        setIsSubmitted(true);
-        // Reset form after 3 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-          setIsExpanded(false);
-          setFormData({
-            name: '',
-            email: '',
-            company: '',
-            phone: '',
-            region: '',
-            message: prefilledMessage || 'I am interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
-          });
-        }, 3000);
-      } else {
+      if (!response.ok) {
         throw new Error('Failed to submit form');
       }
+
+      // Reset form and show success
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        phone: '',
+        region: '',
+        message: prefilledMessage || 'I am interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
+      });
+      
+      setIsSuccess(true);
+      setIsExpanded(false);
+      
+      // Reset success state after 3 seconds
+      setTimeout(() => setIsSuccess(false), 3000);
+      
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an error submitting your message. Please try again.');
@@ -90,7 +108,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
     e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
   };
 
-  if (isSubmitted) {
+  if (isSuccess) {
     return (
       <div 
         className="modern-card transition-all duration-300"

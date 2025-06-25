@@ -3,10 +3,63 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Function to get location from IP
+async function getLocationFromIP(ip: string) {
+  try {
+    // Using a free IP geolocation service
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query`);
+    const data = await response.json();
+    
+    if (data.status === 'success') {
+      return {
+        city: data.city,
+        region: data.regionName,
+        country: data.country,
+        zip: data.zip,
+        timezone: data.timezone,
+        isp: data.isp,
+        org: data.org,
+        coordinates: `${data.lat}, ${data.lon}`
+      };
+    }
+  } catch (error) {
+    console.error('Error getting location:', error);
+  }
+  return null;
+}
+
+// Function to parse User Agent
+function parseUserAgent(userAgent: string) {
+  const ua = userAgent.toLowerCase();
+  
+  // Browser detection
+  let browser = 'Unknown';
+  if (ua.includes('chrome') && !ua.includes('edg')) browser = 'Chrome';
+  else if (ua.includes('firefox')) browser = 'Firefox';
+  else if (ua.includes('safari') && !ua.includes('chrome')) browser = 'Safari';
+  else if (ua.includes('edg')) browser = 'Edge';
+  else if (ua.includes('opera')) browser = 'Opera';
+  
+  // OS detection
+  let os = 'Unknown';
+  if (ua.includes('windows')) os = 'Windows';
+  else if (ua.includes('mac')) os = 'macOS';
+  else if (ua.includes('linux')) os = 'Linux';
+  else if (ua.includes('android')) os = 'Android';
+  else if (ua.includes('iphone') || ua.includes('ipad')) os = 'iOS';
+  
+  // Device type
+  let device = 'Desktop';
+  if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone')) device = 'Mobile';
+  else if (ua.includes('tablet') || ua.includes('ipad')) device = 'Tablet';
+  
+  return { browser, os, device };
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, company, phone, region, message, cultivar, timestamp } = body;
+    const { name, email, company, phone, region, message, cultivar, timestamp, timeOnSite, visitedPages, referrer, screenResolution, viewportSize } = body;
 
     // Basic validation
     if (!name || !email || !message) {
@@ -15,6 +68,17 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Collect visitor intelligence
+    const userAgent = request.headers.get('user-agent') || '';
+    const serverReferer = request.headers.get('referer') || 'Direct';
+    const clientReferer = referrer || serverReferer; // Use client-side referrer if available
+    const ip = request.headers.get('x-forwarded-for') || 
+               request.headers.get('x-real-ip') || 
+               'Unknown';
+    
+    const deviceInfo = parseUserAgent(userAgent);
+    const locationData = await getLocationFromIP(ip.split(',')[0]); // Get first IP if multiple
 
     // Send email using Resend
     const emailData = await resend.emails.send({
@@ -42,6 +106,37 @@ export async function POST(request: NextRequest) {
             <p style="line-height: 1.6; color: #555;">${message.replace(/\n/g, '<br>')}</p>
           </div>
           
+          <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0; color: #333;">🕵️ Visitor Intelligence</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div>
+                <p><strong>IP Address:</strong> ${ip}</p>
+                ${locationData ? `
+                  <p><strong>Location:</strong> ${locationData.city}, ${locationData.region}, ${locationData.country}</p>
+                  ${locationData.zip ? `<p><strong>ZIP:</strong> ${locationData.zip}</p>` : ''}
+                  <p><strong>Timezone:</strong> ${locationData.timezone}</p>
+                  <p><strong>ISP:</strong> ${locationData.isp}</p>
+                ` : '<p><strong>Location:</strong> Unable to determine</p>'}
+              </div>
+              <div>
+                <p><strong>Device:</strong> ${deviceInfo.device}</p>
+                <p><strong>OS:</strong> ${deviceInfo.os}</p>
+                <p><strong>Browser:</strong> ${deviceInfo.browser}</p>
+                <p><strong>Referrer:</strong> ${clientReferer}</p>
+                ${timeOnSite ? `<p><strong>Time on Site:</strong> ${timeOnSite}</p>` : ''}
+                ${screenResolution ? `<p><strong>Screen:</strong> ${screenResolution}</p>` : ''}
+              </div>
+            </div>
+            ${visitedPages ? `<p><strong>Pages Visited:</strong> ${visitedPages}</p>` : ''}
+            ${viewportSize ? `<p><strong>Viewport:</strong> ${viewportSize}</p>` : ''}
+            <details style="margin-top: 15px;">
+              <summary style="cursor: pointer; color: #666; font-size: 12px;">Technical Details</summary>
+              <p style="font-size: 11px; color: #888; margin-top: 10px; word-break: break-all;">
+                <strong>User Agent:</strong> ${userAgent}
+              </p>
+            </details>
+          </div>
+          
           <div style="background: #f1f3f4; padding: 15px; border-radius: 6px; margin-top: 30px;">
             <p style="margin: 0; font-size: 12px; color: #666;">
               <strong>Submitted:</strong> ${new Date(timestamp).toLocaleString()}<br>
@@ -54,6 +149,7 @@ export async function POST(request: NextRequest) {
       text: `
         New Contact Form Submission
         
+        CONTACT INFORMATION:
         Name: ${name}
         Email: ${email}
         ${company ? `Company: ${company}` : ''}
@@ -61,8 +157,20 @@ export async function POST(request: NextRequest) {
         ${region ? `Growing Region: ${region}` : ''}
         ${cultivar ? `Interested Cultivar: ${cultivar}` : ''}
         
-        Message:
+        MESSAGE:
         ${message}
+        
+        VISITOR INTELLIGENCE:
+        IP: ${ip}
+        ${locationData ? `Location: ${locationData.city}, ${locationData.region}, ${locationData.country}` : 'Location: Unable to determine'}
+        Device: ${deviceInfo.device} - ${deviceInfo.os} - ${deviceInfo.browser}
+                 Referrer: ${clientReferer}
+                 ${timeOnSite ? `Time on Site: ${timeOnSite}` : ''}
+         ${visitedPages ? `Pages Visited: ${visitedPages}` : ''}
+         ${screenResolution ? `Screen Resolution: ${screenResolution}` : ''}
+         ${viewportSize ? `Viewport Size: ${viewportSize}` : ''}
+        
+        User Agent: ${userAgent}
         
         Submitted: ${new Date(timestamp).toLocaleString()}
         Source: CBC Cultivar Explorer

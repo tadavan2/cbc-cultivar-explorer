@@ -38,6 +38,7 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
     id: 'yield',
     label: 'Yield (grams/plant)',
     unit: 'grams/plant',
+    yAxisMax: 1000,
     showCumulative: true,
     color: '#3B82F6'
   },
@@ -53,6 +54,7 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
     id: 'size',
     label: 'Size (grams)',
     unit: 'grams',
+    yAxisMax: 25,
     showCumulative: false,
     color: '#F59E0B'
   },

@@ -16,6 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cultivars.cbcberry.com"),
   title: "CBC Cultivar Explorer - Premium Strawberry Genetics",
   description: "Compare strawberry varieties, analyze performance data, and find the perfect cultivar for your operation. Explore CBC's premium strawberry genetics with detailed insights on yield, size, disease resistance, and growing recommendations.",
   keywords: "strawberry cultivars, strawberry varieties, CBC, California Berry Cultivars, strawberry genetics, fruit breeding, agricultural technology, strawberry farming, cultivar comparison, berry production",

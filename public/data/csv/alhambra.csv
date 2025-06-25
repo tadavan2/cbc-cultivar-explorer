@@ -1,5 +1,5 @@
 cultivar,month,yield,firmness,size,appearance
-alhambra,Oct,1420,8.1,18.5,8.8
-alhambra,Nov,1750,8.2,18.9,8.9
-alhambra,Dec,1980,8.3,19.3,9.0
-alhambra,Jan,1680,8.0,18.8,8.7 
+alhambra,Oct,100,1.3,37,3.9
+alhambra,Nov,300,1.2,35,3.8
+alhambra,Dec,400,1.1,33,3.5
+alhambra,Jan,200,,29,3.4

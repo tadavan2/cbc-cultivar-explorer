@@ -29,11 +29,12 @@ export default function Home() {
   const handleCultivarChange = (newCultivar: Cultivar) => {
     if (newCultivar.id === selectedCultivar.id) return;
     
+    // IMMEDIATE: Update the focused state right away for responsive UI
+    setSelectedCultivar(newCultivar);
     setIsTransitioning(true);
     
-    // Start fade out
+    // DELAYED: Update the displayed content after fade transition
     setTimeout(() => {
-      setSelectedCultivar(newCultivar);
       setDisplayedCultivar(newCultivar);
       
       // MOBILE ONLY: Scroll to top during transition (after fade out, before fade in)

@@ -1,7 +1,7 @@
 cultivar,month,yield,firmness,size,appearance
-fronteras,Dec,1650,8.6,19.1,8.9
-fronteras,Jan,1980,8.7,19.5,9.0
-fronteras,Feb,2200,8.8,19.8,9.1
-fronteras,Mar,2120,8.6,19.6,8.9
-fronteras,Apr,1850,8.4,19.2,8.7
-fronteras,May,1520,8.2,18.7,8.5 
+fronteras,Dec,6,,43.33,3.89
+fronteras,Jan,100,,44.16,4.08
+fronteras,Feb,132,,41.24,3.92
+fronteras,Mar,325,1.24,40.33,3.6
+fronteras,Apr,768,1.15,31.27,3.02
+fronteras,May,176,1.1,27.87,3.21

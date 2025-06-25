@@ -32,11 +32,11 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
   // Alturas-specific logic
   const isAlturasPage = cultivar.id === 'alturas';
-  const alturasComparisonOptions = useMemo(() => ['monterey', 'cabrillo', 'brisbane', 'carpinteria'], []);
+  const alturasComparisonOptions = useMemo(() => ['monterey', 'cabrillo', 'carpinteria'], []);
   
   // Adelanto-specific logic
   const isAdelantoPage = cultivar.id === 'adelanto';
-  const adelantoComparisonOptions = ['belvedere', 'carpinteria', 'fronteras'];
+  const adelantoComparisonOptions = ['belvedere', 'castaic', 'fronteras'];
   
   // Alhambra-specific logic
   const isAlhambraPage = cultivar.id === 'alhambra';
@@ -44,7 +44,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
   // Artesia-specific logic
   const isArtesiaPage = cultivar.id === 'artesia';
-  const artesiaComparisonOptions = ['monterey', 'cabrillo', 'alturas', 'carpinteria', 'brisbane'];
+  const artesiaComparisonOptions = ['monterey', 'cabrillo'];
 
   // Belvedere-specific logic
   const isBelvederePage = cultivar.id === 'belvedere';
@@ -56,11 +56,11 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
   // Carpinteria-specific logic
   const isCarpinteriaPage = cultivar.id === 'carpinteria';
-  const carpinteriaComparisonOptions = ['monterey', 'cabrillo', 'alturas', 'artesia', 'brisbane'];
+  const carpinteriaComparisonOptions = ['monterey', 'cabrillo', 'alturas'];
 
   // Brisbane-specific logic
   const isBrisbanePage = cultivar.id === 'brisbane';
-  const brisbaneComparisonOptions = ['monterey', 'cabrillo', 'alturas', 'artesia', 'carpinteria'];
+  const brisbaneComparisonOptions = ['monterey', 'cabrillo'];
 
   // Sweet Carolina-specific logic
   const isSweetCarolinaPage = cultivar.id === 'sweet-carolina';
@@ -317,13 +317,13 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               />
             </div>
             
-            {/* Mobile text overlay (different from desktop) */}
+            {/* Mobile text overlay - Welcome message */}
             <div 
               className="absolute top-16 left-6"
               style={{
                 zIndex: 20, // Higher z-index to ensure it shows above everything
                 color: '#000000',
-                fontSize: '24px',
+                fontSize: '22px',
                 fontWeight: 'bold',
                 fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
                 pointerEvents: 'none',
@@ -335,28 +335,29 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 marginTop: '12px'
               }}
             >
-              Explore the future of fruit, one cultivar at a time.
+              CBC Cultivar Explorer
             </div>
 
-            {/* Mobile text overlay (different from desktop) */}
+            {/* Mobile text overlay - Instructions */}
             <div 
-              className="absolute top-16 left-6"
+              className="absolute left-6"
               style={{
+                top: '110px',
                 zIndex: 20, // Higher z-index to ensure it shows above everything
                 color: '#000000',
-                fontSize: '24px',
-                fontWeight: 'bold',
+                fontSize: '16px',
+                fontWeight: '500',
                 fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
                 pointerEvents: 'none',
                 maxWidth: 'calc(100vw - 48px)', // Account for full viewport width
                 padding: '8px 12px',
                 borderRadius: '8px', 
                 marginLeft: '12px',
-                marginRight: '55px', 
-                marginTop: '150px'
+                marginRight: '55px',
+                lineHeight: '1.3'
               }}
             >
-              Tap to explore.
+              Compare strawberry varieties and performance data to find your ideal cultivar. Tap any variety below to explore.
             </div>
             
             
@@ -415,23 +416,41 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
             />
           </div>
           
-          {/* DESKTOP: Top left text - FIXED: Further from edge, bigger, no glow, one line */}
+          {/* DESKTOP: Welcome and instructions */}
           <div 
             className="absolute top-8 left-20"
             style={{
               zIndex: 10,
-              color: '#000000', // All black, no glow
-              fontSize: '36px', // 50% bigger (was 24px)
-              fontWeight: '500', // Medium weight
+              color: '#000000',
+              fontSize: '42px',
+              fontWeight: 'bold',
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
-              // REMOVED: textShadow for no white glow
               pointerEvents: 'none',
               whiteSpace: 'nowrap', 
               marginLeft: '16px', 
-              marginTop: '8px', // FIXED: Keep on one line
+              marginTop: '8px',
             }}
           >
-            Explore the future of fruit, one cultivar at a time.
+            CBC Cultivar Explorer
+          </div>
+          
+          {/* DESKTOP: Instructions */}
+          <div 
+            className="absolute left-20"
+            style={{
+              top: '120px',
+              zIndex: 10,
+              color: '#000000',
+              fontSize: '20px',
+              fontWeight: '500',
+              fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
+              pointerEvents: 'none',
+              maxWidth: '600px',
+              lineHeight: '1.4',
+              marginLeft: '16px',
+            }}
+          >
+            Compare strawberry varieties, analyze performance data, and find the perfect cultivar for your operation. Click any variety below to explore detailed insights.
           </div>
           
           {/* Optional overlay for better text readability if needed */}
@@ -863,46 +882,48 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 </div>
               </div>
 
-              {/* Chart Section */}
-              <div className="mb-6">
-                <h3 
-                  className="text-lg font-semibold mb-4"
-                  style={{
-                    color: '#00ff88',
-                    textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
-                  }}
-                >
-                  Performance Data
-                </h3>
-                
-                {/* Cultivar Selector - Hide for Alturas on mobile */}
-                {!mobileFixedPair && (
-                  <div className="mb-4">
-                    <CultivarSelector
-                      selectedCultivar={selectedCultivar}
-                      comparisonCultivar={comparisonCultivar}
-                      onCultivarChange={setSelectedCultivar}
-                      onComparisonChange={setComparisonCultivar}
+              {/* Chart Section - Hide for Sweet Carolina */}
+              {!isSweetCarolinaPage && (
+                <div className="mb-6">
+                  <h3 
+                    className="text-lg font-semibold mb-4"
+                    style={{
+                      color: '#00ff88',
+                      textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
+                    }}
+                  >
+                    Performance Data
+                  </h3>
+                  
+                  {/* Cultivar Selector - Hide for Alturas on mobile */}
+                  {!mobileFixedPair && (
+                    <div className="mb-4">
+                      <CultivarSelector
+                        selectedCultivar={selectedCultivar}
+                        comparisonCultivar={comparisonCultivar}
+                        onCultivarChange={setSelectedCultivar}
+                        onComparisonChange={setComparisonCultivar}
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Chart */}
+                  <div className="space-y-4">
+                    <CultivarChart 
+                      cultivarId={mobileFixedPair?.primary || selectedCultivar}
+                      comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
+                      height={Math.min(400, screenWidth * 1.2)}
+                    />
+                    
+                    {/* Spider Chart */}
+                    <SpiderChart 
+                      cultivarId={mobileFixedPair?.primary || selectedCultivar}
+                      comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
+                      height={Math.min(300, screenWidth * 0.9)}
                     />
                   </div>
-                )}
-                
-                {/* Chart */}
-                <div className="space-y-4">
-                  <CultivarChart 
-                    cultivarId={mobileFixedPair?.primary || selectedCultivar}
-                    comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
-                    height={Math.min(400, screenWidth * 1.2)}
-                  />
-                  
-                  {/* Spider Chart */}
-                  <SpiderChart 
-                    cultivarId={mobileFixedPair?.primary || selectedCultivar}
-                    comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
-                    height={Math.min(300, screenWidth * 0.9)}
-                  />
                 </div>
-              </div>
+              )}
 
               {/* Marketing Banner - MOVED TO BOTTOM for Mobile */}
               <div 
@@ -1148,11 +1169,10 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
                 {/* Description Text */}
                 <div 
-                  className="flex-1 p-6 rounded-lg overflow-y-auto"
+                  className="p-6 rounded-lg overflow-y-auto"
                   style={{
                     background: 'linear-gradient(145deg, rgba(214, 11, 11, 0.8) 0%, rgba(36, 45, 61, 0.8) 100%)',
-                    backdropFilter: 'blur(2px) saturate(380%)',
-                    minHeight: '200px',           
+                    backdropFilter: 'blur(2px) saturate(380%)',        
                     borderRadius: '20px',
                     padding: '12px',
                     marginTop: '12px'
@@ -1311,9 +1331,10 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
                 {/* Performance Chart */}
                 <div style={{ marginTop: '24px' }}>
-                  {/* Cultivar Selector */}
-                  <div style={{ marginBottom: '20px' }}>
-                    {isAlturasPage ? (
+                  {/* Cultivar Selector - Hide for Sweet Carolina */}
+                  {!isSweetCarolinaPage && (
+                    <div style={{ marginBottom: '20px' }}>
+                      {isAlturasPage ? (
                       /* Alturas-specific selector */
                       <div
                         style={{
@@ -2375,21 +2396,26 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         onComparisonChange={setComparisonCultivar}
                       />
                     )}
-                  </div>
+                    </div>
+                  )}
                   
-                  {/* Chart Component */}
-                  <CultivarChart 
-                    cultivarId={selectedCultivar}
-                    comparisonCultivarId={comparisonCultivar}
-                    height={400}
-                  />
-                  
-                  {/* Spider Chart */}
-                  <SpiderChart 
-                    cultivarId={selectedCultivar}
-                    comparisonCultivarId={comparisonCultivar}
-                    height={350}
-                  />
+                  {/* Chart Component - Hide for Sweet Carolina */}
+                  {!isSweetCarolinaPage && (
+                    <>
+                      <CultivarChart 
+                        cultivarId={selectedCultivar}
+                        comparisonCultivarId={comparisonCultivar}
+                        height={400}
+                      />
+                      
+                      {/* Spider Chart */}
+                      <SpiderChart 
+                        cultivarId={selectedCultivar}
+                        comparisonCultivarId={comparisonCultivar}
+                        height={350}
+                      />
+                    </>
+                  )}
                 </div>
 
               </div>

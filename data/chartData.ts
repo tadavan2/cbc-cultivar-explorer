@@ -36,25 +36,23 @@ export interface ChartDataResponse {
 export const chartMetrics: { [key: string]: ChartMetric } = {
   yield: {
     id: 'yield',
-    label: 'Yield (kg/hectare)',
-    unit: 'kg/ha',
-    yAxisMax: 1750,
+    label: 'Yield (grams/plant)',
+    unit: 'grams/plant',
     showCumulative: true,
     color: '#3B82F6'
   },
   firmness: {
     id: 'firmness',
-    label: 'Firmness (N)',
-    unit: 'N',
+    label: 'Firmness (lbs/force)',
+    unit: 'lbs/force',
     yAxisMax: 2.0,
     showCumulative: false,
     color: '#10B981'
   },
   size: {
     id: 'size',
-    label: 'Size (g)',
-    unit: 'g',
-    yAxisMax: 60,
+    label: 'Size (grams)',
+    unit: 'grams',
     showCumulative: false,
     color: '#F59E0B'
   },

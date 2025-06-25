@@ -1,7 +1,7 @@
 cultivar,month,yield,firmness,size,appearance
-castaic,Dec,1720,8.8,19.3,9.1
-castaic,Jan,2050,8.9,19.7,9.2
-castaic,Feb,2280,9.0,20.0,9.3
-castaic,Mar,2180,8.8,19.8,9.1
-castaic,Apr,1920,8.6,19.4,8.9
-castaic,May,1580,8.4,18.9,8.7 
+castaic,Dec,3,,48.77,4
+castaic,Jan,96,,40.6,4.19
+castaic,Feb,153,,39.84,4.02
+castaic,Mar,306,1.4,44.5,4.02
+castaic,Apr,1032,1.33,36.96,3.59
+castaic,May,222,1.29,30.49,3.32

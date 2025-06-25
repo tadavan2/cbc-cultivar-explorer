@@ -28,14 +28,14 @@
     "Low cull percentage"
   ],
   "performanceMetrics": {
-    "yield": "38.2t/ha",
-    "size": "Large",
+    "yield": "1326 grams/plant",
+    "size": "33.7 grams",
     "appearance": "Excellent",
     "firmness": "Good"
   },
   "recommendations": {
     "plantingDate": "Santa Maria: May 1 - June 15, Oxnard: June 15 - July 15",
-    "chill": "As a summer plant day-neutral, Alhambra requires minimal chill for establishment. Focus on consistent moisture and temperature management during the critical establishment period.",
+    "chill": "If used as a fall plant, rather than a frigo-planting, Alhambra benefits from significantly more chill than typical day-neutral varieties. We recommend at least 500 hours in-ground and 14 days supplemental.",
     "fertility": "Summer plant fertilizer programs should emphasize establishment nutrition. Recommend 400-500 lbs of balanced fertilizer for initial plantings, with regular feeding programs throughout the growing season.",
     "other": "No special spray requirements. Follow standard programs for powdery mildew, botrytis, and mites. Moderately resistant to Fusarium and Macrophomina. Performs exceptionally well under tunnel systems."
   }

@@ -62,7 +62,7 @@ export const cultivars: Cultivar[] = [
     imageUrl: '/images/alhambra.jpg',
     flowerType: 'DN',
     marketType: 'summer plant',
-    attributes: ['premium quality', 'excellent flavor'],
+    attributes: [],
     attribute2: ['macrophomina resistant'],
     stats: {
       yieldKgPerHa: 38000,
@@ -80,7 +80,7 @@ export const cultivars: Cultivar[] = [
     imageUrl: '/images/artesia.jpg',
     flowerType: 'DN',
     marketType: 'fall plant',
-    attributes: ['fusarium resistant', 'excellent flavor', 'organic'],
+    attributes: ['fusarium resistant', 'organic'],
     attribute2: ['macrophomina resistant'],
     stats: {
       yieldKgPerHa: 40000,
@@ -99,7 +99,7 @@ export const cultivars: Cultivar[] = [
     flowerType: 'SD',
     marketType: 'fall plant',
     attributes: ['premium quality', 'excellent flavor'],
-    attribute2: ['macrophomina resistant', 'high yields'],
+    attribute2: ['macrophomina resistant'],
     stats: {
       yieldKgPerHa: 35000,
       brix: 8.9,
@@ -116,8 +116,8 @@ export const cultivars: Cultivar[] = [
     imageUrl: '/images/brisbane.jpg',
     flowerType: 'DN',
     marketType: 'fall plant',
-    attributes: ['fusarium resistant', 'premium quality', 'excellent flavor'],
-    attribute2: ['high yields'],
+    attributes: ['fusarium resistant'],
+    attribute2: [],
     stats: {
       yieldKgPerHa: 41000,
       brix: 8.6,
@@ -152,7 +152,7 @@ export const cultivars: Cultivar[] = [
     imageUrl: '/images/carpinteria.jpg',
     flowerType: 'DN',
     marketType: 'fall plant',
-    attributes: ['fusarium resistant', 'premium quality', 'excellent flavor'],
+    attributes: ['fusarium resistant', 'premium quality'],
     attribute2: ['high yields'],
     stats: {
       yieldKgPerHa: 43000,
@@ -170,7 +170,7 @@ export const cultivars: Cultivar[] = [
     imageUrl: '/images/sweet-carolina.jpg',
     flowerType: 'DN',
     marketType: 'eastern fall plant',
-    attributes: ['premium quality', 'excellent flavor', 'cold tolerant'],
+    attributes: ['excellent flavor', 'cold tolerant'],
     attribute2: ['high yields'],
     stats: {
       yieldKgPerHa: 39000,

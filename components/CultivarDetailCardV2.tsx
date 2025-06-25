@@ -5,6 +5,7 @@ import { getInfoOverlayData, InfoOverlayContent, generateButtonConfigs } from '.
 import CultivarChart from './CultivarChart';
 import SpiderChart from './SpiderChart';
 import CultivarSelector from './CultivarSelector';
+import ContactForm from './ContactForm';
 import { getDefaultComparisonCultivar } from '../data/chartData';
 import { getCultivarContent, CultivarContent } from '../data/cultivarContent';
 
@@ -879,6 +880,12 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                       {cultivarContent?.recommendations?.other || 'Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium.'}
                     </div>
                   </div>
+
+                  {/* Contact Form */}
+                  <ContactForm 
+                    cultivarName={cultivarContent?.displayName || cultivar.name}
+                    prefilledMessage={`I'm interested in learning more about ${cultivarContent?.displayName || cultivar.name} for my operation. Please provide more information about licensing, availability, and growing recommendations.`}
+                  />
                 </div>
               </div>
 
@@ -1278,6 +1285,12 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         {cultivarContent?.recommendations?.other || 'Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium.'}
                       </div>
                     </div>
+
+                    {/* Contact Form */}
+                    <ContactForm 
+                      cultivarName={cultivarContent?.displayName || cultivar.name}
+                      prefilledMessage={`I'm interested in learning more about ${cultivarContent?.displayName || cultivar.name} for my operation. Please provide more information about licensing, availability, and growing recommendations.`}
+                    />
                   </div>
                 </div>
               </div>

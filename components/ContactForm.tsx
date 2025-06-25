@@ -15,7 +15,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
     company: '',
     phone: '',
     region: '',
-    message: prefilledMessage || 'I\'m interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
+    message: prefilledMessage || 'I am interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,7 +55,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
             company: '',
             phone: '',
             region: '',
-            message: prefilledMessage || 'I\'m interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
+            message: prefilledMessage || 'I am interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
           });
         }, 3000);
       } else {

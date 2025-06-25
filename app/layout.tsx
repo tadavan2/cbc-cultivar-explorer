@@ -7,6 +7,7 @@ import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
 import "./globals.css";
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -34,6 +35,7 @@ export default function RootLayout({
         {/* Background overlay for better readability - TEMPORARILY DISABLED */}
         {/* <div className="background-overlay"></div> */}
         {children}
+        <Analytics />
       </body>
     </html>
   );

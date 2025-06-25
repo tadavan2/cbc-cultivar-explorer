@@ -111,7 +111,15 @@ export default function Home() {
       <>
         {/* FILTER DRAWER: Exact copy of cultivar drawer but transposed 90 degrees */}
         <button
-          onClick={() => setIsFilterDrawerOpen(!isFilterDrawerOpen)}
+          onClick={() => {
+            const newFilterState = !isFilterDrawerOpen;
+            setIsFilterDrawerOpen(newFilterState);
+            
+            // AUTO-OPEN CULTIVAR DRAWER: When filter drawer opens, auto-open cultivar drawer too
+            if (newFilterState) {
+              setIsCultivarDrawerOpen(true);
+            }
+          }}
           className="mobile-filter-drawer-button"
           style={{
             position: 'fixed',

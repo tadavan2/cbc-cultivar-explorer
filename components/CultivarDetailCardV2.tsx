@@ -717,7 +717,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               <div 
                 className="relative mb-6"
                 style={{
-                  aspectRatio: '16/9',
+                  aspectRatio: '1/1', // Square aspect ratio for square images!
                   background: 'transparent',
                   borderRadius: '20px',
                   overflow: 'hidden',
@@ -881,10 +881,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                     </div>
                   </div>
 
-                  {/* Contact Form */}
-                  <ContactForm 
-                    cultivarName={cultivarContent?.displayName || cultivar.name}
-                  />
                 </div>
               </div>
 
@@ -942,7 +938,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   borderRadius: '20px',
                   width: '100%',
                   marginTop: '16px', // Added margin between spider chart and banner
-                  marginBottom: '50px', // ADDED: Extra scroll space at bottom for mobile users, REMOVE IF ADDING MORE BELOW BANNER!!!!!
+                  marginBottom: '16px', // Reduced from 50px since we now have content below
                   overflow: 'visible', // Allow buttons to hover above
                   // Add glassy container effects
                   backdropFilter: 'blur(10px) saturate(180%)',
@@ -1016,6 +1012,16 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   />
                 </div>
               </div>
+
+              {/* Contact Form - MOVED TO BOTTOM for Mobile */}
+              <div className="mb-6">
+                <ContactForm 
+                  cultivarName={cultivarContent?.displayName || cultivar.name}
+                />
+              </div>
+
+              {/* Bottom spacing for mobile scrolling */}
+              <div style={{ height: '100px' }}></div>
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
       <ul>
         <li><strong>Continuous Production:</strong> Fruit production is not triggered by day length</li>
         <li><strong>Extended Season:</strong> Harvest from late spring through early fall</li>
-        <li><strong>Temperature Sensitive:</strong> Perform best in moderate temperatures (60-80°F)</li>
+        <li><strong>Temperature Sensitive:</strong> Perform best in moderate temperatures</li>
         <li><strong>Multiple Flushes:</strong> Produce several distinct flowering and fruiting cycles</li>
       </ul>
       
@@ -41,7 +41,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Short-Day Strawberries',
     content: `
       <h3>Understanding Short-Day Strawberries</h3>
-      <p>Short-day strawberries are varieties that initiate flower buds when day length decreases below 14 hours, typically in fall. They produce a concentrated harvest period and are ideal for traditional strawberry production systems.</p>
+      <p>Short-day strawberries are varieties that initiate flower buds when day length decreases, typically in fall. They produce a concentrated harvest period and are ideal for traditional strawberry production systems.</p>
       
       <h3>Key Characteristics:</h3>
       <ul>
@@ -72,7 +72,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
         <li><strong>Pathogen:</strong> Fusarium oxysporum f. sp. fragariae</li>
         <li><strong>Symptoms:</strong> Stunting, wilting, crown rot, and plant death</li>
         <li><strong>Soil Persistence:</strong> Can survive in soil for many years</li>
-        <li><strong>Economic Impact:</strong> Can cause 50-100% yield losses</li>
+        <li><strong>Economic Impact:</strong> Can cause significant yield losses</li>
       </ul>
       
       <h3>Benefits of Resistant Varieties:</h3>
@@ -85,7 +85,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
       </ul>
       
       <h3>Resistance Mechanism:</h3>
-      <p>Modern fusarium-resistant varieties like Alturas have been bred with genetic resistance that prevents the pathogen from colonizing the plant's vascular system, ensuring healthy plant development even in contaminated soils.</p>
+      <p>Contemporary resistant varieties carry genetic defenses that block pathogen invasion of the plant's vascular system, maintaining healthy growth even in infected soil conditions.</p>
     `
   },
   'macrophomina-resistant': {
@@ -117,7 +117,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'High Yield Performance',
     content: `
       <h3>High Yield Strawberry Varieties</h3>
-      <p>High-yield strawberry varieties are specially bred to maximize fruit production per plant and per acre, providing growers with exceptional return on investment and sustainable profitability.</p>
+      <p>High-yield strawberry varieties focus on maximizing fruit production per plant and per acre, delivering strong return on investment and long-term profitability for growers.</p>
       
       <h3>Yield Components:</h3>
       <ul>
@@ -137,7 +137,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
       </ul>
       
       <h3>Performance Metrics:</h3>
-      <p>High-yield varieties typically deliver 40+ tonnes per hectare under optimal conditions, combining consistent production with premium fruit quality. These varieties feature efficient plant architecture and extended harvest windows to maximize both total yield and marketable fruit percentage.</p>
+      <p>Top-producing cultivars achieve remarkable output under ideal conditions, merging reliable harvests with superior fruit quality. These plants showcase streamlined architecture and prolonged harvest periods to optimize both total volume and marketable fruit rates.</p>
     `
   },
   'excellent-flavor': {
@@ -145,11 +145,11 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Excellent Flavor Profile',
     content: `
       <h3>Superior Flavor Characteristics</h3>
-      <p>Excellent flavor varieties are bred for optimal sugar-acid balance, aromatic compounds, and overall taste experience that delights consumers and commands premium prices.</p>
+      <p>These flavor-focused varieties achieve optimal sugar-acid balance, complex aromatics, and taste profiles that satisfy consumers while earning premium market prices.</p>
       
       <h3>Flavor Components:</h3>
       <ul>
-        <li><strong>Sugar Content:</strong> High Brix levels (8.5-10+)</li>
+        <li><strong>Sugar Content:</strong> High Brix levels</li>
         <li><strong>Acidity Balance:</strong> Optimal tartness for complexity</li>
         <li><strong>Aromatics:</strong> Rich volatile compounds</li>
         <li><strong>Texture:</strong> Firm yet juicy mouthfeel</li>
@@ -170,7 +170,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Premium Quality Standards',
     content: `
       <h3>Premium Quality Attributes</h3>
-      <p>Premium quality varieties meet the highest standards for appearance, flavor, shelf life, and market performance, commanding top prices in discerning markets.</p>
+      <p>These top-tier varieties excel across all quality metrics - appearance, flavor, shelf life, and market performance - earning premium positioning in selective markets.</p>
       
       <h3>Quality Parameters:</h3>
       <ul>
@@ -219,7 +219,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Organic Production Suitability',
     content: `
       <h3>Organic Strawberry Production</h3>
-      <p>Organic-suitable varieties are bred for natural disease resistance, robust plant health, and compatibility with organic growing systems and certification requirements.</p>
+      <p>These naturally hardy varieties feature built-in disease resistance, vigorous plant health, and seamless integration with organic farming practices and certification standards.</p>
       
       <h3>Organic Advantages:</h3>
       <ul>
@@ -244,7 +244,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Cold Tolerance',
     content: `
       <h3>Cold Hardy Strawberry Varieties</h3>
-      <p>Cold tolerant varieties are bred to withstand low temperatures, frost events, and harsh winter conditions while maintaining productivity and fruit quality.</p>
+      <p>These weather-tough varieties handle low temperatures, frost events, and severe winter conditions without sacrificing productivity or fruit quality.</p>
       
       <h3>Cold Tolerance Features:</h3>
       <ul>
@@ -269,7 +269,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Rugged Performance',
     content: `
       <h3>Rugged Strawberry Varieties</h3>
-      <p>Rugged varieties are bred for exceptional durability, stress tolerance, and reliable performance under challenging growing conditions and variable environments.</p>
+      <p>These tough performers demonstrate exceptional durability, stress resilience, and dependable results across challenging growing conditions and unpredictable environments.</p>
       
       <h3>Rugged Characteristics:</h3>
       <ul>
@@ -299,12 +299,12 @@ export const cultivarSpecificInfoData: { [cultivarId: string]: InfoOverlayData }
       title: 'Alturas High Yield Performance',
       content: `
         <h3>Alturas Yield Excellence</h3>
-        <p>Alturas delivers exceptional yields of 45+ tonnes per hectare under optimal conditions, combining consistent production with premium fruit quality throughout the extended harvest season.</p>
+        <p>Alturas achieves outstanding production under ideal conditions, balancing steady output with top-tier fruit quality across the full harvest window.</p>
         
         <h3>Alturas Yield Components:</h3>
         <ul>
-          <li><strong>Peak Production:</strong> 45+ tonnes per hectare</li>
-          <li><strong>Fruit Size:</strong> Consistently large berry size (18.5g average)</li>
+          <li><strong>Peak Production:</strong> Exceptional yields</li>
+          <li><strong>Fruit Size:</strong> Consistently large berry size</li>
           <li><strong>Extended Harvest:</strong> Continuous production spring through fall</li>
           <li><strong>Plant Efficiency:</strong> Optimized plant architecture for maximum productivity</li>
         </ul>
@@ -318,7 +318,7 @@ export const cultivarSpecificInfoData: { [cultivarId: string]: InfoOverlayData }
         </ul>
         
         <h3>Grower Success:</h3>
-        <p>Alturas's efficient plant architecture and reduced maintenance requirements mean more focus on premium fruit production, delivering both quantity and quality that drives profitability.</p>
+        <p>Alturas's streamlined plant structure and lower maintenance needs allow greater focus on premium fruit development, generating both volume and quality that fuel profitability.</p>
       `
     }
   },
@@ -329,7 +329,7 @@ export const cultivarSpecificInfoData: { [cultivarId: string]: InfoOverlayData }
       title: 'Adelanto Ultra Early Production',
       content: `
         <h3>Adelanto Early Season Advantage</h3>
-        <p>Adelanto leads the market with ultra-early production, delivering premium fruit weeks before standard varieties and capturing the highest seasonal prices.</p>
+        <p>Adelanto dominates early-season markets, producing premium fruit weeks ahead of standard cultivars while securing peak seasonal pricing.</p>
         
         <h3>Adelanto Early Benefits:</h3>
         <ul>
@@ -341,11 +341,42 @@ export const cultivarSpecificInfoData: { [cultivarId: string]: InfoOverlayData }
         
         <h3>Production Characteristics:</h3>
         <ul>
-          <li>Consistent 42+ tonnes per hectare yields</li>
+          <li>Consistent exceptional yields</li>
           <li>Excellent fruit quality from season start</li>
           <li>Reliable early production across climates</li>
           <li>Extended total harvest period</li>
         </ul>
+      `
+    }
+  },
+  
+  artesia: {
+    'organic': {
+      icon: '🌿',
+      title: 'Artesia Organic Excellence',
+      content: `
+        <h3>Artesia: The Pinnacle of Organic Production</h3>
+        <p>Artesia™ sets the benchmark for organic strawberry cultivation, engineered specifically for sustainable, chemical-free growing systems. This premium day-neutral cultivar thrives where other varieties falter in organic environments.</p>
+        
+        <h3>Artesia Organic Advantages:</h3>
+        <ul>
+          <li><strong>Organic Tailored:</strong> Genetics purposefully crafted for chemical-free production systems</li>
+          <li><strong>Comprehensive Disease Package:</strong> Robust resistance to all major soil-borne pathogens</li>
+          <li><strong>Superior Organic Performance:</strong> Consistently outperforms competitors in organic trials</li>
+          <li><strong>Natural Vigor:</strong> Strong plant health reduces need for interventions</li>
+        </ul>
+        
+        <h3>Sustainable Production Benefits:</h3>
+        <ul>
+          <li>Reduced field losses through natural disease resistance</li>
+          <li>Simplified organic disease management protocols</li>
+          <li>High marketable yields in certified organic systems</li>
+          <li>Enhanced soil health compatibility</li>
+          <li>Premium organic market positioning</li>
+        </ul>
+        
+        <h3>Artesia's Organic Promise:</h3>
+        <p>From planting to harvest, Artesia™ provides the production, quality, and dependability that characterize thriving organic operations. Discover genetics purpose-built for tomorrow's sustainable strawberry farming.</p>
       `
     }
   }

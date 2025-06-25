@@ -12,6 +12,37 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
     }}>
       <div className={`flex items-center justify-between h-full ${isMobile ? 'px-4' : 'px-12'}`}>
         <div className="flex items-center space-x-4">
+          {/* Back Arrow to CBC Homepage */}
+          <a 
+            href="https://cbcberry.com"
+            className="flex items-center justify-center transition-all duration-300 hover:scale-110"
+            style={{
+              width: isMobile ? '32px' : '40px',
+              height: isMobile ? '24px' : '40px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px) saturate(180%)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '12px',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
+              marginRight: '8px',
+              marginLeft: '8px'
+            }}
+          >
+            <svg 
+              width={isMobile ? "16" : "20"} 
+              height={isMobile ? "16" : "20"} 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="rgba(255, 255, 255, 0.9)" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+          </a>
+          
           <div>
             <h1 className={`font-bold premium-heading ${isMobile ? (isLandscape ? 'text-xs' : 'text-xs') : 'text-5xl'}`} style={{ 
               lineHeight: '0.9', 

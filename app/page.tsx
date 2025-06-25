@@ -90,8 +90,13 @@ export default function Home() {
     // Apply normal filtering logic to other cultivars
     if (filters.flowerType.length > 0 && !filters.flowerType.includes(cultivar.flowerType)) return false;
     if (filters.marketType.length > 0 && !filters.marketType.includes(cultivar.marketType)) return false;
-    if (filters.attributes.length > 0 && !filters.attributes.some(attr => cultivar.attributes.includes(attr))) return false;
-    if (filters.attribute2.length > 0 && !filters.attribute2.some(attr => cultivar.attribute2.includes(attr))) return false;
+    // FIXED: Check both attribute arrays for any trait filter (since traits can be in either array)
+    if (filters.attributes.length > 0 && !filters.attributes.some(attr => 
+      cultivar.attributes.includes(attr) || cultivar.attribute2.includes(attr)
+    )) return false;
+    if (filters.attribute2.length > 0 && !filters.attribute2.some(attr => 
+      cultivar.attributes.includes(attr) || cultivar.attribute2.includes(attr)
+    )) return false;
     return true;
   });
 

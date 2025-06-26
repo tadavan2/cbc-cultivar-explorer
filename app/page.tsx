@@ -79,14 +79,24 @@ export default function Home() {
     const checkScreenSize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const mobile = width < 768;
+      const mobile = width < 875;
       const landscape = width > height && mobile;
-      // Desktop OR iPad landscape gets the dock system
-      const desktopOrWideTablet = width >= 1024 || (width >= 768 && width > height);
+      // Only true desktop/large tablets get the dock system
+      const desktopOrWideTablet = width >= 1024;
       
-      setIsMobile(mobile);
-      setIsLandscape(landscape);
-      setIsDesktopOrWideTablet(desktopOrWideTablet);
+              setIsMobile(mobile);
+        setIsLandscape(landscape);
+        setIsDesktopOrWideTablet(desktopOrWideTablet);
+        
+        // Debug logging to understand responsive logic
+        console.log('RESPONSIVE DEBUG:', {
+          width,
+          height, 
+          mobile,
+          landscape,
+          desktopOrWideTablet,
+          shouldShowMobile: mobile && !desktopOrWideTablet
+        });
     };
 
     checkScreenSize();
@@ -128,118 +138,16 @@ export default function Home() {
   if (isMobile && !isDesktopOrWideTablet) {
     return (
       <>
-        {/* FILTER DRAWER: Exact copy of cultivar drawer but transposed 90 degrees */}
-        <button
-          onClick={() => {
-            const newFilterState = !isFilterDrawerOpen;
-            setIsFilterDrawerOpen(newFilterState);
-            
-            // AUTO-OPEN CULTIVAR DRAWER: When filter drawer opens, auto-open cultivar drawer too
-            if (newFilterState) {
-              setIsCultivarDrawerOpen(true);
-            }
-          }}
-          className="mobile-filter-drawer-button"
-          style={{
-            position: 'fixed',
-            top: isLandscape ? '55px' : '55px',
-            right: isFilterDrawerOpen ? (isLandscape ? '220px' : '160px') : '12px',
-            // TRANSPOSED: No centering transform needed for right-side positioning
-            transform: 'none',
-            background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white pill
-            backdropFilter: 'blur(10px) saturate(180%)',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
-            borderRadius: '28px', // Same pill radius as cultivar drawer
-            padding: '0px 0px', // TRANSPOSED: vertical horizontal (was 8px 20px)
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 999,
-            width: '33px', // TRANSPOSED: narrow width (was 72px height)
-            height: '72px', // TRANSPOSED: tall height (was 33px width)
-            transition: 'right 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Much slower like cultivar drawer
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.2)',
-            transformOrigin: 'center center',
-            willChange: 'right, transform' // TRANSPOSED: right instead of bottom
-          }}
-        >
-          {/* Airport landing strip light effect arrows - EXACT COPY of cultivar drawer but transposed */}
-          <svg 
-            style={{
-              width: '25px', // EXACT SAME as cultivar drawer (was 25px)
-              height: '35px', // EXACT SAME as cultivar drawer (was 35px) - swapped for horizontal layout
-              fill: 'rgba(255, 255, 255, 0.9)',
-              transition: 'transform 0.4s ease, opacity 0.3s ease',
-              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-            }}
-            viewBox="0 0 24 24"
-          >
-            <defs>
-              <linearGradient id="buttonGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.95)" />
-                <stop offset="50%" stopColor="rgba(255, 255, 255, 0.8)" />
-                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.7)" />
-              </linearGradient>
-            </defs>
-            
-            {/* EXACT COPY: Using same path coordinates as cultivar drawer but left/right arrows */}
-            {isFilterDrawerOpen ? (
-              /* Drawer is OPEN - show RIGHT arrows (away from screen, suggesting close) */
-              <g fill="url(#buttonGradient3)">
-                <path 
-                  d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z" 
-                  className="airport-arrow-1"
-                  style={{animation: 'airport-lights-right 2s ease-in-out infinite'}}
-                />
-                <path 
-                  d="M6.59 16.59L11.17 12l-4.58-4.59L8 6l6 6-6 6z" 
-                  className="airport-arrow-2"
-                  style={{animation: 'airport-lights-right 2s ease-in-out infinite 0.3s'}}
-                />
-                <path 
-                  d="M4.59 16.59L9.17 12l-4.58-4.59L6 6l6 6-6 6z" 
-                  className="airport-arrow-3"
-                  style={{animation: 'airport-lights-right 2s ease-in-out infinite 0.6s'}}
-                />
-              </g>
-            ) : (
-              /* Drawer is CLOSED - show LEFT arrows (toward screen, inviting open) */
-              <g fill="url(#buttonGradient3)">
-                <path 
-                  d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" 
-                  className="airport-arrow-1"
-                  style={{animation: 'airport-lights-left 2s ease-in-out infinite'}}
-                />
-                <path 
-                  d="M17.41 7.41L16 6l-6 6 6 6 1.41-1.41L12.83 12z" 
-                  className="airport-arrow-2"
-                  style={{animation: 'airport-lights-left 2s ease-in-out infinite 0.3s'}}
-                />
-                <path 
-                  d="M19.41 7.41L18 6l-6 6 6 6 1.41-1.41L14.83 12z" 
-                  className="airport-arrow-3"
-                  style={{animation: 'airport-lights-left 2s ease-in-out infinite 0.6s'}}
-                />
-              </g>
-            )}
-          </svg>
-        </button>
 
         {/* IMPROVED: Fixed positioned cultivar drawer handle with bouncing animation - PILL SHAPED */}
         <button
           onClick={() => {
-            const newCultivarState = !isCultivarDrawerOpen;
-            setIsCultivarDrawerOpen(newCultivarState);
-            
-            // AUTO-OPEN FILTER DRAWER: When cultivar drawer opens, auto-open filter drawer too
-            if (newCultivarState) {
-              setIsFilterDrawerOpen(true);
-            }
+            setIsCultivarDrawerOpen(!isCultivarDrawerOpen);
           }}
           className="mobile-drawer-button"
           style={{
             position: 'fixed',
-            bottom: isCultivarDrawerOpen ? (isLandscape ? 'calc(50vh - 16px)' : '114px') : '16px',
+            bottom: isCultivarDrawerOpen ? (isLandscape ? '140px' : '114px') : '16px',
             left: '50%',
             // FIXED: Always use the same transform, never let it be undefined
             transform: 'translateX(-50%)',

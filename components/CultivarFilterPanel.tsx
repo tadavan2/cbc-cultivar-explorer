@@ -53,25 +53,8 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
   };
 
   const getAttributeIcon = (attribute: string) => {
-    const iconMap: { [key: string]: string } = {
-      // Real attributes from CBC data
-      'fusarium resistant': '🛡️',
-      'ultra early': '🌅',
-      'excellent flavor': '😋',
-      'premium quality': '💎',
-      'organic': '🌿',
-      'high yields': '📈',
-      'cold tolerant': '❄️',
-      'macrophomina resistant': '🛡️',
-      // Market types
-      'fall plant': '🍂',
-      'summer plant': '☀️',
-      'eastern fall plant': '🍁',
-      // Flower types
-      'DN': '☀️',
-      'SD': '🌙'
-    };
-    return iconMap[attribute] || '🌱';
+    // Icons removed for cleaner UI
+    return '';
   };
 
   // Dynamic filtering: Get available options based on current selections
@@ -123,7 +106,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
           category: 'flowerType' as keyof FilterState,
           value: flowerType,
           label: flowerType === 'DN' ? 'Day-Neutral' : 'Short-Day',
-          icon: flowerType === 'DN' ? '☀️' : '🌙',
+          icon: '',
           isActive: filters.flowerType.includes(flowerType),
           isAvailable: availableOptions.flowerTypes.includes(flowerType)
         }))
@@ -220,7 +203,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
       )}
       
       {/* Filter Groups - Full height with top padding */}
-      <div className="flex-1 overflow-y-auto" style={{paddingTop: '16px', paddingLeft: '6px', paddingRight: '6px'}}>
+      <div className="flex-1 overflow-y-auto scrollbar-hidden" style={{paddingTop: '16px', paddingLeft: '6px', paddingRight: '6px'}}>
         <div className="flex flex-col">
           {filterGroups.map((group, groupIndex) => (
             <div key={group.title} className="mb-6">
@@ -252,7 +235,6 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
                     `}
                   >
                     <div className="flex items-center space-x-4">
-                      <span className="text-xl drop-shadow-lg">{option.icon}</span>
                       <span className="text-sm font-semibold flex-1 glass-text">{option.label}</span>
                       {option.isActive && (
                         <span className="w-3 h-3 bg-green-400 rounded-full pulse-glow-glass shadow-lg"></span>

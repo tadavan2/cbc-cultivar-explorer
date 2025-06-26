@@ -376,6 +376,98 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
       );
     }
     
+    // Mobile Landscape Layout for Debug
+    if (isMobile && isLandscape) {
+      return (
+        <div className="h-full w-full relative" style={{ margin: '0px' }}>
+          <div 
+            className="w-full h-full overflow-hidden"
+            style={{
+              background: 'transparent',
+              borderRadius: '20px',
+              position: 'relative',
+              height: '100%',
+              width: '100%'
+            }}
+          >
+            {/* Background Image - Mobile Landscape */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                borderRadius: '20px',
+                overflow: 'hidden',
+                zIndex: 1,
+                height: '100%',
+                width: '100%'
+              }}
+            >
+              <Image 
+                src="/images/backgrounds/open_page_bg.jpg"
+                alt="CBC Cultivar Explorer Welcome"
+                width={2140}
+                height={1402}
+                className="object-cover"
+                style={{ 
+                  borderRadius: '20px',
+                  objectPosition: 'center center',
+                  width: '100%',
+                  height: '100%'
+                }}
+                priority
+                onError={() => console.log('DEBUG: Mobile landscape image failed to load')}
+                onLoad={() => console.log('DEBUG: Mobile landscape image loaded successfully')}
+              />
+            </div>
+            
+            {/* Mobile Landscape text overlay */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                zIndex: 3,
+                borderRadius: '20px',
+                padding: '20px'
+              }}
+            >
+              <div className="text-center" style={{ maxWidth: '600px' }}>
+                <h1 
+                  className="text-2xl font-bold mb-4"
+                  style={{
+                    color: '#ffffff',
+                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
+                    fontFamily: 'var(--font-heading, Georgia, serif)'
+                  }}
+                >
+                  CBC Cultivar Explorer
+                </h1>
+                <p 
+                  className="text-sm leading-relaxed"
+                  style={{
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.8)',
+                    fontFamily: 'var(--font-body, system-ui)',
+                    maxWidth: '400px',
+                    margin: '0 auto'
+                  }}
+                >
+                  Compare strawberry varieties and performance data to find your ideal cultivar. Tap any variety below to explore.
+                </p>
+              </div>
+            </div>
+            
+            {/* Gradient overlay */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3))',
+                borderRadius: '20px',
+                zIndex: 2
+              }}
+            />
+          </div>
+        </div>
+      );
+    }
+    
     // Desktop Layout for Debug
     return (
       <div className="h-full w-full flex items-center justify-center">

@@ -52,11 +52,6 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
     });
   };
 
-  const getAttributeIcon = (_attribute: string) => {
-    // Icons removed for cleaner UI
-    return '';
-  };
-
   // Dynamic filtering: Get available options based on current selections
   const getAvailableOptions = () => {
     // Start with all cultivars

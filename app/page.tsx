@@ -24,6 +24,19 @@ export default function Home() {
   const [isCultivarDrawerOpen, setIsCultivarDrawerOpen] = useState(true);
   const [isLandscape, setIsLandscape] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Desktop filter panel dock state - starts docked
+  const [isFilterPanelDocked, setIsFilterPanelDocked] = useState(true);
+  const [isDesktopOrWideTablet, setIsDesktopOrWideTablet] = useState(false);
+
+  // Debug: Log the current state
+  console.log('DEBUG:', { 
+    isDesktopOrWideTablet, 
+    isFilterPanelDocked, 
+    windowWidth: typeof window !== 'undefined' ? window.innerWidth : 'SSR' 
+  });
+
+
 
   // Handle cultivar change with fade transition
   const handleCultivarChange = (newCultivar: Cultivar) => {
@@ -64,10 +77,16 @@ export default function Home() {
   // Detect screen size and orientation
   useEffect(() => {
     const checkScreenSize = () => {
-      const mobile = window.innerWidth < 768;
-      const landscape = window.innerWidth > window.innerHeight && mobile;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const mobile = width < 768;
+      const landscape = width > height && mobile;
+      // Desktop OR iPad landscape gets the dock system
+      const desktopOrWideTablet = width >= 1024 || (width >= 768 && width > height);
+      
       setIsMobile(mobile);
       setIsLandscape(landscape);
+      setIsDesktopOrWideTablet(desktopOrWideTablet);
     };
 
     checkScreenSize();
@@ -106,7 +125,7 @@ export default function Home() {
     setIsCultivarDrawerOpen(false);
   };
 
-  if (isMobile) {
+  if (isMobile && !isDesktopOrWideTablet) {
     return (
       <>
         {/* FILTER DRAWER: Exact copy of cultivar drawer but transposed 90 degrees */}
@@ -495,15 +514,20 @@ export default function Home() {
     );
   }
 
-  // Desktop Layout (unchanged)
+  // Desktop Layout with Dockable Filter Panel (≥1024px only)
   return (
     <div className="dark-theme h-screen w-screen overflow-hidden flex flex-col scrollbar-hidden">
       <TopNav />
       
       {/* Main Layout Container */}
-      <div className="flex-1 flex h-full w-full overflow-hidden">
-        {/* Main Content Area - flex-1 to take remaining space */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex h-full w-full overflow-hidden relative">
+        {/* Main Content Area - Dynamic width based on filter panel state */}
+        <div 
+          className="flex flex-col h-full overflow-hidden transition-all duration-500 ease-in-out"
+          style={{
+            width: isDesktopOrWideTablet && isFilterPanelDocked ? 'calc(100% - 240px)' : '100%'
+          }}
+        >
           {/* Detail Card Area - 70% height to accommodate larger bottom panel */}
           <div className="h-[99%] overflow-hidden" style={{padding: '24px 24px 12px 24px'}}>
             <div className={`h-full transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
@@ -512,9 +536,58 @@ export default function Home() {
           </div>
           
           {/* Bottom Cultivar Cards - 30% height for larger cards - NO TOP PADDING */}
-          <div className="h-[30%] min-h-[200px] bg-gradient-to-r from-gray-900/10 via-gray-800/15 to-gray-900/10 backdrop-blur-sm flex items-center">
+          <div className="h-[30%] min-h-[200px] bg-gradient-to-r from-gray-900/10 via-gray-800/15 to-gray-900/10 backdrop-blur-sm flex items-center relative">
+            {/* Left scroll indicator - positioned outside the scroll padding */}
             <div 
-              className="flex h-full items-center justify-start overflow-x-auto scrollbar-hidden w-full"
+              className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
+              style={{ left: '8px' }}
+              onClick={() => {
+                const container = document.querySelector('.cultivar-scroll-container');
+                if (container) {
+                  container.scrollBy({ left: -200, behavior: 'smooth' });
+                }
+              }}
+            >
+              <div className="w-14 h-14 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-xl hover:bg-black/90">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="3">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+              </div>
+            </div>
+
+            {/* Right scroll indicator - positioned outside the scroll padding */}
+            <div 
+              className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
+              style={{ right: '8px' }}
+              onClick={() => {
+                const container = document.querySelector('.cultivar-scroll-container');
+                if (container) {
+                  container.scrollBy({ left: 200, behavior: 'smooth' });
+                }
+              }}
+            >
+              <div className="w-14 h-14 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-xl hover:bg-black/90">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="3">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+            </div>
+
+            <div 
+              ref={(el) => {
+                if (el) {
+                  // Add mouse wheel horizontal scrolling support
+                  const handleWheel = (e: WheelEvent) => {
+                    if (e.deltaY !== 0) {
+                      e.preventDefault();
+                      el.scrollLeft += e.deltaY;
+                    }
+                  };
+                  el.addEventListener('wheel', handleWheel, { passive: false });
+                  return () => el.removeEventListener('wheel', handleWheel);
+                }
+              }}
+              className="cultivar-scroll-container flex h-full items-center justify-start overflow-x-auto scrollbar-hidden w-full"
               style={{
                 padding: '0 24px 8px 24px',
                 scrollbarWidth: 'none',
@@ -645,13 +718,53 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right Filter Panel - Fixed width on desktop */}
-        <div className="w-80 h-full border-l border-white/10 bg-gradient-to-b from-gray-900/10 via-gray-800/15 to-gray-900/10 backdrop-blur-sm overflow-hidden">
-          <CultivarFilterPanel 
-            filters={filters}
-            onFiltersChange={setFilters}
-          />
-        </div>
+        {/* Dockable Filter Panel - Desktop and Wide Tablet Only */}
+        {isDesktopOrWideTablet && (
+          <>
+            {/* Filter Panel Container */}
+            <div 
+              className="fixed h-[calc(100vh-64px)] bg-gradient-to-b from-gray-900/30 via-gray-800/35 to-gray-900/30 backdrop-blur-sm border-l border-white/20 overflow-hidden transition-all duration-500 ease-in-out z-40"
+              style={{
+                top: '64px',
+                right: isFilterPanelDocked ? '0px' : '-240px',
+                width: '240px'
+              }}
+            >
+              <CultivarFilterPanel 
+                filters={filters}
+                onFiltersChange={setFilters}
+              />
+            </div>
+
+            {/* Dock Tab */}
+            <div 
+              className="filter-dock-tab"
+              style={{
+                right: isFilterPanelDocked ? '250px' : '10px'
+              }}
+              onClick={() => setIsFilterPanelDocked(!isFilterPanelDocked)}
+            >
+              <div className="dock-tab-content">
+                {/* Direction Arrow */}
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 16 16" 
+                  fill="none" 
+                  className={`direction-arrow ${isFilterPanelDocked ? 'rotated' : ''}`}
+                >
+                  <path 
+                    d="M10 4L6 8L10 12"
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

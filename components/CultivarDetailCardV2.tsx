@@ -354,7 +354,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 padding: '8px 12px',
                 borderRadius: '8px', 
                 marginLeft: '12px',
-                marginRight: '55px',
+                marginRight: '55px', 
                 lineHeight: '1.3'
               }}
             >
@@ -689,6 +689,19 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               
               {/* Premium Filter-style Buttons - Desktop */}
               <div 
+                ref={(el) => {
+                  if (el) {
+                    // Add mouse wheel horizontal scrolling support
+                    const handleWheel = (e: WheelEvent) => {
+                      if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        el.scrollLeft += e.deltaY;
+                      }
+                    };
+                    el.addEventListener('wheel', handleWheel, { passive: false });
+                    return () => el.removeEventListener('wheel', handleWheel);
+                  }
+                }}
                 className="mb-6 overflow-x-auto scrollbar-hidden"
                 style={{
                   width: '100%',
@@ -886,45 +899,45 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
               {/* Chart Section - Hide for Sweet Carolina */}
               {!isSweetCarolinaPage && (
-                <div className="mb-6">
-                  <h3 
-                    className="text-lg font-semibold mb-4"
-                    style={{
-                      color: '#00ff88',
-                      textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
-                    }}
-                  >
-                    Performance Data
-                  </h3>
-                  
-                  {/* Cultivar Selector - Hide for Alturas on mobile */}
-                  {!mobileFixedPair && (
-                    <div className="mb-4">
-                      <CultivarSelector
-                        selectedCultivar={selectedCultivar}
-                        comparisonCultivar={comparisonCultivar}
-                        onCultivarChange={setSelectedCultivar}
-                        onComparisonChange={setComparisonCultivar}
-                      />
-                    </div>
-                  )}
-                  
-                  {/* Chart */}
-                  <div className="space-y-4">
-                    <CultivarChart 
-                      cultivarId={mobileFixedPair?.primary || selectedCultivar}
-                      comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
-                      height={Math.min(400, screenWidth * 1.2)}
-                    />
-                    
-                    {/* Spider Chart */}
-                    <SpiderChart 
-                      cultivarId={mobileFixedPair?.primary || selectedCultivar}
-                      comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
-                      height={Math.min(300, screenWidth * 0.9)}
+              <div className="mb-6">
+                <h3 
+                  className="text-lg font-semibold mb-4"
+                  style={{
+                    color: '#00ff88',
+                    textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
+                  }}
+                >
+                  Performance Data
+                </h3>
+                
+                {/* Cultivar Selector - Hide for Alturas on mobile */}
+                {!mobileFixedPair && (
+                  <div className="mb-4">
+                    <CultivarSelector
+                      selectedCultivar={selectedCultivar}
+                      comparisonCultivar={comparisonCultivar}
+                      onCultivarChange={setSelectedCultivar}
+                      onComparisonChange={setComparisonCultivar}
                     />
                   </div>
+                )}
+                
+                {/* Chart */}
+                <div className="space-y-4">
+                  <CultivarChart 
+                    cultivarId={mobileFixedPair?.primary || selectedCultivar}
+                    comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
+                    height={Math.min(400, screenWidth * 1.2)}
+                  />
+                  
+                  {/* Spider Chart */}
+                  <SpiderChart 
+                    cultivarId={mobileFixedPair?.primary || selectedCultivar}
+                    comparisonCultivarId={mobileFixedPair?.comparison || comparisonCultivar}
+                    height={Math.min(300, screenWidth * 0.9)}
+                  />
                 </div>
+              </div>
               )}
 
               {/* Marketing Banner - MOVED TO BOTTOM for Mobile */}
@@ -984,19 +997,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                     }}
                   />
                   
-                  {/* Horizontal Data Streams */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '25%',
-                      left: 0,
-                      width: '100%',
-                      height: '1px',
-                      background: 'linear-gradient(90deg, transparent, #00ff88, transparent)',
-                      animation: 'horizontal-stream 3s linear infinite',
-                      zIndex: 205
-                    }}
-                  />
+
 
                   {/* Edge Glow */}
                   <div
@@ -1006,7 +1007,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                       border: '1px solid rgba(0, 255, 255, 0.3)',
                       borderRadius: '20px',
                       boxShadow: 'inset 0 0 20px rgba(0, 255, 255, 0.1)',
-                      animation: 'edge-pulse 3s ease-in-out infinite',
+                      animation: 'edge-pulse 5s ease-in-out infinite',
                       zIndex: 225
                     }}
                   />
@@ -1124,19 +1125,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                       }}
                     />
                     
-                    {/* Horizontal Data Streams */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '25%',
-                        left: 0,
-                        width: '100%',
-                        height: '1px',
-                        background: 'linear-gradient(90deg, transparent, #00ff88, transparent)',
-                        animation: 'horizontal-stream 3s linear infinite',
-                        zIndex: 205
-                      }}
-                    />
+
 
                     {/* Edge Glow */}
                     <div
@@ -1146,7 +1135,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         border: '1px solid rgba(0, 255, 255, 0.3)',
                         borderRadius: '20px',
                         boxShadow: 'inset 0 0 20px rgba(0, 255, 255, 0.1)',
-                        animation: 'edge-pulse 3s ease-in-out infinite',
+                        animation: 'edge-pulse 5s ease-in-out infinite',
                         zIndex: 225
                       }}
                     />
@@ -1155,6 +1144,19 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
 
                 {/* Premium Filter-style Buttons - Desktop */}
                 <div 
+                  ref={(el) => {
+                    if (el) {
+                      // Add mouse wheel horizontal scrolling support
+                      const handleWheel = (e: WheelEvent) => {
+                        if (e.deltaY !== 0) {
+                          e.preventDefault();
+                          el.scrollLeft += e.deltaY;
+                        }
+                      };
+                      el.addEventListener('wheel', handleWheel, { passive: false });
+                      return () => el.removeEventListener('wheel', handleWheel);
+                    }
+                  }}
                   className="mb-6 overflow-x-auto scrollbar-hidden"
                   style={{
                     width: '100%',
@@ -1184,7 +1186,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   className="p-6 rounded-lg overflow-y-auto"
                   style={{
                     background: 'linear-gradient(145deg, rgba(214, 11, 11, 0.8) 0%, rgba(36, 45, 61, 0.8) 100%)',
-                    backdropFilter: 'blur(2px) saturate(380%)',        
+                    backdropFilter: 'blur(2px) saturate(380%)',
                     borderRadius: '20px',
                     padding: '12px',
                     marginTop: '12px'
@@ -1350,8 +1352,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 <div style={{ marginTop: '24px' }}>
                   {/* Cultivar Selector - Hide for Sweet Carolina */}
                   {!isSweetCarolinaPage && (
-                    <div style={{ marginBottom: '20px' }}>
-                      {isAlturasPage ? (
+                  <div style={{ marginBottom: '20px' }}>
+                    {isAlturasPage ? (
                       /* Alturas-specific selector */
                       <div
                         style={{
@@ -1380,35 +1382,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           }}>
                             Compare Alturas
                           </h3>
-                        </div>
-                        
-                        {/* Fixed Alturas + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(34, 197, 94, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(34, 197, 94, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Alturas (Locked)
-                          </button>
                         </div>
                         
                         {/* Comparison Selection */}
@@ -1499,35 +1472,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           </h3>
                         </div>
                         
-                        {/* Fixed Adelanto + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(227, 119, 23, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #ea580c 0%, #dc2626 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(234, 88, 12, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Adelanto (Locked)
-                          </button>
-                        </div>
-                        
                         {/* Comparison Selection */}
                         <div>
                           <div style={{ 
@@ -1614,35 +1558,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           }}>
                             Compare Alhambra
                           </h3>
-                        </div>
-                        
-                        {/* Fixed Alhambra + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(168, 85, 247, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(168, 85, 247, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Alhambra (Locked)
-                          </button>
                         </div>
                         
                         {/* Comparison Selection */}
@@ -1733,35 +1648,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           </h3>
                         </div>
                         
-                        {/* Fixed Artesia + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(34, 197, 94, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(34, 197, 94, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Artesia (Locked)
-                          </button>
-                        </div>
-                        
                         {/* Comparison Selection */}
                         <div>
                           <div style={{ 
@@ -1848,35 +1734,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           }}>
                             Compare Belvedere
                           </h3>
-                        </div>
-                        
-                        {/* Fixed Belvedere + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(168, 85, 247, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(168, 85, 247, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Belvedere (Locked)
-                          </button>
                         </div>
                         
                         {/* Comparison Selection */}
@@ -1967,35 +1824,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           </h3>
                         </div>
                         
-                        {/* Fixed Castaic + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(168, 85, 247, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(168, 85, 247, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Castaic (Locked)
-                          </button>
-                        </div>
-                        
                         {/* Comparison Selection */}
                         <div>
                           <div style={{ 
@@ -2082,35 +1910,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           }}>
                             Compare Carpinteria
                           </h3>
-                        </div>
-                        
-                        {/* Fixed Carpinteria + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(168, 85, 247, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(168, 85, 247, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Carpinteria (Locked)
-                          </button>
                         </div>
                         
                         {/* Comparison Selection */}
@@ -2201,35 +2000,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           </h3>
                         </div>
                         
-                        {/* Fixed Brisbane + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(168, 85, 247, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(168, 85, 247, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Brisbane (Locked)
-                          </button>
-                        </div>
-                        
                         {/* Comparison Selection */}
                         <div>
                           <div style={{ 
@@ -2318,35 +2088,6 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                           </h3>
                         </div>
                         
-                        {/* Fixed Sweet Carolina + Comparison Selection */}
-                        <div style={{ marginBottom: '16px' }}>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Primary Cultivar (Fixed)
-                          </div>
-                          <button
-                            style={{
-                              padding: '12px 16px',
-                              fontSize: '14px',
-                              fontWeight: '600',
-                              borderRadius: '8px',
-                              border: '1px solid rgba(34, 197, 94, 0.5)',
-                              cursor: 'default',
-                              fontFamily: 'var(--font-body, system-ui)',
-                              background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-                              color: '#ffffff',
-                              boxShadow: '0 2px 8px rgba(34, 197, 94, 0.3)',
-                              opacity: '0.8'
-                            }}
-                          >
-                            Sweet Carolina (Locked)
-                          </button>
-                        </div>
-                        
                         {/* Comparison Selection */}
                         <div>
                           <div style={{ 
@@ -2413,24 +2154,24 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         onComparisonChange={setComparisonCultivar}
                       />
                     )}
-                    </div>
+                  </div>
                   )}
                   
                   {/* Chart Component - Hide for Sweet Carolina */}
                   {!isSweetCarolinaPage && (
                     <>
-                      <CultivarChart 
-                        cultivarId={selectedCultivar}
-                        comparisonCultivarId={comparisonCultivar}
-                        height={400}
-                      />
-                      
-                      {/* Spider Chart */}
-                      <SpiderChart 
-                        cultivarId={selectedCultivar}
-                        comparisonCultivarId={comparisonCultivar}
-                        height={350}
-                      />
+                  <CultivarChart 
+                    cultivarId={selectedCultivar}
+                    comparisonCultivarId={comparisonCultivar}
+                    height={400}
+                  />
+                  
+                  {/* Spider Chart */}
+                  <SpiderChart 
+                    cultivarId={selectedCultivar}
+                    comparisonCultivarId={comparisonCultivar}
+                    height={350}
+                  />
                     </>
                   )}
                 </div>

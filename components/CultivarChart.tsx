@@ -179,6 +179,19 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
     >
       {/* Metric Selector Buttons */}
       <div
+        ref={(el) => {
+          if (el) {
+            // Add mouse wheel horizontal scrolling support
+            const handleWheel = (e: WheelEvent) => {
+              if (e.deltaY !== 0) {
+                e.preventDefault();
+                el.scrollLeft += e.deltaY;
+              }
+            };
+            el.addEventListener('wheel', handleWheel, { passive: false });
+            return () => el.removeEventListener('wheel', handleWheel);
+          }
+        }}
         style={{
           overflowX: 'auto',
           WebkitOverflowScrolling: 'touch',

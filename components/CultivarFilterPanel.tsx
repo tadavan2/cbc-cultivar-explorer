@@ -52,7 +52,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
     });
   };
 
-  const getAttributeIcon = (attribute: string) => {
+  const getAttributeIcon = (_attribute: string) => {
     // Icons removed for cleaner UI
     return '';
   };

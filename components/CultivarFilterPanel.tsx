@@ -52,7 +52,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
     });
   };
 
-  const getAttributeIcon = (_attribute: string) => {
+  const getAttributeIcon = () => {
     // Icons removed for cleaner UI
     return '';
   };
@@ -130,7 +130,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
             category: category as keyof FilterState,
             value: attribute,
             label: attribute.charAt(0).toUpperCase() + attribute.slice(1),
-            icon: getAttributeIcon(attribute),
+            icon: getAttributeIcon(),
             isActive: filters.attributes.includes(attribute) || filters.attribute2.includes(attribute),
             isAvailable: isAvailable
           };
@@ -144,7 +144,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
           category: 'marketType' as keyof FilterState,
           value: marketType,
           label: marketType.charAt(0).toUpperCase() + marketType.slice(1),
-          icon: getAttributeIcon(marketType),
+          icon: getAttributeIcon(),
           isActive: filters.marketType.includes(marketType),
           isAvailable: availableOptions.marketTypes.includes(marketType)
         }))
@@ -164,7 +164,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
             category: category as keyof FilterState,
             value: trait,
             label: trait.charAt(0).toUpperCase() + trait.slice(1),
-            icon: getAttributeIcon(trait),
+            icon: getAttributeIcon(),
             isActive: filters[category].includes(trait),
             isAvailable: isInAttributes ? availableOptions.attributes.includes(trait) : availableOptions.attribute2.includes(trait)
           };

@@ -6,9 +6,8 @@ interface TopNavProps {
 export default function TopNav({ isMobile = false, isLandscape = false }: TopNavProps) {
   return (
     <nav className={`sticky top-0 z-50 ${isMobile ? (isLandscape ? 'h-12' : 'h-16') : 'h-16'}`} style={{ 
-      background: 'rgba(17, 24, 39, 0.3)', 
-      backdropFilter: 'blur(20px) saturate(190%)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+      background: 'rgba(251, 239, 239)', 
+      borderBottom: '4px solid rgba(192, 21, 21, 0.6)'
     }}>
       <div className={`flex items-center justify-between h-full ${isMobile ? 'px-4' : 'px-12'}`}>
         <div className="flex items-center space-x-4">
@@ -33,7 +32,7 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
               height={isMobile ? "16" : "20"} 
               viewBox="0 0 24 24" 
               fill="none" 
-              stroke="rgba(255, 255, 255, 0.9)" 
+              stroke="rgba(0, 0, 0, 0.9)" 
               strokeWidth="2" 
               strokeLinecap="round" 
               strokeLinejoin="round"

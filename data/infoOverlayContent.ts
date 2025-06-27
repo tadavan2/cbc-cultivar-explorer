@@ -412,22 +412,22 @@ const attributeButtonMap: { [key: string]: Omit<ButtonConfig, 'id'> } = {
     label: 'DAY-NEUTRAL'
   },
   'short-day': {
-    className: 'premium-button-glass',
+    className: 'premium-button-orange-glass',
     icon: '🌙',
     label: 'SHORT-DAY'
   },
   'fusarium resistant': {
-    className: 'premium-button-blue-glass',
+    className: 'premium-button-glass',
     icon: '🛡️',
     label: 'FUSARIUM RESISTANT'
   },
   'macrophomina resistant': {
-    className: 'premium-button-blue-glass',
+    className: 'premium-button-glass',
     icon: '🛡️',
     label: 'MACROPHOMINA RESISTANT'
   },
   'high yields': {
-    className: 'premium-button-pink-glass',
+    className: 'premium-button-glass',
     icon: '📈',
     label: 'HIGH YIELDS'
   },
@@ -437,17 +437,17 @@ const attributeButtonMap: { [key: string]: Omit<ButtonConfig, 'id'> } = {
     label: 'EXCELLENT FLAVOR'
   },
   'premium quality': {
-    className: 'premium-button-blue-glass',
+    className: 'premium-button-gold-glass',
     icon: '💎',
     label: 'PREMIUM QUALITY'
   },
   'ultra early': {
-    className: 'premium-button-glass',
+    className: 'premium-button-orange-glass',
     icon: '🌅',
     label: 'ULTRA EARLY'
   },
   'organic': {
-    className: 'premium-button-glass',
+    className: 'premium-button-green-glass',
     icon: '🌿',
     label: 'ORGANIC'
   },
@@ -457,7 +457,7 @@ const attributeButtonMap: { [key: string]: Omit<ButtonConfig, 'id'> } = {
     label: 'COLD TOLERANT'
   },
   'rugged': {
-    className: 'premium-button-blue-glass',
+    className: 'premium-button-glass',
     icon: '💪',
     label: 'RUGGED'
   }

@@ -116,7 +116,7 @@ html::-webkit-scrollbar {
 /* Enhanced Cultivar Card Glass Styles */
 .cultivar-card-glass {
   width: 150px;
-  height: 150px;
+  height: 54px;
   background: linear-gradient(145deg, 
     rgba(26, 35, 50, 0.4) 0%, 
     rgba(36, 45, 61, 0.5) 50%,
@@ -162,16 +162,14 @@ html::-webkit-scrollbar {
 }
 
 .cultivar-card-glass.selected-glass {
-  border-color: rgba(0, 255, 136, 0.6);
-  background: linear-gradient(145deg, 
-    rgba(0, 255, 136, 0.15) 0%, 
-    rgba(0, 212, 170, 0.2) 50%,
-    rgba(0, 255, 136, 0.15) 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   box-shadow: 
-    0 16px 48px rgba(0, 255, 136, 0.3),
+    0 16px 48px rgba(255, 255, 255, 0.3),
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(0, 255, 136, 0.2);
+    0 0 0 2px rgba(255, 255, 255, 0.2);
   transform: translateY(-6px) scale(1.08);
 }
 
@@ -307,16 +305,16 @@ html::-webkit-scrollbar {
 
 /* Large premium heading gradient text */
 .premium-heading {
-  background: linear-gradient(135deg, #86efac 0%, #f472b6 100%);
+  background: linear-gradient(135deg, #000000 0%, #cf4e27 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 900;
   letter-spacing: 0.05em;
   /* Fallback for browsers that don't support background-clip */
-  color: #86efac;
-  /* Agricultural strawberry gradient - bright yellows and greens */
-  background-image: linear-gradient(135deg, #22c55e 0%, #65a30d 20%, #eab308 40%, #f59e0b 60%, #eddf1f 80%, #e1ff00 100%);
+  color: #000000;
+  /* Black to red gradient */
+  background-image: linear-gradient(135deg, #000000 0%, #e33d3d 100%);
   font-family: var(--font-header); /* Use Futura for headers */
 }
 
@@ -874,7 +872,7 @@ html::-webkit-scrollbar {
 }
 
 .h-25 {
-  height: 150px;
+  height: 45px;
 }
 
 .w-18 {
@@ -911,10 +909,10 @@ html::-webkit-scrollbar {
   
   /* Cool hexagonal/pill shape */
   background: linear-gradient(135deg, 
-    rgba(26, 35, 50, 0.95) 0%,
-    rgba(0, 255, 136, 0.1) 30%,
-    rgba(0, 212, 170, 0.15) 70%,
-    rgba(36, 45, 61, 0.95) 100%
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.9) 30%,
+    rgba(0, 0, 0, 0.9) 70%,
+    rgba(0, 0, 0, 0.95) 100%
   );
   
   /* Glass morphism */
@@ -956,10 +954,10 @@ html::-webkit-scrollbar {
   transform: scale(1.05);
   border-color: rgba(0, 255, 136, 0.5);
   background: linear-gradient(135deg, 
-    rgba(36, 45, 61, 0.95) 0%,
-    rgba(0, 255, 136, 0.15) 30%,
-    rgba(0, 212, 170, 0.2) 70%,
-    rgba(46, 55, 71, 0.95) 100%
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.9) 30%,
+    rgba(0, 0, 0, 0.9) 70%,
+    rgba(0, 0, 0, 0.95) 100%
   );
   box-shadow: 
     0 12px 40px rgba(0, 0, 0, 0.5),
@@ -1036,7 +1034,7 @@ html::-webkit-scrollbar {
   
   .cultivar-card-glass {
     width: 135px;
-    height: 135px;
+    height: 55px;
   }
 }
 
@@ -1048,7 +1046,7 @@ html::-webkit-scrollbar {
   
   .cultivar-card-glass {
     width: 120px;
-    height: 120px;
+    height: 54px;
   }
   
   .cultivar-bottom-panel {
@@ -1090,7 +1088,7 @@ html::-webkit-scrollbar {
 @media (max-width: 480px) {
   .cultivar-card-glass {
     width: 105px;
-    height: 105px;
+    height: 45px;
   }
   
   .modern-card {
@@ -1272,15 +1270,15 @@ html::-webkit-scrollbar {
   min-width: 150px;
   max-width: 90vw;
   height: calc(100vh - 64px); /* Subtract header height */
-  background: transparent;
-  backdrop-filter: blur(10px) saturate(180%);
+  background: rgba(255, 255, 255, 0.8);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 40;
+  z-index: 55; /* Higher than TopNav (z-50) to ensure filter drawer shows above banner */
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: translateX(100%);
   overflow-y: auto;
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: visible; /* Allow button hover effects to extend horizontally */
   box-sizing: border-box; /* Include border in width calculation */
+  padding: 0 15px 0 0; /* Extra padding on right for hover effects */
 }
 
 .filter-drawer-pushed-up {
@@ -1293,7 +1291,7 @@ html::-webkit-scrollbar {
 
 .filter-drawer-content {
   height: 100%;
-  overflow-y: auto;
+  overflow: visible; /* Allow button hover effects to extend beyond content area */
 }
 
 /* Cultivar Drawer Styles */
@@ -1428,8 +1426,15 @@ html::-webkit-scrollbar {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Portrait Orientation Adjustments */
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  .cultivar-drawer {
+    height: 140px; /* Taller drawer for portrait to accommodate shorter cards */
+  }
+}
+
 /* Landscape Orientation Adjustments */
-@media screen and (orientation: landscape) and (max-width: 768px) {
+@media screen and (orientation: landscape) and (max-width: 875px) {
   .mobile-header-landscape {
     height: 40px;
   }
@@ -1452,7 +1457,11 @@ html::-webkit-scrollbar {
   
   .cultivar-card-mobile {
     width: 80px;
-    height: 80px;
+    height: 68px; /* 15% smaller than 80px for landscape mobile */
+  }
+  
+  .h-25 {
+    height: 46px; /* 15% smaller than 54px for landscape mobile */
   }
 }
 
@@ -1957,20 +1966,20 @@ html::-webkit-scrollbar {
 
 /* Premium button with cultivar-card-glass effects - Green */
 .premium-button-glass {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  background: linear-gradient(135deg, 
+    rgba(255, 235, 59, 0.9) 0%, 
+    rgba(255, 213, 79, 0.8) 50%, 
+    rgba(255, 193, 7, 0.9) 100%);
   backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 235, 59, 0.3);
   border-radius: 16px;
   margin-right: 6px;
-  color: #ffffff;
+  color: rgba(0, 0, 0, 0.8);
   font-weight: 700;
   padding: 16px 16px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+  text-shadow: none;
   position: relative;
   overflow: hidden;
   font-size: 14px;
@@ -1998,41 +2007,33 @@ html::-webkit-scrollbar {
 }
 
 .premium-button-glass:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(34, 197, 94, 0.3);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(34, 197, 94, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(34, 197, 94, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(255, 235, 59, 0.5);
+  box-shadow: none;
 }
 
 .premium-button-glass.selected-glass {
-  border-color: rgba(34, 197, 94, 0.6);
-  box-shadow: 
-    0 16px 48px rgba(34, 197, 94, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(34, 197, 94, 0.2);
-  transform: translateY(-6px) scale(1.08);
+  border-color: rgba(255, 235, 59, 0.8);
+  box-shadow: none;
+  transform: translateY(-2px);
 }
 
 /* Pink gradient button with cultivar-card-glass effects */
 .premium-button-pink-glass {
-  background: linear-gradient(135deg, #ec4899 40%, #db2777 60%, #be185d 80%);
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.9) 0%, 
+    rgba(220, 38, 38, 0.8) 50%, 
+    rgba(185, 28, 28, 0.9) 100%);
   backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 16px;
   margin-right: 6px;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 700;
   padding: 16px 32px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+  text-shadow: none;
   position: relative;
   overflow: hidden;
   font-size: 14px;
@@ -2059,43 +2060,32 @@ html::-webkit-scrollbar {
 }
 
 .premium-button-pink-glass:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(236, 72, 153, 0.3);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(236, 72, 153, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(236, 72, 153, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: none;
 }
 
 .premium-button-pink-glass.selected-glass {
-  border-color: rgba(236, 72, 153, 0.6);
-  box-shadow: 
-    0 16px 48px rgba(236, 72, 153, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(236, 72, 153, 0.2);
-  transform: translateY(-6px) scale(1.08);
+  border-color: rgba(239, 68, 68, 0.8);
+  box-shadow: none;
+  transform: translateY(-2px);
 }
 
 /* Blue gradient button with cultivar-card-glass effects */
 .premium-button-blue-glass {
   background: linear-gradient(135deg, 
-    rgba(56, 118, 232, 0.9) 0%, 
-    rgba(68, 140, 255, 0.8) 50%, 
-    rgba(96, 165, 250, 0.9) 100%);
+    rgba(14, 165, 233, 0.9) 0%, 
+    rgba(6, 182, 212, 0.8) 50%, 
+    rgba(8, 145, 178, 0.9) 100%);
   backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.3);
   border-radius: 16px;
   padding: 6px 16px;
   margin-right: 6px;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+  text-shadow: none;
+  box-shadow: none;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
@@ -2123,23 +2113,175 @@ html::-webkit-scrollbar {
 }
 
 .premium-button-blue-glass:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(56, 118, 232, 0.3);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(56, 118, 232, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(56, 118, 232, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(14, 165, 233, 0.5);
+  box-shadow: none;
 }
 
 .premium-button-blue-glass.selected-glass {
-  border-color: rgba(56, 118, 232, 0.6);
-  box-shadow: 
-    0 16px 48px rgba(56, 118, 232, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(56, 118, 232, 0.2);
-  transform: translateY(-6px) scale(1.08);
+  border-color: rgba(14, 165, 233, 0.8);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+/* Premium Quality gradient button with golden theme */
+.premium-button-gold-glass {
+  background: linear-gradient(135deg, 
+    rgba(253, 224, 71, 0.9) 0%, 
+    rgba(250, 204, 21, 0.8) 30%, 
+    rgba(245, 158, 11, 0.9) 70%, 
+    rgba(217, 119, 6, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(253, 224, 71, 0.3);
+  border-radius: 16px;
+  padding: 6px 16px;
+  margin-right: 6px;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  text-shadow: none;
+  box-shadow: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.premium-button-gold-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.premium-button-gold-glass:hover::before {
+  left: 100%;
+}
+
+.premium-button-gold-glass:hover {
+  transform: translateY(-2px);
+  border-color: rgba(253, 224, 71, 0.5);
+  box-shadow: none;
+}
+
+.premium-button-gold-glass.selected-glass {
+  border-color: rgba(253, 224, 71, 0.8);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+/* Organic green button with green theme */
+.premium-button-green-glass {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.9) 0%, 
+    rgba(16, 185, 129, 0.8) 50%, 
+    rgba(5, 150, 105, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 16px;
+  padding: 6px 16px;
+  margin-right: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-shadow: none;
+  box-shadow: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.premium-button-green-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.premium-button-green-glass:hover::before {
+  left: 100%;
+}
+
+.premium-button-green-glass:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: none;
+}
+
+.premium-button-green-glass.selected-glass {
+  border-color: rgba(34, 197, 94, 0.8);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+/* Short-Day orange button with orange theme */
+.premium-button-orange-glass {
+  background: linear-gradient(135deg, 
+    rgba(255, 102, 0, 0.9) 0%, 
+    rgba(255, 69, 0, 0.8) 50%, 
+    rgba(255, 140, 0, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  border-radius: 16px;
+  padding: 6px 16px;
+  margin-right: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-shadow: none;
+  box-shadow: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.premium-button-orange-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.premium-button-orange-glass:hover::before {
+  left: 100%;
+}
+
+.premium-button-orange-glass:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 102, 0, 0.5);
+  box-shadow: none;
+}
+
+.premium-button-orange-glass.selected-glass {
+  border-color: rgba(255, 102, 0, 0.8);
+  box-shadow: none;
+  transform: translateY(-2px);
 }
 
 /* Info Overlay System - Enhanced with Strawberry Theme */

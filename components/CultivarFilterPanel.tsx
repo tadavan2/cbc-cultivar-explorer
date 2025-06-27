@@ -6,6 +6,34 @@ interface CultivarFilterPanelProps {
   onFiltersChange: (filters: FilterState) => void;
 }
 
+// Helper function to determine filter button theme class based on trait type
+const getFilterThemeClass = (value: string, category: string): string => {
+  // Flower Type color mapping
+  if (category === 'flowerType') {
+    if (value === 'DN') return 'filter-theme-day-neutral'; // Day-Neutral = Yellow
+    if (value === 'SD') return 'filter-theme-short-day'; // Short-Day = Orange
+  }
+  
+  // Planting Season color mapping
+  if (value === 'fall plant') return 'filter-theme-fall-plant'; // Burnt orange/fall colors
+  if (value === 'summer plant') return 'filter-theme-day-neutral'; // Same yellow as day-neutral
+  if (value === 'eastern fall plant') return 'filter-theme-cold-tolerant'; // Same icy blue as Sweet Carolina
+  
+  // Trait color mapping
+  if (value === 'organic') return 'filter-theme-organic'; // Green
+  if (value === 'cold tolerant') return 'filter-theme-cold-tolerant'; // Icy Blue
+  if (value === 'excellent flavor') return 'filter-theme-excellent-flavor'; // Red
+  if (value === 'high yields') return 'filter-theme-day-neutral'; // Same yellow
+  if (value === 'ultra early') return 'filter-theme-short-day'; // Same orange
+  if (value === 'premium quality') return 'filter-theme-premium-quality'; // Special golden/sparkly
+  
+  // Disease resistance - use yellow theme
+  if (value.includes('resistant')) return 'filter-theme-day-neutral';
+  
+  // Default to glass for everything else
+  return 'filter-button-glass';
+};
+
 export default function CultivarFilterPanel({ filters, onFiltersChange }: CultivarFilterPanelProps) {
   const toggleFilter = (category: keyof FilterState, value: string) => {
     // Special handling for disease resistance that might be in either category
@@ -55,6 +83,12 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
   const getAttributeIcon = () => {
     // Icons removed for cleaner UI
     return '';
+  };
+
+  const getAttributeLabel = (attribute: string): string => {
+    if (attribute === 'fusarium resistant') return 'Fusarium';
+    if (attribute === 'macrophomina resistant') return 'Macrophomina';
+    return attribute.charAt(0).toUpperCase() + attribute.slice(1);
   };
 
   // Dynamic filtering: Get available options based on current selections
@@ -129,7 +163,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
           return {
             category: category as keyof FilterState,
             value: attribute,
-            label: attribute.charAt(0).toUpperCase() + attribute.slice(1),
+            label: getAttributeLabel(attribute),
             icon: getAttributeIcon(),
             isActive: filters.attributes.includes(attribute) || filters.attribute2.includes(attribute),
             isAvailable: isAvailable
@@ -173,7 +207,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
   ].filter(group => group.items.length > 0); // Only show groups that have items
 
   return (
-    <div className="h-full flex flex-col" style={{padding: '1px'}}>
+    <div className="h-full flex flex-col" style={{padding: '1px', background: 'rgba(255, 255, 255, 0.9)'}}>
       
       {/* Clear All Button - At Top with separation */}
       {activeFilterCount > 0 && (
@@ -192,7 +226,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
                 boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 fontFamily: 'var(--font-body)',
-                marginTop: '8px',
+                marginTop: '16px',
                 marginBottom: '8px'
               }}
             >
@@ -204,14 +238,14 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
       
       {/* Filter Groups - Full height with top padding */}
       <div className="flex-1 overflow-y-auto scrollbar-hidden" style={{paddingTop: '16px', paddingLeft: '6px', paddingRight: '6px'}}>
-        <div className="flex flex-col">
+        <div className="flex flex-col" style={{paddingBottom: '20px'}}>
           {filterGroups.map((group, groupIndex) => (
-            <div key={group.title} className="mb-6">
+            <div key={group.title} className="mb-6" style={{overflow: 'visible'}}>
               {/* Group Header */}
               <div style={{
                 fontSize: '12px',
                 fontWeight: '600',
-                color: '#9CA3AF',
+                color: '#000000',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
                 marginBottom: '8px',
@@ -222,20 +256,21 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
               </div>
               
               {/* Group Items */}
-              <div className="flex flex-col space-y-1 mb-4">
+              <div className="flex flex-col mb-4" style={{gap: '6px', overflow: 'visible', paddingTop: '4px', paddingBottom: '4px'}}>
                 {group.items.map((option) => (
                   <button
                     key={`${option.category}-${option.value}`}
                     onClick={() => toggleFilter(option.category, option.value)}
                     disabled={!option.isAvailable && !option.isActive}
                     className={`
-                      w-full filter-button-glass text-left transition-all duration-300 whitespace-nowrap
-                      ${option.isActive ? 'active-glass' : ''}
+                      w-full ${getFilterThemeClass(option.value, option.category)} text-left transition-all duration-300 whitespace-nowrap
+                      ${option.isActive ? 'selected-glass' : ''}
                       ${!option.isAvailable && !option.isActive ? 'opacity-40 cursor-not-allowed' : ''}
                     `}
+                    style={{zIndex: 10, position: 'relative'}}
                   >
                     <div className="flex items-center space-x-4">
-                      <span className="text-sm font-semibold flex-1 glass-text">{option.label}</span>
+                      <span className="text-sm font-semibold flex-1 text-gray-900">{option.label}</span>
                       {option.isActive && (
                         <span className="w-3 h-3 bg-green-400 rounded-full pulse-glow-glass shadow-lg"></span>
                       )}

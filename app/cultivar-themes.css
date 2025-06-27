@@ -1,0 +1,809 @@
+/* Cultivar Color Themes by Market Groups and Traits
+ * This file contains specialized color schemes for different cultivar cards
+ * based on their market positioning and key characteristics.
+ */
+
+/* Day-Neutral Market Group (Marathon Season: March-November)
+ * Yellow-ish gradient theme representing all-season summer growing
+ * Cultivars: Alturas, Alhambra, Brisbane, Carpinteria
+ */
+.cultivar-theme-day-neutral {
+  background: linear-gradient(135deg, 
+    rgba(255, 235, 59, 0.9) 0%, 
+    rgba(255, 213, 79, 0.8) 50%, 
+    rgba(255, 193, 7, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-day-neutral::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-day-neutral:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-day-neutral:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(255, 235, 59, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(255, 235, 59, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 235, 59, 0.1);
+}
+
+.cultivar-theme-day-neutral.selected-glass {
+  border-color: rgba(255, 235, 59, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(255, 235, 59, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(255, 235, 59, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Short-Day Market Group (Sprint Season: Winter/Spring Supply)
+ * Bold orange gradient theme representing fast-paced early yield market
+ * Cultivars: Adelanto, Belvedere, Castaic
+ */
+.cultivar-theme-short-day {
+  background: linear-gradient(135deg, 
+    rgba(255, 102, 0, 0.95) 0%, 
+    rgba(255, 69, 0, 0.9) 50%, 
+    rgba(255, 140, 0, 0.95) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-short-day::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-short-day:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-short-day:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(255, 102, 0, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(255, 102, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 102, 0, 0.1);
+}
+
+.cultivar-theme-short-day.selected-glass {
+  border-color: rgba(255, 102, 0, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(255, 102, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(255, 102, 0, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Organic Variety (Artesia Only)
+ * Green gradient theme representing organic/sustainable growing
+ * Cultivar: Artesia
+ */
+.cultivar-theme-organic {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.9) 0%, 
+    rgba(16, 185, 129, 0.8) 50%, 
+    rgba(5, 150, 105, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-organic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-organic:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-organic:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(34, 197, 94, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(34, 197, 94, 0.1);
+}
+
+.cultivar-theme-organic.selected-glass {
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(34, 197, 94, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(34, 197, 94, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Cold Tolerant Variety (Sweet Carolina Only)
+ * Cool blue/teal gradient theme representing cold tolerance
+ * Cultivar: Sweet Carolina
+ */
+.cultivar-theme-cold-tolerant {
+  background: linear-gradient(135deg, 
+    rgba(14, 165, 233, 0.9) 0%, 
+    rgba(6, 182, 212, 0.8) 50%, 
+    rgba(8, 145, 178, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-cold-tolerant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-cold-tolerant:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-cold-tolerant:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(14, 165, 233, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(14, 165, 233, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(14, 165, 233, 0.1);
+}
+
+.cultivar-theme-cold-tolerant.selected-glass {
+  border-color: rgba(14, 165, 233, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(14, 165, 233, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(14, 165, 233, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Image Container Improvements for Cultivar Icons */
+.cultivar-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 8px;
+}
+
+.cultivar-icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: 130px;
+  max-height: 50px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Home/Debug Card Theme - White/Light styling */
+.cultivar-theme-home {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(248, 250, 252, 0.8) 50%, 
+    rgba(255, 255, 255, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.cultivar-theme-home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-home:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-home:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.cultivar-theme-home.selected-glass {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.9);
+  box-shadow: 
+    0 16px 48px rgba(255, 255, 255, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(255, 255, 255, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Filter Button Height Adjustments - Make them shorter/more rectangular */
+.cultivar-theme-day-neutral.w-full,
+.cultivar-theme-short-day.w-full,
+.cultivar-theme-organic.w-full,
+.cultivar-theme-cold-tolerant.w-full,
+.cultivar-theme-fall-plant.w-full,
+.cultivar-theme-excellent-flavor.w-full,
+.cultivar-theme-premium-quality.w-full {
+  padding: 8px 16px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Fall Plant Theme - Burnt orange/fall colors */
+.cultivar-theme-fall-plant {
+  background: linear-gradient(135deg, 
+    rgba(251, 146, 60, 0.9) 0%, 
+    rgba(234, 88, 12, 0.8) 50%, 
+    rgba(194, 65, 12, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-fall-plant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-fall-plant:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-fall-plant:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(251, 146, 60, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(251, 146, 60, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(251, 146, 60, 0.1);
+}
+
+.cultivar-theme-fall-plant.selected-glass {
+  border-color: rgba(251, 146, 60, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(251, 146, 60, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(251, 146, 60, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Excellent Flavor Theme - Rich red gradient */
+.cultivar-theme-excellent-flavor {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.9) 0%, 
+    rgba(220, 38, 38, 0.8) 50%, 
+    rgba(185, 28, 28, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-excellent-flavor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.cultivar-theme-excellent-flavor:hover::before {
+  left: 100%;
+}
+
+.cultivar-theme-excellent-flavor:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(239, 68, 68, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(239, 68, 68, 0.1);
+}
+
+.cultivar-theme-excellent-flavor.selected-glass {
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(239, 68, 68, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(239, 68, 68, 0.2);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Premium Quality Theme - Special golden/sparkly gradient */
+.cultivar-theme-premium-quality {
+  background: linear-gradient(135deg, 
+    rgba(253, 224, 71, 0.95) 0%, 
+    rgba(250, 204, 21, 0.9) 30%, 
+    rgba(245, 158, 11, 0.95) 70%, 
+    rgba(217, 119, 6, 0.9) 100%);
+  backdrop-filter: blur(2px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 20px rgba(245, 158, 11, 0.3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cultivar-theme-premium-quality::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    transparent 70%);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.cultivar-theme-premium-quality:hover::before {
+  animation-duration: 1.5s;
+}
+
+.cultivar-theme-premium-quality:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(253, 224, 71, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(245, 158, 11, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 1px rgba(245, 158, 11, 0.1),
+    0 0 30px rgba(245, 158, 11, 0.5);
+}
+
+.cultivar-theme-premium-quality.selected-glass {
+  border-color: rgba(253, 224, 71, 0.6);
+  box-shadow: 
+    0 16px 48px rgba(245, 158, 11, 0.4),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 2px rgba(245, 158, 11, 0.2),
+    0 0 40px rgba(245, 158, 11, 0.6);
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Filter Button Theme Classes - Simplified versions without heavy shadows */
+
+/* Filter Day-Neutral Theme - Simplified for buttons */
+.filter-theme-day-neutral {
+  background: linear-gradient(135deg, 
+    rgba(255, 235, 59, 0.8) 0%, 
+    rgba(255, 213, 79, 0.7) 50%, 
+    rgba(255, 193, 7, 0.8) 100%);
+  border: 1px solid rgba(255, 235, 59, 0.3);
+  border-radius: 12px;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-day-neutral:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 235, 59, 0.9) 0%, 
+    rgba(255, 213, 79, 0.8) 50%, 
+    rgba(255, 193, 7, 0.9) 100%);
+  border-color: rgba(255, 235, 59, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 235, 59, 0.2);
+}
+
+.filter-theme-day-neutral.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(255, 235, 59, 1) 0%, 
+    rgba(255, 213, 79, 0.9) 50%, 
+    rgba(255, 193, 7, 1) 100%);
+  border: 3px solid rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(255, 235, 59, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+/* Filter Short-Day Theme - Simplified for buttons */
+.filter-theme-short-day {
+  background: linear-gradient(135deg, 
+    rgba(255, 102, 0, 0.8) 0%, 
+    rgba(255, 69, 0, 0.7) 50%, 
+    rgba(255, 140, 0, 0.8) 100%);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-short-day:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 102, 0, 0.9) 0%, 
+    rgba(255, 69, 0, 0.8) 50%, 
+    rgba(255, 140, 0, 0.9) 100%);
+  border-color: rgba(255, 102, 0, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+}
+
+.filter-theme-short-day.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(255, 102, 0, 1) 0%, 
+    rgba(255, 69, 0, 0.9) 50%, 
+    rgba(255, 140, 0, 1) 100%);
+  border: 3px solid rgba(139, 69, 19, 0.8);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(255, 102, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Filter Organic Theme - Simplified for buttons */
+.filter-theme-organic {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.8) 0%, 
+    rgba(16, 185, 129, 0.7) 50%, 
+    rgba(5, 150, 105, 0.8) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-organic:hover {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.9) 0%, 
+    rgba(16, 185, 129, 0.8) 50%, 
+    rgba(5, 150, 105, 0.9) 100%);
+  border-color: rgba(34, 197, 94, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+.filter-theme-organic.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 1) 0%, 
+    rgba(16, 185, 129, 0.9) 50%, 
+    rgba(5, 150, 105, 1) 100%);
+  border: 3px solid rgba(0, 100, 0, 0.8);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(34, 197, 94, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Filter Cold Tolerant Theme - Simplified for buttons */
+.filter-theme-cold-tolerant {
+  background: linear-gradient(135deg, 
+    rgba(14, 165, 233, 0.8) 0%, 
+    rgba(6, 182, 212, 0.7) 50%, 
+    rgba(8, 145, 178, 0.8) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-cold-tolerant:hover {
+  background: linear-gradient(135deg, 
+    rgba(14, 165, 233, 0.9) 0%, 
+    rgba(6, 182, 212, 0.8) 50%, 
+    rgba(8, 145, 178, 0.9) 100%);
+  border-color: rgba(14, 165, 233, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+}
+
+.filter-theme-cold-tolerant.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(14, 165, 233, 1) 0%, 
+    rgba(6, 182, 212, 0.9) 50%, 
+    rgba(8, 145, 178, 1) 100%);
+  border: 3px solid rgba(0, 0, 139, 0.8);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(14, 165, 233, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Filter Fall Plant Theme - Simplified for buttons */
+.filter-theme-fall-plant {
+  background: linear-gradient(135deg, 
+    rgba(251, 146, 60, 0.8) 0%, 
+    rgba(234, 88, 12, 0.7) 50%, 
+    rgba(194, 65, 12, 0.8) 100%);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-fall-plant:hover {
+  background: linear-gradient(135deg, 
+    rgba(251, 146, 60, 0.9) 0%, 
+    rgba(234, 88, 12, 0.8) 50%, 
+    rgba(194, 65, 12, 0.9) 100%);
+  border-color: rgba(251, 146, 60, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
+}
+
+.filter-theme-fall-plant.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(251, 146, 60, 1) 0%, 
+    rgba(234, 88, 12, 0.9) 50%, 
+    rgba(194, 65, 12, 1) 100%);
+  border: 3px solid rgba(139, 69, 19, 0.8);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(251, 146, 60, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Filter Excellent Flavor Theme - Simplified for buttons */
+.filter-theme-excellent-flavor {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.8) 0%, 
+    rgba(220, 38, 38, 0.7) 50%, 
+    rgba(185, 28, 28, 0.8) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-excellent-flavor:hover {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.9) 0%, 
+    rgba(220, 38, 38, 0.8) 50%, 
+    rgba(185, 28, 28, 0.9) 100%);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.filter-theme-excellent-flavor.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 1) 0%, 
+    rgba(220, 38, 38, 0.9) 50%, 
+    rgba(185, 28, 28, 1) 100%);
+  border: 3px solid rgba(139, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(239, 68, 68, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Filter Premium Quality Theme - Simplified for buttons */
+.filter-theme-premium-quality {
+  background: linear-gradient(135deg, 
+    rgba(253, 224, 71, 0.8) 0%, 
+    rgba(250, 204, 21, 0.7) 30%, 
+    rgba(245, 158, 11, 0.8) 70%, 
+    rgba(217, 119, 6, 0.8) 100%);
+  border: 1px solid rgba(253, 224, 71, 0.3);
+  border-radius: 12px;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-theme-premium-quality:hover {
+  background: linear-gradient(135deg, 
+    rgba(253, 224, 71, 0.9) 0%, 
+    rgba(250, 204, 21, 0.8) 30%, 
+    rgba(245, 158, 11, 0.9) 70%, 
+    rgba(217, 119, 6, 0.9) 100%);
+  border-color: rgba(253, 224, 71, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.filter-theme-premium-quality.selected-glass {
+  background: linear-gradient(135deg, 
+    rgba(253, 224, 71, 1) 0%, 
+    rgba(250, 204, 21, 0.9) 30%, 
+    rgba(245, 158, 11, 1) 70%, 
+    rgba(217, 119, 6, 1) 100%);
+  border: 3px solid rgba(184, 134, 11, 0.8);
+  color: rgba(0, 0, 0, 1);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(245, 158, 11, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+} 

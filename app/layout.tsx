@@ -7,6 +7,7 @@ import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
 import "./globals.css";
+import "./cultivar-themes.css";
 import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({

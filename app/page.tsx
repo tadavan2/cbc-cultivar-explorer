@@ -7,6 +7,38 @@ import TopNav from '../components/TopNav';
 import CultivarDetailCardV2 from '../components/CultivarDetailCardV2';
 import CultivarFilterPanel from '../components/CultivarFilterPanel';
 
+// Helper function to determine cultivar theme class based on market group
+const getCultivarThemeClass = (cultivarId: string): string => {
+  // Day-Neutral Market Group (Marathon Season)
+  const dayNeutralCultivars = ['alturas', 'alhambra', 'brisbane', 'carpinteria'];
+  
+  // Short-Day Market Group (Sprint Season)
+  const shortDayCultivars = ['adelanto', 'belvedere', 'castaic'];
+  
+  // Organic Variety
+  if (cultivarId === 'artesia') {
+    return 'cultivar-theme-organic';
+  }
+  
+  // Cold Tolerant Variety
+  if (cultivarId === 'sweet-carolina') {
+    return 'cultivar-theme-cold-tolerant';
+  }
+  
+  // Day-Neutral varieties
+  if (dayNeutralCultivars.includes(cultivarId)) {
+    return 'cultivar-theme-day-neutral';
+  }
+  
+  // Short-Day varieties
+  if (shortDayCultivars.includes(cultivarId)) {
+    return 'cultivar-theme-short-day';
+  }
+  
+  // Default to regular glass styling for debug and any others
+  return 'cultivar-card-glass';
+};
+
 export default function Home() {
   const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
   const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
@@ -25,8 +57,8 @@ export default function Home() {
   const [isLandscape, setIsLandscape] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
-  // Desktop filter panel dock state - starts docked
-  const [isFilterPanelDocked, setIsFilterPanelDocked] = useState(true);
+  // Desktop filter panel dock state - starts closed for clean entry
+  const [isFilterPanelDocked, setIsFilterPanelDocked] = useState(false);
   const [isDesktopOrWideTablet, setIsDesktopOrWideTablet] = useState(false);
 
   // Debug: Log the current state
@@ -147,7 +179,7 @@ export default function Home() {
           className="mobile-drawer-button"
           style={{
             position: 'fixed',
-            bottom: isCultivarDrawerOpen ? (isLandscape ? '140px' : '114px') : '16px',
+            bottom: isCultivarDrawerOpen ? (isLandscape ? '90px' : '94px') : '16px',
             left: '50%',
             // FIXED: Always use the same transform, never let it be undefined
             transform: 'translateX(-50%)',
@@ -232,14 +264,14 @@ export default function Home() {
           </svg>
         </button>
 
-        <div className="dark-theme h-screen w-screen overflow-hidden flex flex-col">
+        <div className="dark-theme h-screen w-screen overflow-x-hidden overflow-y-auto flex flex-col">
           {/* Mobile Header - Reduced height */}
           <div className={`${isLandscape ? 'mobile-header-landscape' : 'mobile-header-portrait'}`}>
             <TopNav isMobile={true} isLandscape={isLandscape} />
           </div>
 
           {/* Main Content Area - PROPERLY CENTERED */}
-          <div className="flex-1 relative overflow-hidden">
+          <div className="flex-1 relative overflow-x-visible overflow-y-hidden">
             <div className="absolute inset-0">
               <div 
                 className={`w-full ${isLandscape ? 'p-4' : 'p-6'} transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
@@ -303,7 +335,7 @@ export default function Home() {
                         setIsFilterDrawerOpen(false);
                       }}
                       className={`
-                        flex-shrink-0 cultivar-card-mobile cursor-pointer relative
+                        flex-shrink-0 w-25 h-25 ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
                         ${selectedCultivar.id === cultivar.id ? 'selected-glass' : ''}
                       `}
                       style={{
@@ -315,7 +347,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/adelanto_card_icon.png" 
                             alt="Adelanto Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'debug' ? (
@@ -323,7 +355,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/open_card_icon.png" 
                             alt="CBC Cultivar Explorer Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'alhambra' ? (
@@ -331,7 +363,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/alhambra_card_icon.png" 
                             alt="Alhambra Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'alturas' ? (
@@ -339,7 +371,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/alturas_card_icon.png" 
                             alt="Alturas Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'artesia' ? (
@@ -347,7 +379,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/artesia_card_icon.png" 
                             alt="Artesia Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'belvedere' ? (
@@ -355,7 +387,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/belvedere_card_icon.png" 
                             alt="Belvedere Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'brisbane' ? (
@@ -363,7 +395,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/brisbane_card_icon.png" 
                             alt="Brisbane Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'castaic' ? (
@@ -371,7 +403,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/castaic_card_icon.png" 
                             alt="Castaic Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'carpinteria' ? (
@@ -379,7 +411,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/carpinteria_card_icon.png" 
                             alt="Carpinteria Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : cultivar.id === 'sweet-carolina' ? (
@@ -387,7 +419,7 @@ export default function Home() {
                           <img 
                             src="/images/icons/sweetcarolina_card_icon.png" 
                             alt="Sweet Carolina Icon"
-                            className="w-full h-full object-contain max-w-[95px] max-h-[95px] drop-shadow-lg"
+                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
                         </div>
                       ) : (
@@ -433,21 +465,21 @@ export default function Home() {
         <div 
           className="flex flex-col h-full overflow-hidden transition-all duration-500 ease-in-out"
           style={{
-            width: isDesktopOrWideTablet && isFilterPanelDocked ? 'calc(100% - 240px)' : '100%'
+                            width: isDesktopOrWideTablet && isFilterPanelDocked ? 'calc(100% - 154px)' : '100%'
           }}
         >
-          {/* Detail Card Area - 70% height to accommodate larger bottom panel */}
-          <div className="h-[99%] overflow-hidden" style={{padding: '24px 24px 12px 24px'}}>
+          {/* Detail Card Area - More height since bottom panel is smaller */}
+          <div className="h-[85%] overflow-hidden" style={{padding: '24px 24px 12px 24px'}}>
             <div className={`h-full transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
               <CultivarDetailCardV2 cultivar={displayedCultivar} />
             </div>
           </div>
           
-          {/* Bottom Cultivar Cards - 30% height for larger cards - NO TOP PADDING */}
-          <div className="h-[30%] min-h-[200px] bg-gradient-to-r from-gray-900/10 via-gray-800/15 to-gray-900/10 backdrop-blur-sm flex items-center relative">
+          {/* Bottom Cultivar Cards - Reduced height for rectangular cards */}
+          <div className="h-[10%] min-h-[65px] flex items-center relative" style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(10px) saturate(180%)' }}>
             {/* Left scroll indicator - positioned outside the scroll padding */}
             <div 
-              className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
+              className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-100 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
               style={{ left: '8px' }}
               onClick={() => {
                 const container = document.querySelector('.cultivar-scroll-container');
@@ -456,8 +488,8 @@ export default function Home() {
                 }
               }}
             >
-              <div className="w-14 h-14 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-xl hover:bg-black/90">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="3">
+              <div className="w-14 h-14 rounded-full flex items-center justify-center border border-black shadow-xl" style={{ backgroundColor: 'black', opacity: '0.5'}}>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.95)" strokeWidth="3">
                   <path d="M15 18l-6-6 6-6"/>
                 </svg>
               </div>
@@ -465,7 +497,7 @@ export default function Home() {
 
             {/* Right scroll indicator - positioned outside the scroll padding */}
             <div 
-              className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
+              className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-100 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
               style={{ right: '8px' }}
               onClick={() => {
                 const container = document.querySelector('.cultivar-scroll-container');
@@ -474,8 +506,8 @@ export default function Home() {
                 }
               }}
             >
-              <div className="w-14 h-14 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-xl hover:bg-black/90">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="3">
+              <div className="w-14 h-14 rounded-full flex items-center justify-center border border-black shadow-xl" style={{ backgroundColor: 'black', opacity: '0.5' }}>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.95)" strokeWidth="3">
                   <path d="M9 18l6-6-6-6"/>
                 </svg>
               </div>
@@ -512,7 +544,7 @@ export default function Home() {
                     setIsFilterDrawerOpen(false);
                   }}
                   className={`
-                    flex-shrink-0 w-25 h-25 cultivar-card-glass cursor-pointer relative
+                    flex-shrink-0 w-25 h-25 ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
                     ${selectedCultivar.id === cultivar.id ? 'selected-glass' : ''}
                   `}
                   style={{
@@ -525,7 +557,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/adelanto_card_icon.png" 
                         alt="Adelanto Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'debug' ? (
@@ -534,7 +566,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/open_card_icon.png" 
                         alt="CBC Cultivar Explorer Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'alhambra' ? (
@@ -543,7 +575,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/alhambra_card_icon.png" 
                         alt="Alhambra Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'alturas' ? (
@@ -552,7 +584,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/alturas_card_icon.png" 
                         alt="Alturas Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'artesia' ? (
@@ -561,7 +593,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/artesia_card_icon.png" 
                         alt="Artesia Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'belvedere' ? (
@@ -570,7 +602,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/belvedere_card_icon.png" 
                         alt="Belvedere Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'brisbane' ? (
@@ -578,7 +610,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/brisbane_card_icon.png" 
                         alt="Brisbane Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'castaic' ? (
@@ -586,7 +618,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/castaic_card_icon.png" 
                         alt="Castaic Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'carpinteria' ? (
@@ -594,7 +626,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/carpinteria_card_icon.png" 
                         alt="Carpinteria Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : cultivar.id === 'sweet-carolina' ? (
@@ -602,7 +634,7 @@ export default function Home() {
                       <img 
                         src="/images/icons/sweetcarolina_card_icon.png" 
                         alt="Sweet Carolina Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[130px] drop-shadow-lg"
+                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
                     </div>
                   ) : (
@@ -631,11 +663,11 @@ export default function Home() {
           <>
             {/* Filter Panel Container */}
             <div 
-              className="fixed h-[calc(100vh-64px)] bg-gradient-to-b from-gray-900/30 via-gray-800/35 to-gray-900/30 backdrop-blur-sm border-l border-white/20 overflow-hidden transition-all duration-500 ease-in-out z-40"
+              className="fixed h-[calc(100vh-64px)] bg-white/80 border-l border-white/20 overflow-hidden transition-all duration-500 ease-in-out z-40"
               style={{
                 top: '64px',
-                right: isFilterPanelDocked ? '0px' : '-240px',
-                width: '240px'
+                right: isFilterPanelDocked ? '0px' : '-154px',
+                width: '154px'
               }}
             >
               <CultivarFilterPanel 
@@ -648,7 +680,7 @@ export default function Home() {
             <div 
               className="filter-dock-tab"
               style={{
-                right: isFilterPanelDocked ? '250px' : '10px'
+                right: isFilterPanelDocked ? '164px' : '10px'
               }}
               onClick={() => setIsFilterPanelDocked(!isFilterPanelDocked)}
             >

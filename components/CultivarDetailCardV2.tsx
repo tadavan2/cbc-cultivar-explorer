@@ -6,6 +6,7 @@ import CultivarChart from './CultivarChart';
 import SpiderChart from './SpiderChart';
 import CultivarSelector from './CultivarSelector';
 import ContactForm from './ContactForm';
+import ImageCarousel from './ImageCarousel';
 import { getDefaultComparisonCultivar } from '../data/chartData';
 import { getCultivarContent, CultivarContent } from '../data/cultivarContent';
 
@@ -14,8 +15,6 @@ interface CultivarDetailCardV2Props {
 }
 
 export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2Props) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imageOpacity, setImageOpacity] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
   const [showInfoOverlay, setShowInfoOverlay] = useState(false);
@@ -228,8 +227,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
     const checkScreenSize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      setIsMobile(width < 768);
-      setIsLandscape(width > height);
+      setIsMobile(width < 875);
+      setIsLandscape(width > height && isMobile);
       setScreenWidth(width);
     };
 
@@ -243,27 +242,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
     };
   }, []);
 
-  // Auto-rotate images every 4 seconds with fade transition
-  useEffect(() => {
-    if (cultivarContent?.images?.carousel) {
-      const images = cultivarContent.images.carousel;
-        
-      const interval = setInterval(() => {
-        // Start fade out
-        setImageOpacity(0);
-        
-        setTimeout(() => {
-          // Change image after fade out completes
-          setCurrentImageIndex((prev) => (prev + 1) % images.length);
-          // Start fade in
-          setImageOpacity(1);
-        }, 800); // Increased fade out time for smoother transition
-        
-      }, 6000); // Slowed down from 4 seconds to 6 seconds (50% slower)
 
-      return () => clearInterval(interval);
-    }
-  }, [cultivarContent]);
 
   // Special intro page layout for debug cultivar
   console.log('DEBUG: Checking cultivar.id === debug:', cultivar.id === 'debug', 'cultivar.id:', cultivar.id);
@@ -308,7 +287,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   borderRadius: '20px', // FIXED: Ensure mobile rounded corners
                   objectPosition: '75% center', // MOBILE: Show more of the right side (strawberry)
                   maxWidth: '100%',
-                  maxHeight: 'calc(100vh - 180px)', // FIXED: Account for horizontal margins
+                  maxHeight: 'calc(100vh - 80px)', // FIXED: Account for horizontal margins
                   marginLeft: '6px'
 
                 }}
@@ -324,41 +303,44 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               style={{
                 zIndex: 20, // Higher z-index to ensure it shows above everything
                 color: '#000000',
-                fontSize: '22px',
+                fontSize: '30px',
                 fontWeight: 'bold',
                 fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
                 pointerEvents: 'none',
                 maxWidth: 'calc(100vw - 48px)', // Account for full viewport width
                 padding: '8px 12px',
                 borderRadius: '8px', 
-                marginLeft: '12px',
-                marginRight: '55px', 
-                marginTop: '12px'
+                marginLeft: '18px',
+                marginRight: '8px', 
+                marginTop: '12px',
+                marginBottom: '12px',
+                backgroundColor: 'rgba(241, 0, 0, 0.5)',
               }}
             >
-              CBC Cultivar Explorer
+              CULTIVAR EXPLORER
             </div>
 
             {/* Mobile text overlay - Instructions */}
             <div 
               className="absolute left-6"
               style={{
-                top: '110px',
+                top: '100px',
                 zIndex: 20, // Higher z-index to ensure it shows above everything
-                color: '#000000',
-                fontSize: '16px',
+                color: '#ffffff',
+                fontSize: '22px',
                 fontWeight: '500',
                 fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
                 pointerEvents: 'none',
                 maxWidth: 'calc(100vw - 48px)', // Account for full viewport width
                 padding: '8px 12px',
                 borderRadius: '8px', 
-                marginLeft: '12px',
-                marginRight: '55px', 
-                lineHeight: '1.3'
+                marginLeft: '14px',
+                marginRight: '8px', 
+                lineHeight: '1.3',
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
               }}
             >
-              Compare strawberry varieties and performance data to find your ideal cultivar. Tap any variety below to explore.
+              Tap any variety below to explore.
             </div>
             
             
@@ -402,10 +384,10 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               }}
             >
               <Image 
-                src="/images/backgrounds/open_page_bg.jpg"
+                src="/images/backgrounds/open_page_bg_landscape.jpg"
                 alt="CBC Cultivar Explorer Welcome"
-                width={2140}
-                height={1402}
+                width={1500}
+                height={982}
                 className="object-cover"
                 style={{ 
                   borderRadius: '20px',
@@ -515,7 +497,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
             style={{
               zIndex: 10,
               color: '#000000',
-              fontSize: '42px',
+              fontSize: '48px',
               fontWeight: 'bold',
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
               pointerEvents: 'none',
@@ -524,7 +506,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               marginTop: '8px',
             }}
           >
-            CBC Cultivar Explorer
+            CULTIVAR EXPLORER
           </div>
           
           {/* DESKTOP: Instructions */}
@@ -534,7 +516,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               top: '120px',
               zIndex: 10,
               color: '#000000',
-              fontSize: '20px',
+              fontSize: '24px',
               fontWeight: '500',
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
               pointerEvents: 'none',
@@ -543,7 +525,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               marginLeft: '16px',
             }}
           >
-            Compare strawberry varieties, analyze performance data, and find the perfect cultivar for your operation. Click any variety below to explore detailed insights.
+            Welcome to the California Berry Cultivars. Click any variety below to explore detailed insights. Trait filters are available on the right.
           </div>
           
           {/* Optional overlay for better text readability if needed */}
@@ -748,7 +730,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
       <div className="h-full w-full flex items-center justify-center p-4">
         {/* Main Card Container - Mobile Portrait */}
         <div 
-          className="w-full h-full overflow-y-auto scrollbar-hidden"
+          className="w-full h-full scrollbar-hidden"
           style={{
             maxWidth: 'calc(100vw - 16px)',
             background: 'transparent',
@@ -758,6 +740,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
             padding: '6px',
+            overflowY: 'auto',
+            overflowX: 'visible', /* Allow button hover effects to extend horizontally */
           }}
         >
           {/* Inner container */}
@@ -767,7 +751,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               margin: '6px',
               borderRadius: '20px',
               background: 'transparent',
-              overflowX: 'hidden',
+              overflowX: 'visible', /* Allow filter button hover effects to extend horizontally */
               position: 'relative',
               minWidth: 0,
               touchAction: 'pan-y',
@@ -794,7 +778,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                     return () => el.removeEventListener('wheel', handleWheel);
                   }
                 }}
-                className="mb-6 overflow-x-auto scrollbar-hidden"
+                className="mb-6 scrollbar-hidden"
                 style={{
                   width: '100%',
                   WebkitOverflowScrolling: 'touch',
@@ -803,9 +787,17 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   position: 'relative',
                   zIndex: 300,
                   minWidth: '0', // allow flex children to shrink
+                  height: 'auto', // Let content determine height
+                  minHeight: '30px', // Ensure enough space for hover effects
+                  paddingTop: '20px', // Increased padding to allow for translateY(-8px) and scale(1.05)
+                  paddingBottom: '8px', // Increased padding to allow for button expansion
+                  paddingLeft: '12px',
+                  paddingRight: '12px', // Extra padding on sides for scale(1.05) expansion
+                  overflowX: 'auto', // Horizontal scroll for buttons
+                  overflowY: 'visible', // Allow vertical expansion during hover
                 }}
               >
-                <div className="flex flex-nowrap gap-3 min-w-max px-1">
+                <div className="flex flex-nowrap gap-3 min-w-max px-1" style={{ position: 'relative', zIndex: 400 }}>
                   {buttonConfigs.map((button) => (
                     <span 
                       key={button.id}
@@ -819,32 +811,13 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               </div>
 
               {/* Photo carousel */}
-              <div 
-                className="relative mb-6"
-                style={{
-                  aspectRatio: '1/1', // Square aspect ratio for square images!
-                  background: 'transparent',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 255, 136, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  marginTop: '12px',
-                  marginBottom: '12px' // Added extra 10px space below carousel
-                }}
-              >
-                <Image 
-                  src={cultivarContent.images.carousel[currentImageIndex]}
-                  alt={`${cultivarContent.displayName} ${currentImageIndex + 1}`}
-                  fill
-                  sizes="100vw"
-                  className="object-cover transition-opacity duration-700"
-                  style={{ 
-                    borderRadius: '20px',
-                    opacity: imageOpacity,
-                    transition: 'opacity 0.8s ease-in-out' // Smoother, longer transition
-                  }}
-                />
-              </div>
+              <ImageCarousel
+                images={cultivarContent.images.carousel}
+                alt={cultivarContent.displayName}
+                isMobile={true}
+                autoRotateInterval={6000}
+                cultivarName={cultivarContent.displayName}
+              />
 
               {/* Description section - IMPROVED: Added glass container background */}
               <div 
@@ -888,8 +861,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 <h3 
                   className="text-lg font-semibold mb-4"
                   style={{
-                    color: '#00ff88',
-                    textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
+                    color: '#000000',
                   }}
                 >
                   PERFORMANCE METRICS
@@ -923,8 +895,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 <h3 
                   className="text-lg font-semibold mb-4"
                   style={{
-                    color: '#00ff88',
-                    textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
+                    color: '#000000',
+                    textShadow: 'none'
                   }}
                 >
                   RECOMMENDATIONS
@@ -1130,8 +1102,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
         className="w-full h-full overflow-y-auto scrollbar-hidden"
         style={{
           maxWidth: 'calc(100vw - 16px)',
-          background: 'transparent',
-          backdropFilter: 'blur(2px) saturate(180%)',
+          background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.4) 0%, rgba(51, 120, 238, 0.2) 100%)',
+          backdropFilter: 'blur(10px) saturate(100%)',
           borderRadius: '20px',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(34, 197, 94, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
           WebkitOverflowScrolling: 'touch',
@@ -1174,9 +1146,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                     height: 'auto',
                     marginBottom: '12px',
                     borderRadius: '20px',
-                    backdropFilter: 'blur(10px) saturate(180%)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 255, 136, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    zIndex: 100
                   }}
                 >
                   {/* Image Layer */}
@@ -1249,15 +1220,22 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                       return () => el.removeEventListener('wheel', handleWheel);
                     }
                   }}
-                  className="mb-6 overflow-x-auto scrollbar-hidden"
+                  className="mb-6 scrollbar-hidden"
                   style={{
-                    width: '100%',
                     WebkitOverflowScrolling: 'touch',
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
                     position: 'relative',
                     zIndex: 300,
                     minWidth: '0', // allow flex children to shrink
+                    height: 'auto', // Let content determine height
+                    minHeight: '30px', // Ensure enough space for hover effects
+                    paddingTop: '2px', // Increased padding to allow for translateY(-8px) and scale(1.05)
+                    paddingBottom: '8px', // Increased padding to allow for button expansion
+                    paddingLeft: '12px',
+                    paddingRight: '12px', // Extra padding on sides for scale(1.05) expansion
+                    overflowX: 'auto', // Horizontal scroll for buttons
+                    overflowY: 'visible', // Allow vertical expansion during hover
                   }}
                 >
                   <div className="flex flex-nowrap gap-3 min-w-max px-1">
@@ -1322,8 +1300,8 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   <h3 
                     className="text-lg font-semibold mb-4"
                     style={{
-                      color: '#00ff88',
-                      textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
+                      color: '#000000',
+                      textShadow: 'none'
                     }}
                   >
                     RECOMMENDATIONS
@@ -1397,48 +1375,14 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               <div className="flex flex-col">
                 
                 {/* Photo Carousel */}
-                <div 
-                  className="relative overflow-hidden rounded-xl"
-                  style={{
-                    background: 'transparent',
-                    aspectRatio: '1/1', // Height equals width dynamically
-                    borderRadius: '20px',
-                  }}
-                >
-                  {/* Image container */}
-                  <div 
-                    className="absolute inset-0 z-10 rounded-xl overflow-hidden"
-                    style={{ height: '100%', width: '100%' }}
-                  >
-                    <Image 
-                      src={cultivarContent.images.carousel[currentImageIndex]}
-                      alt={`${cultivarContent.displayName} ${currentImageIndex + 1}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="transition-opacity duration-700"
-                      style={{ 
-                        opacity: imageOpacity,
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                        transition: 'opacity 0.8s ease-in-out' // Smoother, longer transition
-                      }}
-                    />
-                  </div>
-                  
-                  {/* Carousel indicators */}
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-                    {cultivarContent.images.carousel.map((_: string, index: number) => (
-                      <div
-                        key={index}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                          index === currentImageIndex 
-                            ? 'bg-white shadow-lg' 
-                            : 'bg-white/60'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
+                <ImageCarousel
+                  images={cultivarContent.images.carousel}
+                  alt={cultivarContent.displayName}
+                  isMobile={false}
+                  autoRotateInterval={6000}
+                  showIndicators={true}
+                  cultivarName={cultivarContent.displayName}
+                />
 
                 {/* Performance Chart */}
                 <div style={{ marginTop: '24px' }}>

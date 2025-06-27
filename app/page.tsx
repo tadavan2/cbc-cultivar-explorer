@@ -323,8 +323,8 @@ export default function Home() {
           >
             <div className="cultivar-drawer-content h-full flex flex-col">              
               {/* Cards at bottom with proper spacing */}
-              <div className="px-4 py-4 h-full">
-                <div className="flex overflow-x-auto pb-2 h-full items-end">
+              <div className="px-4 py-4 h-full" style={{paddingBottom: '8px'}}>
+                <div className="flex overflow-x-auto scrollbar-hidden pb-2 h-full items-end">
                   {filteredCultivars.map((cultivar, index) => (
                     <div
                       key={cultivar.id}

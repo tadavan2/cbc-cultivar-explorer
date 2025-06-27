@@ -727,21 +727,21 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
   // Mobile Portrait Layout - Vertical Stack
   if (isMobile && !isLandscape) {
     return (
-      <div className="h-full w-full flex items-center justify-center p-4">
+      <div className="h-full w-full flex items-center justify-center p-4" style={{paddingTop: '16px'}}>
         {/* Main Card Container - Mobile Portrait */}
         <div 
           className="w-full h-full scrollbar-hidden"
           style={{
             maxWidth: 'calc(100vw - 16px)',
-            background: 'transparent',
-            backdropFilter: 'blur(2px) saturate(180%)',
+            background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.3) 60%, rgba(68, 5, 177, 0.4) 100%)',            
+            backdropFilter: 'blur(6px) saturate(220%)',
             borderRadius: '20px',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(34, 197, 94, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
             padding: '6px',
             overflowY: 'auto',
-            overflowX: 'visible', /* Allow button hover effects to extend horizontally */
+            overflowX: 'visible',
           }}
         >
           {/* Inner container */}
@@ -789,7 +789,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                   minWidth: '0', // allow flex children to shrink
                   height: 'auto', // Let content determine height
                   minHeight: '30px', // Ensure enough space for hover effects
-                  paddingTop: '20px', // Increased padding to allow for translateY(-8px) and scale(1.05)
+                  paddingTop: '2px', // Increased padding to allow for translateY(-8px) and scale(1.05)
                   paddingBottom: '8px', // Increased padding to allow for button expansion
                   paddingLeft: '12px',
                   paddingRight: '12px', // Extra padding on sides for scale(1.05) expansion
@@ -967,7 +967,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                 <h3 
                   className="text-lg font-semibold mb-4"
                   style={{
-                    color: '#00ff88',
+                    color: '#000000',
                     textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
                   }}
                 >

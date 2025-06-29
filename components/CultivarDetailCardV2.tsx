@@ -754,14 +754,13 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
               margin: '2px',
               borderRadius: '20px',
               background: 'transparent',
-              overflowX: 'visible', /* Allow filter button hover effects to extend horizontally */
+              overflowX: 'hidden',
               position: 'relative',
               minWidth: 0,
               touchAction: 'pan-y',
               userSelect: 'none',
               height: 'calc(100% - 4px)',
-              width: 'calc(100% - 4px)',
-              overflowX: 'hidden'
+              width: 'calc(100% - 4px)'
             }}
           >
             {/* Vertical Stack Layout for Mobile Portrait */}

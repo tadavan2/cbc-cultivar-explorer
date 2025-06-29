@@ -62,7 +62,7 @@ export const cultivars: Cultivar[] = [
     imageUrl: '/images/alhambra.jpg',
     flowerType: 'DN',
     marketType: 'summer plant',
-    attributes: [],
+    attributes: ['excellent flavor'],
     attribute2: ['macrophomina resistant'],
     stats: {
       yieldKgPerHa: 38000,

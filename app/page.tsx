@@ -6,6 +6,7 @@ import { cultivars } from '../data/cultivars';
 import TopNav from '../components/TopNav';
 import CultivarDetailCardV2 from '../components/CultivarDetailCardV2';
 import CultivarFilterPanel from '../components/CultivarFilterPanel';
+import Homepage from '../components/Homepage';
 
 // Helper function to determine cultivar theme class based on market group
 const getCultivarThemeClass = (cultivarId: string): string => {
@@ -43,6 +44,7 @@ export default function Home() {
   const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
   const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isHomepage, setIsHomepage] = useState(true); // Start on homepage
   
   const [filters, setFilters] = useState<FilterState>({
     flowerType: [],
@@ -72,7 +74,10 @@ export default function Home() {
 
   // Handle cultivar change with fade transition
   const handleCultivarChange = (newCultivar: Cultivar) => {
-    if (newCultivar.id === selectedCultivar.id) return;
+    if (newCultivar.id === selectedCultivar.id && !isHomepage) return;
+    
+    // Switch to cultivar view
+    setIsHomepage(false);
     
     // IMMEDIATE: Update the focused state right away for responsive UI
     setSelectedCultivar(newCultivar);
@@ -106,18 +111,42 @@ export default function Home() {
     }, 500); // Fade out duration
   };
 
+  // Handle homepage navigation
+  const handleHomepageClick = () => {
+    setIsHomepage(true);
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 300);
+  };
+
   // Detect screen size and orientation
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const mobile = width < 875;
-      const landscape = width > height && mobile;
+      const ratio = width / height;
+      const landscape = ratio > 2.0 && ratio < 2.4 && width < 1200;
+      const mobile = width < 740 || landscape;
       // Only true desktop/large tablets get the dock system
-      const desktopOrWideTablet = width >= 1024;
+      const desktopOrWideTablet = width >= 740 && !mobile;
       
-              setIsMobile(mobile);
+      // DEBUG: Log all calculations
+      console.log('PAGE.TSX DEBUG:', {
+        width,
+        height,
+        ratio: ratio.toFixed(2),
+        'ratio > 2': ratio > 2,
+        landscape,
+        'width < 740': width < 740,
+        mobile,
+        desktopOrWideTablet,
+        'final condition (mobile && !desktopOrWideTablet)': mobile && !desktopOrWideTablet
+      });
         setIsLandscape(landscape);
+        setIsMobile(mobile);
+        
         setIsDesktopOrWideTablet(desktopOrWideTablet);
         
         // Debug logging to understand responsive logic
@@ -151,11 +180,11 @@ export default function Home() {
     // Apply normal filtering logic to other cultivars
     if (filters.flowerType.length > 0 && !filters.flowerType.includes(cultivar.flowerType)) return false;
     if (filters.marketType.length > 0 && !filters.marketType.includes(cultivar.marketType)) return false;
-    // FIXED: Check both attribute arrays for any trait filter (since traits can be in either array)
-    if (filters.attributes.length > 0 && !filters.attributes.some(attr => 
+    // FIXED: Use AND logic - cultivar must have ALL selected attributes (check both arrays for each trait)
+    if (filters.attributes.length > 0 && !filters.attributes.every(attr => 
       cultivar.attributes.includes(attr) || cultivar.attribute2.includes(attr)
     )) return false;
-    if (filters.attribute2.length > 0 && !filters.attribute2.some(attr => 
+    if (filters.attribute2.length > 0 && !filters.attribute2.every(attr => 
       cultivar.attributes.includes(attr) || cultivar.attribute2.includes(attr)
     )) return false;
     return true;
@@ -264,6 +293,8 @@ export default function Home() {
           </svg>
         </button>
 
+
+
         <div className="dark-theme h-screen w-screen overflow-x-hidden overflow-y-auto flex flex-col">
           {/* Mobile Header - Reduced height */}
           <div className={`${isLandscape ? 'mobile-header-landscape' : 'mobile-header-portrait'}`}>
@@ -279,7 +310,18 @@ export default function Home() {
                   height: `calc(100vh - ${isLandscape ? '48px' : '64px'})`
                 }}
               >
-                <CultivarDetailCardV2 cultivar={displayedCultivar} />
+                {isHomepage ? (
+                  <Homepage 
+                    isMobile={isMobile}
+                    isLandscape={isLandscape}
+                  />
+                ) : (
+                  <CultivarDetailCardV2 
+                    cultivar={displayedCultivar} 
+                    isMobile={isMobile}
+                    isLandscape={isLandscape}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -323,9 +365,39 @@ export default function Home() {
           >
             <div className="cultivar-drawer-content h-full flex flex-col">              
               {/* Cards at bottom with proper spacing */}
-              <div className="px-4 py-4 h-full" style={{paddingBottom: '8px'}}>
-                <div className="flex overflow-x-auto scrollbar-hidden pb-2 h-full items-end">
-                  {filteredCultivars.map((cultivar, index) => (
+              <div className="px-4 py-4 h-full relative" style={{paddingBottom: '8px'}}>
+                {/* Fixed HOME button - positioned hard left */}
+                <div className="absolute bottom-4 z-20" style={{ left: '16px' }}>
+                  <button
+                    onClick={handleHomepageClick}
+                    className="cultivar-theme-home cursor-pointer relative"
+                    style={{
+                      width: '65px',
+                      height: '65px',
+                      background: 'linear-gradient(145deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 51, 0, 0.95) 100%)',
+                      backdropFilter: 'blur(20px) saturate(180%)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '20px',
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                  >
+                    <div className="flex items-center justify-center h-full" style={{ padding: '1px' }}>
+                      <img 
+                        src="/images/icons/open_card_icon.png" 
+                        alt="Home"
+                        className="object-contain drop-shadow-lg"
+                        style={{ width: '63px', height: '63px' }}
+                      />
+                    </div>
+                  </button>
+                </div>
+                
+                {/* Vertical divider line */}
+                <div className="absolute top-4 bottom-4 w-px bg-white/20 z-10" style={{ left: '97px' }}></div>
+                
+                <div className="flex overflow-x-auto scrollbar-hidden pb-2 h-full items-end" style={{paddingLeft: '107px'}}>
+                  {filteredCultivars.filter(cultivar => cultivar.id !== 'debug').map((cultivar, index) => (
                     <div
                       key={cultivar.id}
                       onClick={() => {
@@ -471,16 +543,41 @@ export default function Home() {
           {/* Detail Card Area - More height since bottom panel is smaller */}
           <div className="h-[85%] overflow-hidden" style={{padding: '24px 24px 12px 24px'}}>
             <div className={`h-full transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-              <CultivarDetailCardV2 cultivar={displayedCultivar} />
+              {isHomepage ? (
+                <Homepage 
+                  isMobile={isMobile}
+                  isLandscape={isLandscape}
+                />
+              ) : (
+                <CultivarDetailCardV2 
+                  cultivar={displayedCultivar} 
+                  isMobile={isMobile}
+                  isLandscape={isLandscape}
+                />
+              )}
             </div>
           </div>
           
           {/* Bottom Cultivar Cards - Reduced height for rectangular cards */}
           <div className="h-[10%] min-h-[65px] flex items-center relative" style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(10px) saturate(180%)' }}>
-            {/* Left scroll indicator - positioned outside the scroll padding */}
+            {/* Fixed navigation background panel - masks scrolling cards */}
+            <div 
+              style={{ 
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+                bottom: '0px',
+                width: '175px',
+                background: 'linear-gradient(to right, rgba(255, 255, 255, 1.0) 60%, rgba(0, 0, 0, 0.02) 100%)',
+                backdropFilter: 'blur(5px) saturate(100%)',
+                zIndex: 15
+              }}
+            ></div>
+            
+            {/* Left scroll indicator - positioned after HOME button and divider */}
             <div 
               className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-100 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
-              style={{ left: '8px' }}
+              style={{ left: '115px' }}
               onClick={() => {
                 const container = document.querySelector('.cultivar-scroll-container');
                 if (container) {
@@ -495,7 +592,21 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right scroll indicator - positioned outside the scroll padding */}
+            {/* Right navigation background panel - masks scrolling cards */}
+            <div 
+              style={{ 
+                position: 'absolute',
+                right: '0px',
+                top: '0px',
+                bottom: '0px',
+                width: '50px',
+                background: 'linear-gradient(to left, rgba(255, 255, 255, 1.0) 0%, rgba(0, 0, 0, 0.02) 100%)',
+                backdropFilter: 'blur(5px) saturate(100%)',
+                zIndex: 15
+              }}
+            ></div>
+
+            {/* Right scroll indicator - positioned over the background panel */}
             <div 
               className="absolute top-1/2 transform -translate-y-1/2 z-20 opacity-100 hover:opacity-100 transition-all duration-200 cursor-pointer hover:scale-110"
               style={{ right: '8px' }}
@@ -513,6 +624,36 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Fixed HOME button - positioned hard left */}
+            <div className="absolute bottom-2 z-20" style={{ left: '24px' }}>
+              <button
+                onClick={handleHomepageClick}
+                className="cultivar-theme-home cursor-pointer relative"
+                style={{
+                  width: '65px',
+                  height: '65px',
+                  background: 'linear-gradient(145deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 51, 0, 0.95) 100%)',
+                  backdropFilter: 'blur(20px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '20px',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              >
+                <div className="flex items-center justify-center h-full" style={{ padding: '1px' }}>
+                  <img 
+                    src="/images/icons/open_card_icon.png" 
+                    alt="Home"
+                    className="object-contain drop-shadow-lg"
+                    style={{ width: '63px', height: '63px' }}
+                  />
+                </div>
+              </button>
+            </div>
+            
+            {/* Vertical divider line */}
+            <div className="absolute top-2 bottom-2 w-px bg-black/30 z-10" style={{ left: '105px' }}></div>
+
             <div 
               ref={(el) => {
                 if (el) {
@@ -529,12 +670,14 @@ export default function Home() {
               }}
               className="cultivar-scroll-container flex h-full items-center justify-start overflow-x-auto scrollbar-hidden w-full"
               style={{
-                padding: '0 24px 8px 24px',
+                paddingLeft: '200px',
+                paddingRight: '90px',
+                paddingBottom: '8px',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none'
               }}
             >
-              {filteredCultivars.map((cultivar, index) => (
+              {filteredCultivars.filter(cultivar => cultivar.id !== 'debug').map((cultivar, index) => (
                 <div
                   key={cultivar.id}
                   onClick={() => {
@@ -705,6 +848,8 @@ export default function Home() {
             </div>
           </>
         )}
+
+
       </div>
     </div>
   );

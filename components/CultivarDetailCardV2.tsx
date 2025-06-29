@@ -7,16 +7,17 @@ import SpiderChart from './SpiderChart';
 import CultivarSelector from './CultivarSelector';
 import ContactForm from './ContactForm';
 import ImageCarousel from './ImageCarousel';
+import InfoOverlayMobile from './InfoOverlayMobile';
 import { getDefaultComparisonCultivar } from '../data/chartData';
 import { getCultivarContent, CultivarContent } from '../data/cultivarContent';
 
 interface CultivarDetailCardV2Props {
   cultivar: Cultivar;
+  isMobile: boolean;
+  isLandscape: boolean;
 }
 
-export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2Props) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isLandscape, setIsLandscape] = useState(false);
+export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }: CultivarDetailCardV2Props) {
   const [showInfoOverlay, setShowInfoOverlay] = useState(false);
   const [infoContent, setInfoContent] = useState<InfoOverlayContent | null>(null);
   const [cultivarContent, setCultivarContent] = useState<CultivarContent | null>(null);
@@ -109,7 +110,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
       if (defaultComparison && alturasComparisonOptions.includes(defaultComparison)) {
         setComparisonCultivar(defaultComparison);
       } else {
-        setComparisonCultivar('monterey');
+        setComparisonCultivar(undefined);
       }
     }
     
@@ -152,7 +153,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
       // Default to None for Sweet Carolina  
       setComparisonCultivar(undefined);
     }
-  }, [isAlturasPage, isAdelantoPage, isAlhambraPage, isArtesiaPage, isBelvederePage, isCastaicPage, isCarpinteriaPage, isBrisbanePage, isSweetCarolinaPage, comparisonCultivar, alturasComparisonOptions, cultivar.id]);
+  }, [isAlturasPage, isAdelantoPage, isAlhambraPage, isArtesiaPage, isBelvederePage, isCastaicPage, isCarpinteriaPage, isBrisbanePage, isSweetCarolinaPage, comparisonCultivar, cultivar.id]);
 
   // For specific pages, ensure selectedCultivar stays locked
   useEffect(() => {
@@ -208,12 +209,17 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
   const buttonConfigs = generateButtonConfigs(cultivar);
 
   const handleInfoClick = (buttonType: string) => {
-    if (!isMobile) { // Only show overlay on desktop
-      const info = infoData[buttonType];
-      if (info) {
-        setInfoContent(info);
-        setShowInfoOverlay(true);
-      }
+    console.log('DEBUG: handleInfoClick called with buttonType:', buttonType);
+    console.log('DEBUG: isMobile:', isMobile);
+    const info = infoData[buttonType];
+    console.log('DEBUG: info found:', !!info, info);
+    if (info) {
+      console.log('DEBUG: Setting overlay state - showInfoOverlay: true');
+      setInfoContent(info);
+      setShowInfoOverlay(true);
+      console.log('DEBUG: State set, showInfoOverlay should be:', true);
+    } else {
+      console.log('DEBUG: No info found for buttonType:', buttonType);
     }
   };
 
@@ -222,14 +228,10 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
     setInfoContent(null);
   };
 
-  // Mobile and orientation detection
+  // Screen width detection (keeping only screenWidth for any remaining usage)
   useEffect(() => {
     const checkScreenSize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      setIsMobile(width < 875);
-      setIsLandscape(width > height && isMobile);
-      setScreenWidth(width);
+      setScreenWidth(window.innerWidth);
     };
 
     checkScreenSize();
@@ -248,6 +250,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
   console.log('DEBUG: Checking cultivar.id === debug:', cultivar.id === 'debug', 'cultivar.id:', cultivar.id);
   if (cultivar.id === 'debug') {
     console.log('DEBUG: Inside debug check - isMobile:', isMobile, 'isLandscape:', isLandscape);
+    console.log('DEBUG: About to check conditions - (isMobile && !isLandscape):', (isMobile && !isLandscape), '(isMobile && isLandscape):', (isMobile && isLandscape));
     // Mobile Portrait Layout for Debug
     if (isMobile && !isLandscape) {
       console.log('DEBUG: Rendering mobile debug layout');
@@ -739,16 +742,16 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(34, 197, 94, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
-            padding: '6px',
             overflowY: 'auto',
             overflowX: 'visible',
+            margin: '8px'
           }}
         >
           {/* Inner container */}
           <div 
             className="overflow-y-auto scrollbar-hidden"
             style={{
-              margin: '6px',
+              margin: '2px',
               borderRadius: '20px',
               background: 'transparent',
               overflowX: 'visible', /* Allow filter button hover effects to extend horizontally */
@@ -756,8 +759,9 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
               minWidth: 0,
               touchAction: 'pan-y',
               userSelect: 'none',
-              height: 'calc(100% - 12px)',
-              width: 'calc(100% - 12px)'
+              height: 'calc(100% - 4px)',
+              width: 'calc(100% - 4px)',
+              overflowX: 'hidden'
             }}
           >
             {/* Vertical Stack Layout for Mobile Portrait */}
@@ -1090,6 +1094,13 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
             </div>
           </div>
         </div>
+
+        {/* Info Overlay - Mobile Portrait */}
+        <InfoOverlayMobile
+          isVisible={showInfoOverlay}
+          content={infoContent}
+          onClose={closeInfoOverlay}
+        />
       </div>
     );
   }
@@ -1422,14 +1433,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -1510,14 +1514,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -1598,14 +1595,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -1686,14 +1676,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -1774,14 +1757,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -1862,14 +1838,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -1950,14 +1919,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -2038,14 +2000,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -2126,14 +2081,7 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
                         
                         {/* Comparison Selection */}
                         <div>
-                          <div style={{ 
-                            color: '#9CA3AF', 
-                            fontSize: '14px', 
-                            marginBottom: '8px',
-                            fontFamily: 'var(--font-body, system-ui)'
-                          }}>
-                            Compare with:
-                          </div>
+                          
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             <button
                               onClick={() => setComparisonCultivar(undefined)}
@@ -2219,7 +2167,11 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
         </div>
       </div>
 
-      {/* Info Overlay - Desktop Only */}
+      {/* Info Overlay - Desktop */}
+      {(() => {
+        console.log('DEBUG: Desktop overlay condition - !isMobile:', !isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoContent:', !!infoContent);
+        return null;
+      })()}
       {!isMobile && showInfoOverlay && infoContent && (
         <div className={`info-overlay ${showInfoOverlay ? 'show' : ''}`} onClick={closeInfoOverlay}>
           <div className="info-card" onClick={(e) => e.stopPropagation()}>
@@ -2236,6 +2188,21 @@ export default function CultivarDetailCardV2({ cultivar }: CultivarDetailCardV2P
             />
           </div>
         </div>
+      )}
+
+      {/* Info Overlay - Mobile */}
+      {isMobile && (
+        <>
+          {(() => {
+            console.log('DEBUG: About to render mobile overlay - isMobile:', isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoContent:', !!infoContent);
+            return null;
+          })()}
+          <InfoOverlayMobile
+            isVisible={showInfoOverlay}
+            content={infoContent}
+            onClose={closeInfoOverlay}
+          />
+        </>
       )}
     </div>
   );

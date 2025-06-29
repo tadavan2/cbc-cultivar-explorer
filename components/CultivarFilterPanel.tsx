@@ -96,7 +96,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
     // Start with all cultivars
     let filteredCultivars = cultivars;
     
-    // Apply current filters
+    // Apply current filters using AND logic
     if (filters.flowerType.length > 0) {
       filteredCultivars = filteredCultivars.filter(c => filters.flowerType.includes(c.flowerType));
     }
@@ -104,10 +104,10 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
       filteredCultivars = filteredCultivars.filter(c => filters.marketType.includes(c.marketType));
     }
     if (filters.attributes.length > 0) {
-      filteredCultivars = filteredCultivars.filter(c => filters.attributes.some(attr => c.attributes.includes(attr)));
+      filteredCultivars = filteredCultivars.filter(c => filters.attributes.every(attr => c.attributes.includes(attr) || c.attribute2.includes(attr)));
     }
     if (filters.attribute2.length > 0) {
-      filteredCultivars = filteredCultivars.filter(c => filters.attribute2.some(attr => c.attribute2.includes(attr)));
+      filteredCultivars = filteredCultivars.filter(c => filters.attribute2.every(attr => c.attributes.includes(attr) || c.attribute2.includes(attr)));
     }
     
     // Extract available options from filtered cultivars

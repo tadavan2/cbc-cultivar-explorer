@@ -256,19 +256,19 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
               axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
               domain={
                 selectedMetric === 'firmness' ? 
-                  ((metric as any)?.cultivarFirmnessRange || [0.75, 1.75]) : 
-                selectedMetric === 'appearance' ? [0, 5] : 
+                  (metric.cultivarFirmnessRange || [0.75, 1.75]) : 
+                selectedMetric === 'appearance' ? [1, 5] : 
                 selectedMetric === 'size' ? [15, 60] : 
                 [0, metric.yAxisMax]
               }
               ticks={
                 selectedMetric === 'firmness' ? 
-                  (((metric as any)?.cultivarFirmnessRange) ? 
-                    [(metric as any).cultivarFirmnessRange[0], 
-                     ((metric as any).cultivarFirmnessRange[0] + (metric as any).cultivarFirmnessRange[1]) / 2, 
-                     (metric as any).cultivarFirmnessRange[1]] :
+                  (metric.cultivarFirmnessRange ? 
+                    [metric.cultivarFirmnessRange[0], 
+                     (metric.cultivarFirmnessRange[0] + metric.cultivarFirmnessRange[1]) / 2, 
+                     metric.cultivarFirmnessRange[1]] :
                     [0.75, 1.0, 1.25, 1.5, 1.75]) :
-                selectedMetric === 'appearance' ? [0, 1, 2, 3, 4, 5] : 
+                selectedMetric === 'appearance' ? [1, 2, 3, 4, 5] : 
                 undefined
               }
             />

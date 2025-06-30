@@ -22,6 +22,7 @@ export interface ChartMetric {
   yAxisMax: number;
   showCumulative: boolean; // true for yield, false for others
   color: string;
+  cultivarFirmnessRange?: [number, number]; // Optional firmness range for specific cultivars
 }
 
 // Chart data response interface
@@ -224,7 +225,7 @@ export function getChartData(cultivarId: string, metricId: string, comparisonCul
     metric = {
       ...metric,
       cultivarFirmnessRange: cultivarFirmnessRange[cultivarId]
-    } as any;
+    };
   }
 
   const primaryMetricData = primaryData[metricId as keyof Omit<CultivarChartData, 'cultivarId' | 'cultivarName'>];
@@ -425,7 +426,7 @@ export async function getChartDataFromCSV(
       metricConfig = {
         ...metricConfig,
         cultivarFirmnessRange: cultivarFirmnessRange[cultivarId]
-      } as any;
+      };
     }
     
     // Get data for the selected metric

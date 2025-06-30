@@ -1,7 +1,7 @@
 cultivar,month,yield,firmness,size,appearance
 belvedere,Dec,4,,37.91,3.83
 belvedere,Jan,114,,36.68,3.94
-belvedere,Feb,179,1.78,36.2,3.83
+belvedere,Feb,179,,36.2,3.83
 belvedere,Mar,311,1.57,35.52,3.68
 belvedere,Apr,827,1.43,31.7,3.44
 belvedere,May,261,1.35,31.17,3.69

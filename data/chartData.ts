@@ -68,6 +68,32 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
   }
 };
 
+// Cultivar-specific yield y-axis maximums (overrides default 1000)
+export const cultivarYieldMax: { [cultivarId: string]: number } = {
+  'alturas': 1250,        // High yielding, peak values ~2400
+  'castaic': 1100,        // High yielding short-day
+  'carpinteria': 1000,    // Moderate-high yielding
+  'adelanto': 900,       // Early high yielding 
+  'belvedere': 900,       // Lower yielding but premium
+  'alhambra': 500,        // Summer plant, lower yield
+  'artesia': 1000,        // Moderate yielding
+  'brisbane': 1000,       // Moderate yielding
+  // Others will use default 1000
+};
+
+// Cultivar-specific firmness y-axis ranges (overrides default [0.75, 1.75])
+export const cultivarFirmnessRange: { [cultivarId: string]: [number, number] } = {
+  'alturas': [1, 1.4],
+  'castaic': [1.1, 1.5], 
+  'carpinteria': [1, 1.5],
+  'adelanto': [1.1, 1.6],
+  'belvedere': [1, 1.6],
+  'alhambra': [1, 1.4],
+  'artesia': [1, 1.6],
+  'brisbane': [1, 1.4],
+  // Others will use default [0.75, 1.75]
+};
+
 // Base cultivar data - can be loaded from CSV/Excel
 export const cultivarChartData: { [cultivarId: string]: CultivarChartData } = {
   alturas: {
@@ -177,10 +203,28 @@ export function getChartData(cultivarId: string, metricId: string, comparisonCul
   }
   
   const comparisonData = comparisonCultivarId ? cultivarChartData[comparisonCultivarId] : null;
-  const metric = chartMetrics[metricId];
+  let metric = chartMetrics[metricId];
 
   if (!primaryData || !metric) {
     return null;
+  }
+  
+  // Apply cultivar-specific yield y-axis maximum if available
+  if (metricId === 'yield' && cultivarYieldMax[cultivarId]) {
+    metric = {
+      ...metric,
+      yAxisMax: cultivarYieldMax[cultivarId]
+    };
+  }
+  
+  // Store cultivar-specific firmness range for use in YAxis component
+  if (metricId === 'firmness' && cultivarFirmnessRange[cultivarId]) {
+    // Note: firmness range will be handled in the YAxis component, not via yAxisMax
+    // We'll add a custom property to pass the range info
+    metric = {
+      ...metric,
+      cultivarFirmnessRange: cultivarFirmnessRange[cultivarId]
+    } as any;
   }
 
   const primaryMetricData = primaryData[metricId as keyof Omit<CultivarChartData, 'cultivarId' | 'cultivarName'>];
@@ -360,10 +404,28 @@ export async function getChartDataFromCSV(
     }
     
     // Get metric configuration
-    const metricConfig = chartMetrics[metric];
+    let metricConfig = chartMetrics[metric];
     if (!metricConfig) {
       console.error(`Unknown metric: ${metric}`);
       return null;
+    }
+    
+    // Apply cultivar-specific yield y-axis maximum if available
+    if (metric === 'yield' && cultivarYieldMax[cultivarId]) {
+      metricConfig = {
+        ...metricConfig,
+        yAxisMax: cultivarYieldMax[cultivarId]
+      };
+    }
+    
+    // Store cultivar-specific firmness range for use in YAxis component
+    if (metric === 'firmness' && cultivarFirmnessRange[cultivarId]) {
+      // Note: firmness range will be handled in the YAxis component, not via yAxisMax
+      // We'll add a custom property to pass the range info
+      metricConfig = {
+        ...metricConfig,
+        cultivarFirmnessRange: cultivarFirmnessRange[cultivarId]
+      } as any;
     }
     
     // Get data for the selected metric

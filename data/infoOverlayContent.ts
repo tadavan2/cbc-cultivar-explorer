@@ -23,7 +23,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
       <ul>
         <li><strong>Continuous Production:</strong> Fruit production is not triggered by day length</li>
         <li><strong>Extended Season:</strong> Harvest from late spring through early fall</li>
-        <li><strong>Temperature Sensitive:</strong>True day-neutrals are not temperature sensitive</li>
+        <li><strong>Temperature Sensitive:</strong> True day-neutrals are not temperature sensitive</li>
         <li><strong>Multiple Flushes:</strong> Produce several distinct flowering and fruiting cycles</li>
       </ul>
       
@@ -47,7 +47,7 @@ export const baseInfoOverlayData: InfoOverlayData = {
       <ul>
         <li><strong>Photoperiod Sensitive:</strong> Flower initiation triggered by shorter days</li>
         <li><strong>Concentrated Harvest:</strong> Major fruiting period in spring</li>
-        <li><strong>Cold Requirement:</strong> Need winter chilling for optimal production</li>
+        <li><strong>Cold Requirement:</strong> May need winter chilling for optimal production, though not all short-day varieties require it</li>
         <li><strong>Traditional Variety:</strong> Most common type worldwide</li>
       </ul>
       

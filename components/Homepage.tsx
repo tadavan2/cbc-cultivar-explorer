@@ -304,7 +304,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
         <div 
           className="absolute left-20"
           style={{
-            top: '120px',
+            top: '75px',
             zIndex: 10,
             color: '#000000',
             fontSize: '24px',
@@ -316,7 +316,25 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
             marginLeft: '16px',
           }}
         >
-          Welcome to the California Berry Cultivars. Click any variety below to explore detailed insights. Trait filters are available on the right.
+          Welcome to California Berry Cultivars.
+        </div>
+
+        <div 
+          className="absolute left-20"
+          style={{
+            top: '140px',
+            zIndex: 10,
+            color: '#000000',
+            fontSize: '24px',
+            fontWeight: '500',
+            fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
+            pointerEvents: 'none',
+            maxWidth: '600px',
+            lineHeight: '1.4',
+            marginLeft: '16px',
+          }}
+        >
+          Click any variety below to explore detailed insights. Trait filters are available on the right.
         </div>
         
         {/* Optional overlay for better text readability if needed */}

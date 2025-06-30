@@ -270,7 +270,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
                     style={{zIndex: 10, position: 'relative'}}
                   >
                     <div className="flex items-center space-x-4">
-                      <span className="text-sm font-semibold flex-1 text-gray-900">{option.label}</span>
+                      <span className="text-sm font-semibold flex-1">{option.label}</span>
                       {option.isActive && (
                         <span className="w-3 h-3 bg-green-400 rounded-full pulse-glow-glass shadow-lg"></span>
                       )}

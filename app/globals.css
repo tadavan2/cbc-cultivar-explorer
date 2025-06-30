@@ -554,7 +554,7 @@ html::-webkit-scrollbar {
   backdrop-filter: blur(2px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  color: #8b9dc3;
+  color: rgba(0, 0, 0, 0.8);
   padding: 12px 16px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 
@@ -592,7 +592,7 @@ html::-webkit-scrollbar {
 .filter-button-glass:hover {
   transform: translateY(-2px) scale(1.02);
   border-color: rgba(0, 255, 136, 0.3);
-  color: #ffffff;
+  color: rgba(0, 0, 0, 1);
   box-shadow: 
     0 8px 24px rgba(0, 0, 0, 0.3),
     0 2px 8px rgba(0, 255, 136, 0.1),
@@ -781,7 +781,7 @@ html::-webkit-scrollbar {
   padding: 4px 10px;
   border-radius: 7px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   letter-spacing: 0.05em;
 }
 
@@ -1612,7 +1612,7 @@ html::-webkit-scrollbar {
   padding: 4px 10px;
   border-radius: 7px;
   text-transform: none;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.8);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
   font-variant-numeric: tabular-nums;
@@ -1620,7 +1620,7 @@ html::-webkit-scrollbar {
 }
 
 .cultivar-tag:hover {
-  color: #ffffff;
+  color: rgba(0, 0, 0, 1);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   transform: translateY(-0.5px);
 }
@@ -1631,7 +1631,7 @@ html::-webkit-scrollbar {
   font-weight: 500;
   padding: 3px 8px;
   border-radius: 6px;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.8);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   transition: all 0.3s ease;
 }
@@ -2028,7 +2028,7 @@ html::-webkit-scrollbar {
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 16px;
   margin-right: 6px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   font-weight: 700;
   padding: 16px 32px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2082,7 +2082,7 @@ html::-webkit-scrollbar {
   border-radius: 16px;
   padding: 6px 16px;
   margin-right: 6px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
   text-shadow: none;
   box-shadow: none;
@@ -2189,7 +2189,7 @@ html::-webkit-scrollbar {
   border-radius: 16px;
   padding: 6px 16px;
   margin-right: 6px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
   text-shadow: none;
   box-shadow: none;
@@ -2242,7 +2242,7 @@ html::-webkit-scrollbar {
   border-radius: 16px;
   padding: 6px 16px;
   margin-right: 6px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
   text-shadow: none;
   box-shadow: none;

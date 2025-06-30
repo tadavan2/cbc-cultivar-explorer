@@ -30,13 +30,13 @@
   "performanceMetrics": {
     "yield": "1,696 grams/plant",
     "size": "34.8 grams",
-    "appearance": "Excellent",
+    "appearance": "4.1/5.0",
     "firmness": "1.53  lb/in²"
   },
   "recommendations": {
     "plantingDate": "Oct 1 - Oct 5 (Oxnard), Oct 1 (Baja)",
-    "chill": "As a short-day variety, Belvedere benefits from natural chilling periods. Plant in fall for optimal spring production.",
-    "fertility": "Pre-plant fertilizer: 400 lbs of 18-8-13. Vigorous plant - manage with less fertilizer and cooler row-mulch. Apply 3 lbs of N per week after first bloom.",
+    "chill": "As a short-day variety, Belvedere benefits from minimal chill but doesn't perform well under no chill conditions.",
+    "fertility": "Pre-plant fertilizer: 500 lbs of 18-8-13. Vigorous plant - manage with less fertilizer and cooler row-mulch. Apply 3 lbs of N per week after first bloom.",
     "other": "Begin sprays for botrytis after first bloom appearance. Apply standard powdery mildew sprays. Performs best on darker row-mulch with reduced fertility."
   }
 } 

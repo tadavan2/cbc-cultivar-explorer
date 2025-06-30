@@ -17,13 +17,13 @@ export const baseInfoOverlayData: InfoOverlayData = {
     title: 'Day-Neutral Strawberries',
     content: `
       <h3>What are Day-Neutral Strawberries?</h3>
-      <p>Day-neutral strawberries are varieties that produce fruit continuously throughout the growing season, regardless of day length. Unlike traditional June-bearing varieties that produce a single large crop, day-neutrals provide steady harvests from spring through fall.</p>
+      <p>Day-neutral strawberries are varieties that produce fruit continuously throughout the growing season, regardless of day length or temperature. Unlike traditional short-day varieties that produce a single large crop, day-neutrals provide steady harvests from spring through fall.</p>
       
       <h3>Key Characteristics:</h3>
       <ul>
         <li><strong>Continuous Production:</strong> Fruit production is not triggered by day length</li>
         <li><strong>Extended Season:</strong> Harvest from late spring through early fall</li>
-        <li><strong>Temperature Sensitive:</strong> Perform best in moderate temperatures</li>
+        <li><strong>Temperature Sensitive:</strong>True day-neutrals are not temperature sensitive</li>
         <li><strong>Multiple Flushes:</strong> Produce several distinct flowering and fruiting cycles</li>
       </ul>
       

@@ -528,7 +528,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
               marginLeft: '16px',
             }}
           >
-            Welcome to the California Berry Cultivars. Click any variety below to explore detailed insights. Trait filters are available on the right.
+            Welcome to California Berry Cultivars. Click any variety below to explore detailed insights. Trait filters are available on the right.
           </div>
           
           {/* Optional overlay for better text readability if needed */}

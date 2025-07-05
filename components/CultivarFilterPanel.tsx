@@ -82,11 +82,6 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
     });
   };
 
-  const getAttributeIcon = () => {
-    // Icons removed for cleaner UI
-    return '';
-  };
-
   const getAttributeLabel = (attribute: string): string => {
     if (attribute === 'fusarium resistant') return t('fusarium');
     if (attribute === 'macrophomina resistant') return t('macrophomina');

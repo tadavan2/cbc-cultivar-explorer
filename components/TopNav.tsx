@@ -1,4 +1,4 @@
-import { useLanguage, SUPPORTED_LANGUAGES } from './LanguageContext';
+import { useLanguage } from './LanguageContext';
 import React from 'react';
 
 interface TopNavProps {

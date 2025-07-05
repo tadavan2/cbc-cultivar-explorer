@@ -1,17 +1,17 @@
 {
-  "dayNeutral": "DIA NEUTRO",
-  "shortDay": "DIA CURTO",
+  "dayNeutral": "Dia neutro",
+  "shortDay": "Dia curto",
   "fusarium": "Fusarium",
   "macrophomina": "Macrophomina",
   "fallPlant": "Plantio de outono",
   "summerPlant": "Plantio de verão",
   "easternFallPlant": "Outono Leste",
   "premiumQuality": "Qualidade premium",
-  "excellentFlavor": "SABOR EXCELENTE",
-  "ultraEarly": "ULTRA PRECOCE",
-  "organic": "ORGÂNICO",
-  "coldTolerant": "TOLERANTE AO FRIO",
-  "highYields": "ALTAS PRODUTIVIDADES",
+  "excellentFlavor": "Sabor excelente",
+  "ultraEarly": "Ultra precoce",
+  "organic": "Orgânico",
+  "coldTolerant": "Tolerante ao frio",
+  "highYields": "Altas produtividades",
   "flowerType": "Tipo de flor",
   "diseaseResistance": "Resistência a doenças",
   "plantingSeason": "Época de plantio",
@@ -57,5 +57,5 @@
   "appearanceLabel": "Aparência (escala 1-5)",
   "fusariumResistant": "RESISTENTE A FUSARIUM",
   "macrophominaResistant": "RESISTENTE A MACROPHOMINA",
-  "rugged": "RESISTENTE"
+  "rugged": "Resistente"
 } 

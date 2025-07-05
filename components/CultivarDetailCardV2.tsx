@@ -2212,24 +2212,6 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
       )}
 
       {/* Info Overlay - Mobile */}
-      {isMobile && (
-        <>
-          {(() => {
-            console.log('DEBUG: About to render mobile overlay - isMobile:', isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoOverlay:', !!infoOverlay);
-            return null;
-          })()}
-          <InfoOverlayMobile
-            isVisible={showInfoOverlay}
-            content={{
-              key: infoOverlay?.key || '',
-              content: infoOverlay?.content || {},
-              cultivarId: cultivar.id,
-              isCultivarSpecific: Boolean(cultivarSpecificInfoData[cultivar.id]?.[infoOverlay?.key || ''])
-            }}
-            onClose={closeInfoOverlay}
-          />
-        </>
-      )}
       {isMobile && infoOverlay && infoOverlay.key && infoOverlay.content && (
         <InfoOverlayMobile
           isVisible={showInfoOverlay}

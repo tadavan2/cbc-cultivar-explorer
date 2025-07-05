@@ -1,13 +1,17 @@
 import React from 'react';
 import { InfoOverlayContent } from '../data/infoOverlayContent';
+import { useLanguage, useTranslation } from './LanguageContext';
 
 interface InfoOverlayMobileProps {
   isVisible: boolean;
-  content: InfoOverlayContent | null;
+  content: { key: string, content: InfoOverlayContent, cultivarId?: string, isCultivarSpecific?: boolean } | null;
   onClose: () => void;
 }
 
 export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoOverlayMobileProps) {
+  const { language } = useLanguage();
+  const { getInfoOverlay } = useTranslation();
+  
   console.log('DEBUG: InfoOverlayMobile render - isVisible:', isVisible, 'content:', !!content);
   
   if (!isVisible || !content) {
@@ -15,7 +19,26 @@ export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoO
     return null;
   }
   
-  console.log('DEBUG: InfoOverlayMobile rendering overlay with content:', content.title);
+  console.log('DEBUG: InfoOverlayMobile rendering overlay with key:', content.key, 'title:', content.content.title);
+
+  // Use the correct translation key for cultivar-specific overlays
+  let translationKey = content.key;
+  if (content.isCultivarSpecific && content.cultivarId) {
+    translationKey = `${content.cultivarId}-${content.key}`;
+  }
+  const overlayObj = getInfoOverlay(translationKey) || getInfoOverlay(content.key);
+  const finalTitle = overlayObj && overlayObj.title ? overlayObj.title : content.content.title;
+  const finalContent = overlayObj && overlayObj.content ? overlayObj.content : content.content.content;
+
+  // Debug logging
+  console.log('[InfoOverlayMobile DEBUG]', {
+    language,
+    content,
+    translationKey,
+    overlayObj,
+    finalTitle,
+    finalContent
+  });
 
   return (
     <div 
@@ -57,7 +80,7 @@ export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoO
                 filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))',
               }}
             >
-              {content.icon}
+              {content.content.icon}
             </div>
             <h2 
               className="text-lg font-bold text-white truncate"
@@ -65,7 +88,7 @@ export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoO
                 fontFamily: 'var(--font-body)',
               }}
             >
-              {content.title}
+              {finalTitle}
             </h2>
           </div>
           
@@ -112,7 +135,7 @@ export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoO
               fontFamily: 'var(--font-body)',
               lineHeight: '1.6',
             }}
-            dangerouslySetInnerHTML={{ __html: content.content }}
+            dangerouslySetInnerHTML={{ __html: finalContent }}
           />
           
           {/* Bottom padding for safe scrolling */}

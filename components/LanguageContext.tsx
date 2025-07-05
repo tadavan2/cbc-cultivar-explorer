@@ -3,6 +3,9 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import en from '../data/i18n/en.json';
 import es from '../data/i18n/es.json';
 import pt from '../data/i18n/pt.json';
+import infoOverlayEn from '../data/i18n/infoOverlay.en.json';
+import infoOverlayEs from '../data/i18n/infoOverlay.es.json';
+import infoOverlayPt from '../data/i18n/infoOverlay.pt.json';
 
 // Supported languages
 export const SUPPORTED_LANGUAGES = [
@@ -44,22 +47,37 @@ const translations: Record<string, Record<string, string>> = {
   pt,
 };
 
+const infoOverlayTranslations: Record<string, Record<string, any>> = {
+  en: infoOverlayEn,
+  es: infoOverlayEs,
+  pt: infoOverlayPt,
+};
+
 interface TranslationContextType {
   t: (key: string) => string;
+  getInfoOverlay: (key: string) => { title: string; content: string } | null;
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 export const TranslationProvider = ({ children }: { children: ReactNode }) => {
   const { language } = useLanguage();
+  
   const t = (key: string) => {
     const dict = translations[language] || translations['en'];
     const value = dict[key];
     console.log(`[i18n] t('${key}') in ${language}:`, value);
     return value || key;
   };
+
+  const getInfoOverlay = (key: string) => {
+    const dict = infoOverlayTranslations[language] || infoOverlayTranslations['en'];
+    const value = dict[key];
+    return value || null;
+  };
+
   return (
-    <TranslationContext.Provider value={{ t }}>
+    <TranslationContext.Provider value={{ t, getInfoOverlay }}>
       {children}
     </TranslationContext.Provider>
   );

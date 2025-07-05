@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { Cultivar } from '../types/cultivar';
-import { getInfoOverlayData, InfoOverlayContent, generateButtonConfigs } from '../data/infoOverlayContent';
+import { getInfoOverlayData, InfoOverlayContent, generateButtonConfigs, cultivarSpecificInfoData } from '../data/infoOverlayContent';
 import CultivarChart from './CultivarChart';
 import SpiderChart from './SpiderChart';
 import CultivarSelector from './CultivarSelector';
@@ -20,9 +20,9 @@ interface CultivarDetailCardV2Props {
 
 export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }: CultivarDetailCardV2Props) {
   const { language } = useLanguage();
-  const { t } = useTranslation();
+  const { t, getInfoOverlay } = useTranslation();
   const [showInfoOverlay, setShowInfoOverlay] = useState(false);
-  const [infoContent, setInfoContent] = useState<InfoOverlayContent | null>(null);
+  const [infoOverlay, setInfoOverlay] = useState<{ key: string, content: InfoOverlayContent } | null>(null);
   const [cultivarContent, setCultivarContent] = useState<CultivarContent | null>(null);
   const [contentLoading, setContentLoading] = useState(true);
   const [screenWidth, setScreenWidth] = useState(400); // Default width for SSR
@@ -216,8 +216,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
     const info = infoData[buttonType];
     console.log('DEBUG: info found:', !!info, info);
     if (info) {
-      console.log('DEBUG: Setting overlay state - showInfoOverlay: true');
-      setInfoContent(info);
+      setInfoOverlay({ key: buttonType, content: info });
       setShowInfoOverlay(true);
       console.log('DEBUG: State set, showInfoOverlay should be:', true);
     } else {
@@ -227,7 +226,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
 
   const closeInfoOverlay = () => {
     setShowInfoOverlay(false);
-    setInfoContent(null);
+    setInfoOverlay(null);
   };
 
   // Screen width detection (keeping only screenWidth for any remaining usage)
@@ -1103,7 +1102,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
         {/* Info Overlay - Mobile Portrait */}
         <InfoOverlayMobile
           isVisible={showInfoOverlay}
-          content={infoContent}
+          content={infoOverlay}
           onClose={closeInfoOverlay}
         />
       </div>
@@ -2180,40 +2179,68 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
 
       {/* Info Overlay - Desktop */}
       {(() => {
-        console.log('DEBUG: Desktop overlay condition - !isMobile:', !isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoContent:', !!infoContent);
+        console.log('DEBUG: Desktop overlay condition - !isMobile:', !isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoOverlay:', !!infoOverlay);
         return null;
       })()}
-      {!isMobile && showInfoOverlay && infoContent && (
-        <div className={`info-overlay ${showInfoOverlay ? 'show' : ''}`} onClick={closeInfoOverlay}>
-          <div className="info-card" onClick={(e) => e.stopPropagation()}>
-            <div className="info-card-close" onClick={closeInfoOverlay}>
-              ×
+      {!isMobile && showInfoOverlay && infoOverlay && (
+        (() => {
+          // Determine if this overlay is cultivar-specific
+          const isCultivarSpecific = Boolean(cultivarSpecificInfoData[cultivar.id]?.[infoOverlay.key]);
+          const translationKey = isCultivarSpecific ? `${cultivar.id}-${infoOverlay.key}` : infoOverlay.key;
+          const overlayTranslation = getInfoOverlay(translationKey) || getInfoOverlay(infoOverlay.key);
+          const finalTitle = overlayTranslation?.title || infoOverlay.content.title;
+          const finalContent = overlayTranslation?.content || infoOverlay.content.content;
+          const finalIcon = infoOverlay.content.icon;
+          return (
+            <div className={`info-overlay ${showInfoOverlay ? 'show' : ''}`} onClick={closeInfoOverlay}>
+              <div className="info-card" onClick={(e) => e.stopPropagation()}>
+                <div className="info-card-close" onClick={closeInfoOverlay}>
+                  ×
+                </div>
+                <div className="info-card-header">
+                  <div className="info-card-icon">{finalIcon}</div>
+                  <div className="info-card-title">{finalTitle}</div>
+                </div>
+                <div 
+                  className="info-card-content" 
+                  dangerouslySetInnerHTML={{ __html: finalContent }}
+                />
+              </div>
             </div>
-            <div className="info-card-header">
-              <div className="info-card-icon">{infoContent.icon}</div>
-              <div className="info-card-title">{infoContent.title}</div>
-            </div>
-            <div 
-              className="info-card-content" 
-              dangerouslySetInnerHTML={{ __html: infoContent.content }}
-            />
-          </div>
-        </div>
+          );
+        })()
       )}
 
       {/* Info Overlay - Mobile */}
       {isMobile && (
         <>
           {(() => {
-            console.log('DEBUG: About to render mobile overlay - isMobile:', isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoContent:', !!infoContent);
+            console.log('DEBUG: About to render mobile overlay - isMobile:', isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoOverlay:', !!infoOverlay);
             return null;
           })()}
           <InfoOverlayMobile
             isVisible={showInfoOverlay}
-            content={infoContent}
+            content={{
+              key: infoOverlay?.key || '',
+              content: infoOverlay?.content || {},
+              cultivarId: cultivar.id,
+              isCultivarSpecific: Boolean(cultivarSpecificInfoData[cultivar.id]?.[infoOverlay?.key || ''])
+            }}
             onClose={closeInfoOverlay}
           />
         </>
+      )}
+      {isMobile && infoOverlay && infoOverlay.key && infoOverlay.content && (
+        <InfoOverlayMobile
+          isVisible={showInfoOverlay}
+          content={{
+            key: infoOverlay.key,
+            content: infoOverlay.content,
+            cultivarId: cultivar.id,
+            isCultivarSpecific: Boolean(cultivarSpecificInfoData[cultivar.id]?.[infoOverlay.key])
+          }}
+          onClose={closeInfoOverlay}
+        />
       )}
     </div>
   );

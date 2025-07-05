@@ -47,7 +47,9 @@ const translations: Record<string, Record<string, string>> = {
   pt,
 };
 
-const infoOverlayTranslations: Record<string, Record<string, any>> = {
+type InfoOverlayTranslation = { [key: string]: { title: string; content: string } };
+
+const infoOverlayTranslations: Record<string, InfoOverlayTranslation> = {
   en: infoOverlayEn,
   es: infoOverlayEs,
   pt: infoOverlayPt,

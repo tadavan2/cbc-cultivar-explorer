@@ -1,0 +1,41 @@
+{
+  "id": "adelanto",
+  "name": "Adelanto",
+  "displayName": "Adelanto™",
+  "type": "short-day",
+  "description": {
+    "title": "Adelanto™ - Fresa de Día Corto Ultra Temprana",
+    "paragraphs": [
+      "Adelanto™ lidera la producción ultra temprana de fresas de día corto, generando rendimientos impresionantes cuando los precios estacionales alcanzan su punto más alto. Este cultivar superior combina vigor rápido con potencial de procesamiento excepcional, creando la solución perfecta para productores enfocados en la maximización de ganancias.",
+      "Reconocida por su establecimiento rápido y producción temprana de frutos, Adelanto™ produce bayas atractivas y bien dimensionadas con excelentes características de vida útil. El rendimiento equilibrado de la variedad y su textura firme la hacen ideal tanto para aplicaciones de mercado fresco como de procesamiento.",
+      "Diseñada para rendimiento máximo, Adelanto™ muestra estructura de planta abierta y sistemas de raíces resistentes que mantienen una producción constante durante toda la temporada de cultivo. Su resistencia establecida a Macrophomina y flexibilidad en sistemas de cultivo, desde campo hasta invernadero, garantizan resultados confiables en diversos entornos.",
+      "Desde el inicio de primavera hasta el pico de cosecha, Adelanto™ proporciona el momento, la calidad y las ganancias financieras que impulsan negocios de fresas prósperos. Capitalice las ventajas de ser el primero en el mercado con genética establecida y un historial comprobado."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/adelanto/banner.jpg",
+    "carousel": [
+      "/images/cultivars/adelanto/adelanto_1.jpg",
+      "/images/cultivars/adelanto/adelanto_2.jpg",
+      "/images/cultivars/adelanto/adelanto_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedad ultra temprana de día corto",
+    "Altos rendimientos de temporada temprana",
+    "Excelente vida útil",
+    "Fuerte resistencia a enfermedades"
+  ],
+  "performanceMetrics": {
+    "yield": "1,570 gramos/planta",
+    "size": "35.3 gramos",
+    "appearance": "3.5 promedio",
+    "firmness": "1.39 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Baja, MX: 25 de septiembre, Oxnard, CA: 30 de septiembre - 2 de octubre",
+    "chill": "Adelanto se beneficia de 50-100 horas de frío en el suelo, pero no es requerido. La planta se establecerá bien con suficiente fertilidad. El frío excesivo puede retrasar la ventaja de cosecha temprana.",
+    "fertility": "Las recomendaciones de fertilizante pre-plantación incluyen 800 lbs de 18-8-13 en suelos arenosos. Aplicaciones más ligeras pueden ser suficientes en suelos más pesados. El manejo temprano de nitrógeno es crítico para maximizar los rendimientos tempranos.",
+    "other": "Programas de aspersión estándar para mildiu polvoriento, botrytis y ácaros. Buena resistencia a Macrophomina y resistencia moderada a Verticillium. Monitorear de cerca las plagas de temporada temprana debido al crecimiento temprano rápido."
+  }
+} 

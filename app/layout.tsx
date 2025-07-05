@@ -9,6 +9,7 @@ import "@fontsource/inter/900.css";
 import "./globals.css";
 import "./cultivar-themes.css";
 import { Analytics } from '@vercel/analytics/next';
+import { LanguageProvider, TranslationProvider } from '../components/LanguageContext';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -106,7 +107,11 @@ export default function RootLayout({
         <div className="background-image"></div>
         {/* Background overlay for better readability - TEMPORARILY DISABLED */}
         {/* <div className="background-overlay"></div> */}
-        {children}
+        <LanguageProvider>
+          <TranslationProvider>
+            {children}
+          </TranslationProvider>
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

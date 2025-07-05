@@ -1,0 +1,31 @@
+{
+  "id": "debug",
+  "name": "CBC Cultivar Explorer",
+  "displayName": "Bienvenido al Explorador de Cultivares CBC",
+  "type": "intro-page",
+  "description": {
+    "title": "Bienvenido al Explorador de Cultivares CBC",
+    "paragraphs": [
+      "Descubra las variedades premium de fresas de California Berry Cultivars a través de nuestro explorador interactivo."
+    ]
+  },
+  "images": {
+    "banner": "/images/backgrounds/open_page_bg.jpg",
+    "carousel": [
+      "/images/backgrounds/open_page_bg.jpg"
+    ]
+  },
+  "features": [],
+  "performanceMetrics": {
+    "yield": "",
+    "size": "",
+    "appearance": "",
+    "firmness": ""
+  },
+  "recommendations": {
+    "plantingDate": "",
+    "chill": "",
+    "fertility": "",
+    "other": ""
+  }
+} 

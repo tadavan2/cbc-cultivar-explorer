@@ -22,6 +22,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslation } from './LanguageContext';
 
 interface HomepageProps {
   isMobile: boolean;
@@ -29,6 +30,7 @@ interface HomepageProps {
 }
 
 export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
+  const { t } = useTranslation();
   console.log('DEBUG: Homepage render - isMobile:', isMobile, 'isLandscape:', isLandscape);
   
   // Mobile Portrait Layout
@@ -97,7 +99,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               backgroundColor: 'rgba(241, 0, 0, 0.5)',
             }}
           >
-            CULTIVAR EXPLORER
+            {t('cultivarExplorer')}
           </div>
 
           {/* Mobile text overlay - Instructions */}
@@ -120,7 +122,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               backgroundColor: 'rgba(0, 0, 0, 0.3)',
             }}
           >
-            Tap any variety below to explore.
+            {t('tapToExplore')}
           </div>
           
           {/* Optional overlay */}
@@ -202,7 +204,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               backgroundColor: 'rgba(241, 0, 0, 0.5)',
             }}
           >
-            CULTIVAR EXPLORER
+            {t('cultivarExplorer')}
           </div>
 
           {/* Mobile Landscape instructions */}
@@ -225,7 +227,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               backgroundColor: 'rgba(0, 0, 0, 0.3)',
             }}
           >
-            Tap any variety below to explore.
+            {t('tapToExplore')}
           </div>
           
           {/* Gradient overlay */}
@@ -297,7 +299,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
             marginTop: '8px',
           }}
         >
-          CULTIVAR EXPLORER
+          {t('cultivarExplorer')}
         </div>
         
         {/* DESKTOP: Instructions */}
@@ -316,7 +318,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
             marginLeft: '16px',
           }}
         >
-          Welcome to California Berry Cultivars.
+          {t('welcome')}
         </div>
 
         <div 
@@ -334,7 +336,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
             marginLeft: '16px',
           }}
         >
-          Click any variety below to explore detailed insights. Trait filters are available on the right.
+          {t('clickToExplore')}
         </div>
         
         {/* Optional overlay for better text readability if needed */}

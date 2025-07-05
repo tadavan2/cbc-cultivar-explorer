@@ -7,6 +7,7 @@ import TopNav from '../components/TopNav';
 import CultivarDetailCardV2 from '../components/CultivarDetailCardV2';
 import CultivarFilterPanel from '../components/CultivarFilterPanel';
 import Homepage from '../components/Homepage';
+import { useLanguage } from '../components/LanguageContext';
 
 // Helper function to determine cultivar theme class based on market group
 const getCultivarThemeClass = (cultivarId: string): string => {
@@ -62,6 +63,8 @@ export default function Home() {
   // Desktop filter panel dock state - starts closed for clean entry
   const [isFilterPanelDocked, setIsFilterPanelDocked] = useState(false);
   const [isDesktopOrWideTablet, setIsDesktopOrWideTablet] = useState(false);
+
+  const { language } = useLanguage();
 
   // Debug: Log the current state
   console.log('DEBUG:', { 
@@ -384,7 +387,11 @@ export default function Home() {
                   >
                     <div className="flex items-center justify-center h-full" style={{ padding: '1px' }}>
                       <img 
-                        src="/images/icons/open_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/open_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/open_pt_card_icon.png' :
+                          '/images/icons/open_card_icon.png'
+                        }
                         alt="Home"
                         className="object-contain drop-shadow-lg"
                         style={{ width: '63px', height: '63px' }}
@@ -417,7 +424,11 @@ export default function Home() {
                       {cultivar.id === 'adelanto' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/adelanto_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/adelanto_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/adelanto_pt_card_icon.png' :
+                              '/images/icons/adelanto_card_icon.png'
+                            }
                             alt="Adelanto Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -425,7 +436,11 @@ export default function Home() {
                       ) : cultivar.id === 'debug' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/open_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/open_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/open_pt_card_icon.png' :
+                              '/images/icons/open_card_icon.png'
+                            }
                             alt="CBC Cultivar Explorer Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -433,7 +448,11 @@ export default function Home() {
                       ) : cultivar.id === 'alhambra' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/alhambra_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/alhambra_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/alhambra_pt_card_icon.png' :
+                              '/images/icons/alhambra_card_icon.png'
+                            }
                             alt="Alhambra Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -441,7 +460,11 @@ export default function Home() {
                       ) : cultivar.id === 'alturas' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/alturas_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/alturas_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/alturas_pt_card_icon.png' :
+                              '/images/icons/alturas_card_icon.png'
+                            }
                             alt="Alturas Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -449,7 +472,11 @@ export default function Home() {
                       ) : cultivar.id === 'artesia' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/artesia_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/artesia_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/artesia_pt_card_icon.png' :
+                              '/images/icons/artesia_card_icon.png'
+                            }
                             alt="Artesia Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -457,7 +484,11 @@ export default function Home() {
                       ) : cultivar.id === 'belvedere' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/belvedere_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/belvedere_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/belvedere_pt_card_icon.png' :
+                              '/images/icons/belvedere_card_icon.png'
+                            }
                             alt="Belvedere Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -465,7 +496,11 @@ export default function Home() {
                       ) : cultivar.id === 'brisbane' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/brisbane_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/brisbane_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/brisbane_pt_card_icon.png' :
+                              '/images/icons/brisbane_card_icon.png'
+                            }
                             alt="Brisbane Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -473,7 +508,11 @@ export default function Home() {
                       ) : cultivar.id === 'castaic' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/castaic_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/castaic_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/castaic_pt_card_icon.png' :
+                              '/images/icons/castaic_card_icon.png'
+                            }
                             alt="Castaic Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -481,7 +520,11 @@ export default function Home() {
                       ) : cultivar.id === 'carpinteria' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/carpinteria_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/carpinteria_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/carpinteria_pt_card_icon.png' :
+                              '/images/icons/carpinteria_card_icon.png'
+                            }
                             alt="Carpinteria Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -489,7 +532,11 @@ export default function Home() {
                       ) : cultivar.id === 'sweet-carolina' ? (
                         <div className="flex items-center justify-center h-full p-2">
                           <img 
-                            src="/images/icons/sweetcarolina_card_icon.png" 
+                            src={
+                              language === 'es' ? '/images/icons/sweetcarolina_es_card_icon.png' :
+                              language === 'pt' ? '/images/icons/sweetcarolina_pt_card_icon.png' :
+                              '/images/icons/sweetcarolina_card_icon.png'
+                            }
                             alt="Sweet Carolina Icon"
                             className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                           />
@@ -642,7 +689,11 @@ export default function Home() {
               >
                 <div className="flex items-center justify-center h-full" style={{ padding: '1px' }}>
                   <img 
-                    src="/images/icons/open_card_icon.png" 
+                    src={
+                      language === 'es' ? '/images/icons/open_es_card_icon.png' :
+                      language === 'pt' ? '/images/icons/open_pt_card_icon.png' :
+                      '/images/icons/open_card_icon.png'
+                    }
                     alt="Home"
                     className="object-contain drop-shadow-lg"
                     style={{ width: '63px', height: '63px' }}
@@ -698,7 +749,11 @@ export default function Home() {
                     // Special layout for Adelanto with custom icon only
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/adelanto_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/adelanto_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/adelanto_pt_card_icon.png' :
+                          '/images/icons/adelanto_card_icon.png'
+                        }
                         alt="Adelanto Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -707,7 +762,11 @@ export default function Home() {
                     // Special layout for CBC Cultivar Explorer with custom icon only
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/open_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/open_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/open_pt_card_icon.png' :
+                          '/images/icons/open_card_icon.png'
+                        }
                         alt="CBC Cultivar Explorer Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -716,7 +775,11 @@ export default function Home() {
                     // Special layout for Alhambra with custom icon only
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/alhambra_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/alhambra_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/alhambra_pt_card_icon.png' :
+                          '/images/icons/alhambra_card_icon.png'
+                        }
                         alt="Alhambra Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -725,7 +788,11 @@ export default function Home() {
                     // Special layout for Alturas with custom icon only
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/alturas_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/alturas_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/alturas_pt_card_icon.png' :
+                          '/images/icons/alturas_card_icon.png'
+                        }
                         alt="Alturas Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -734,7 +801,11 @@ export default function Home() {
                     // Special layout for Artesia with custom icon only
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/artesia_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/artesia_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/artesia_pt_card_icon.png' :
+                          '/images/icons/artesia_card_icon.png'
+                        }
                         alt="Artesia Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -743,7 +814,11 @@ export default function Home() {
                     // Special layout for Belvedere with custom icon only
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/belvedere_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/belvedere_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/belvedere_pt_card_icon.png' :
+                          '/images/icons/belvedere_card_icon.png'
+                        }
                         alt="Belvedere Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -751,7 +826,11 @@ export default function Home() {
                   ) : cultivar.id === 'brisbane' ? (
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/brisbane_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/brisbane_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/brisbane_pt_card_icon.png' :
+                          '/images/icons/brisbane_card_icon.png'
+                        }
                         alt="Brisbane Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -759,7 +838,11 @@ export default function Home() {
                   ) : cultivar.id === 'castaic' ? (
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/castaic_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/castaic_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/castaic_pt_card_icon.png' :
+                          '/images/icons/castaic_card_icon.png'
+                        }
                         alt="Castaic Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -767,7 +850,11 @@ export default function Home() {
                   ) : cultivar.id === 'carpinteria' ? (
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/carpinteria_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/carpinteria_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/carpinteria_pt_card_icon.png' :
+                          '/images/icons/carpinteria_card_icon.png'
+                        }
                         alt="Carpinteria Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />
@@ -775,7 +862,11 @@ export default function Home() {
                   ) : cultivar.id === 'sweet-carolina' ? (
                     <div className="flex items-center justify-center h-full p-2">
                       <img 
-                        src="/images/icons/sweetcarolina_card_icon.png" 
+                        src={
+                          language === 'es' ? '/images/icons/sweetcarolina_es_card_icon.png' :
+                          language === 'pt' ? '/images/icons/sweetcarolina_pt_card_icon.png' :
+                          '/images/icons/sweetcarolina_card_icon.png'
+                        }
                         alt="Sweet Carolina Icon"
                         className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
                       />

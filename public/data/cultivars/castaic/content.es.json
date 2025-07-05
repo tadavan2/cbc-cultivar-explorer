@@ -1,0 +1,42 @@
+{
+  "id": "castaic",
+  "name": "Castaic",
+  "displayName": "Castaic™",
+  "type": "short-day",
+  "description": {
+    "title": "Líder de Día Corto de Alto Rendimiento",
+    "paragraphs": [
+      "Castaic es una variedad de día corto de alto rendimiento con frutos uniformemente coloreados, firmes y grandes. El sabor es bueno sin problemas de color después del pico, y la piel permanece firme durante toda la temporada. La variedad demuestra un potencial de rendimiento impresionante con fuerte consistencia de producción.",
+      "Con su estructura de planta más grande, Castaic mantiene el tamaño de planta con plástico oscuro y manejo de fertilidad más baja. El cultivar muestra excelente adaptabilidad a diversas condiciones de cultivo mientras entrega calidad premium de fruto que cumple con las demandas del mercado.",
+      "Los ensayos de rendimiento demuestran el potencial de rendimiento superior de Castaic, con producción acumulativa alcanzando 1.8 kg/planta, o aproximadamente 30% más que Fronteras bajo el mismo tratamiento. La variedad supera a los cultivares estándar en rendimiento total mientras mantiene excelentes puntuaciones de firmeza y apariencia del fruto.",
+      "Las pruebas actuales sugieren que Castaic es moderadamente resistente a la mayoría de enfermedades transmitidas por el suelo, con más datos disponibles pronto. La variedad representa la próxima generación de cultivares de día corto de alto rendimiento para productores de California."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/castaic/banner.jpg",
+    "carousel": [
+      "/images/cultivars/castaic/castaic_1.jpg",
+      "/images/cultivars/castaic/castaic_2.jpg",
+      "/images/cultivars/castaic/castaic_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedad de día corto de alto rendimiento",
+    "Frutos uniformemente coloreados, firmes y grandes",
+    "Buen perfil de sabor",
+    "Sin problemas de color después del pico",
+    "Excelente consistencia de producción"
+  ],
+  "performanceMetrics": {
+    "yield": "1,812 gramos/planta",
+    "size": "40.2 gramos",
+    "appearance": "3.9 / 5.0",
+    "firmness": "1.3 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "1 de octubre - 5 de octubre (Oxnard), 1 de octubre - 15 de octubre (Santa María)",
+    "chill": "Como con la mayoría de las fresas de día corto, es difícil acumular frío desde el vivero. Aunque probamos plantas de bajo a sin frío, la mayoría de los días cortos sufrirán brechas de rendimiento si se plantan demasiado temprano. Recomendamos una ventana de plantación estándar, similar a Fronteras.",
+    "fertility": "Recomendamos fertilizante pre-plantación. Los rangos variarán por ubicación, pero en el lado bajo a moderado. Los suelos más pesados requerirán menos fertilizante. Un régimen regular de fertilizante durante la temporada de fructificación dependerá de los requisitos específicos del rancho.",
+    "other": "Sin requisitos especiales. Seguir aspersiones estándar para mildiu polvoriento, botrytis y ácaros."
+  }
+} 

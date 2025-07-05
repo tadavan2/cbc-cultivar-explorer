@@ -1,0 +1,42 @@
+{
+  "id": "carpinteria",
+  "name": "Carpinteria",
+  "displayName": "Carpinteria™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Día Neutro de Alto Rendimiento con Resistencia Superior a Enfermedades",
+    "paragraphs": [
+      "Carpinteria es un día neutro de alto rendimiento con frutos uniformemente coloreados, brillantes y grandes. El sabor es bueno. Los rendimientos tempranos y tardíos son más altos que los controles, mientras que el pico de verano es más moderado que Alturas. El fruto es más firme que Alturas y Monterey y mantiene buen tamaño en el verano.",
+      "Las recomendaciones de fertilizante incluyen fertilizante pre-plantación con rangos que varían por ubicación, pero entre 500 y 600 lbs de 18-8-13 es suficiente en suelos arenosos. Los suelos más pesados requerirán menos fertilizante. Un régimen regular de fertilizante durante la temporada de fructificación dependerá de los requisitos específicos del rancho.",
+      "La variedad muestra fuerte resistencia a Fusarium, resistencia moderada a Macrophomina y Verticillium. Para frío suplementario, como con la mayoría de los días neutros, el frío suplementario puede mejorar la calidad. Recomendamos entre 1-2 semanas de frío suplementario. Las plantas con demasiado frío se volverán más grandes y difíciles de manejar tarde en la temporada.",
+      "Sin requisitos especiales de aspersión. Seguir aspersiones estándar para mildiu polvoriento, botrytis y ácaros. La disponibilidad para 2025 es limitada en viveros de California, con mayor disponibilidad esperada para plantación de otoño 2026."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/carpinteria/banner.jpg",
+    "carousel": [
+      "/images/cultivars/carpinteria/carpinteria_1.jpg",
+      "/images/cultivars/carpinteria/carpinteria_2.jpg",
+      "/images/cultivars/carpinteria/carpinteria_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedad de día neutro de alto rendimiento",
+    "Frutos uniformemente coloreados, brillantes y grandes",
+    "Buen perfil de sabor",
+    "Más firme que Alturas y Monterey",
+    "Fuerte resistencia a Fusarium"
+  ],
+  "performanceMetrics": {
+    "yield": "3,531 gramos/planta",
+    "size": "33.8 gramos",
+    "appearance": "4.0 / 5.0",
+    "firmness": "1.2 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "15 de octubre - 30 de octubre (Santa María), 25 de octubre - 15 de noviembre (Salinas/Watsonville)",
+    "chill": "Como con la mayoría de los días neutros, el frío suplementario puede mejorar la calidad. Recomendamos entre 1-2 semanas de frío suplementario. Las plantas con demasiado frío se volverán más grandes y difíciles de manejar tarde en la temporada.",
+    "fertility": "Recomendamos fertilizante pre-plantación. Los rangos varían, pero entre 500 y 600 lbs de 18-8-13 es suficiente en suelos arenosos. Los suelos más pesados requerirán menos fertilizante. Un régimen regular de fertilizante durante la temporada de fructificación dependerá de los requisitos específicos del rancho.",
+    "other": "Sin requisitos especiales. Seguir aspersiones estándar para mildiu polvoriento, botrytis y ácaros."
+  }
+} 

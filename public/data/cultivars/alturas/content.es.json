@@ -1,0 +1,42 @@
+{
+  "id": "alturas",
+  "name": "Alturas",
+  "displayName": "Alturas™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Alturas™ - Fresa de Día Neutro Premium",
+    "paragraphs": [
+      "Alturas™ se encuentra a la vanguardia del desarrollo de fresas de día neutro, logrando resultados excepcionales durante temporadas de cosecha extendidas. Este cultivar de primer nivel equilibra fuertes rendimientos con excelente calidad de fruto, proporcionando a los productores comerciales consistencia confiable y rentabilidad.",
+      "Distinguida por sus bayas vibrantes y atractivas que mantienen el tamaño y la calidad durante toda la temporada, Alturas™ ofrece excelente vida útil y características de envío. El perfil de sabor equilibrado de la variedad y su atractivo visual llamativo la convierten en una favorita tanto entre productores como consumidores.",
+      "Construida para la eficiencia, Alturas™ presenta una arquitectura de planta abierta que facilita la cosecha fácil mientras reduce los costos de mano de obra. Su fuerte paquete de resistencia a enfermedades y características de cultivo adaptativas aseguran un rendimiento confiable en diversas condiciones de cultivo y climas.",
+      "Desde la plantación hasta la cosecha, Alturas™ proporciona la calidad, confiabilidad y retornos financieros que caracterizan a las empresas de fresas prósperas. Descubra cómo el desarrollo innovador y la genética probada pueden transformar su sistema de producción."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/alturas/banner.jpg",
+    "carousel": [
+      "/images/cultivars/alturas/alturas_1.jpg",
+      "/images/cultivars/alturas/alturas_2.jpg",
+      "/images/cultivars/alturas/alturas_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedad de día neutro premium",
+    "Calidad de fruto superior",
+    "Vida útil extendida",
+    "Paquete de resistencia a enfermedades",
+    "Cosecha eficiente"
+  ],
+  "performanceMetrics": {
+    "yield": "3,955 gramos/planta",
+    "size": "36.5 gramos promedio",
+    "appearance": "4.1 / 5.0",
+    "firmness": "1.1 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Santa María: 15 de octubre - 30 de octubre, Salinas/Watsonville: 25 de octubre - 15 de noviembre",
+    "chill": "Como con la mayoría de los días neutros, el frío suplementario puede mejorar la calidad. Recomendamos entre 10-15 días de frío suplementario. Niveles aumentados de frío, hasta 25 días, aumentan ligeramente la firmeza y apariencia durante el pico. Sin embargo, las plantas con demasiado frío se volverán más grandes y difíciles de manejar tarde en la temporada.",
+    "fertility": "Recomendamos fertilizante pre-plantación. Los rangos varían, pero entre 500 y 600 lbs de 18-8-13 es suficiente en suelos arenosos. Los suelos más pesados requerirán menos fertilizante. Un régimen regular de fertilizante durante la temporada de fructificación dependerá de los requisitos específicos del rancho.",
+    "other": "Sin requisitos especiales. Seguir aspersiones estándar para mildiu polvoriento, botrytis y ácaros. Fuerte resistencia a Fusarium. Moderadamente resistente a Macrophomina. Moderadamente susceptible a Verticillium."
+  }
+} 

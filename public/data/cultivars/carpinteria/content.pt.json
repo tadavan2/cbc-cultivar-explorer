@@ -1,0 +1,42 @@
+{
+  "id": "carpinteria",
+  "name": "Carpinteria",
+  "displayName": "Carpinteria™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Dia Neutro de Alto Rendimento com Resistência Superior a Doenças",
+    "paragraphs": [
+      "Carpinteria é um dia neutro de alto rendimento com frutos uniformemente coloridos, brilhantes e grandes. O sabor é bom. Os rendimentos precoces e tardios são mais altos que os controles, enquanto o pico de verão é mais moderado que Alturas. O fruto é mais firme que Alturas e Monterey e mantém bom tamanho no verão.",
+      "As recomendações de fertilizante incluem fertilizante pré-plantio com intervalos que variam por localização, mas entre 500 e 600 lbs de 18-8-13 é suficiente em solos arenosos. Solos mais pesados requererão menos fertilizante. Um regime regular de fertilizante durante a temporada de frutificação dependerá dos requisitos específicos do rancho.",
+      "A variedade mostra forte resistência a Fusarium, resistência moderada a Macrophomina e Verticillium. Para frio suplementar, como com a maioria dos dias neutros, o frio suplementar pode melhorar a qualidade. Recomendamos entre 1-2 semanas de frio suplementar. Plantas com muito frio se tornarão maiores e difíceis de gerenciar tarde na temporada.",
+      "Sem requisitos especiais de pulverização. Seguir pulverizações padrão para míldio pulverulento, botrytis e ácaros. A disponibilidade para 2025 é limitada em viveiros da Califórnia, com maior disponibilidade esperada para plantio de outono 2026."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/carpinteria/banner.jpg",
+    "carousel": [
+      "/images/cultivars/carpinteria/carpinteria_1.jpg",
+      "/images/cultivars/carpinteria/carpinteria_2.jpg",
+      "/images/cultivars/carpinteria/carpinteria_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedade de dia neutro de alto rendimento",
+    "Frutos uniformemente coloridos, brilhantes e grandes",
+    "Bom perfil de sabor",
+    "Mais firme que Alturas e Monterey",
+    "Forte resistência a Fusarium"
+  ],
+  "performanceMetrics": {
+    "yield": "3,531 gramas/planta",
+    "size": "33.8 gramas",
+    "appearance": "4.0 / 5.0",
+    "firmness": "1.2 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "15 de outubro - 30 de outubro (Santa Maria), 25 de outubro - 15 de novembro (Salinas/Watsonville)",
+    "chill": "Como com a maioria dos dias neutros, o frio suplementar pode melhorar a qualidade. Recomendamos entre 1-2 semanas de frio suplementar. Plantas com muito frio se tornarão maiores e difíceis de gerenciar tarde na temporada.",
+    "fertility": "Recomendamos fertilizante pré-plantio. Os intervalos variam, mas entre 500 e 600 lbs de 18-8-13 é suficiente em solos arenosos. Solos mais pesados requererão menos fertilizante. Um regime regular de fertilizante durante a temporada de frutificação dependerá dos requisitos específicos do rancho.",
+    "other": "Sem requisitos especiais. Seguir pulverizações padrão para míldio pulverulento, botrytis e ácaros."
+  }
+} 

@@ -1,0 +1,42 @@
+{
+  "id": "sweet-carolina",
+  "name": "Sweet Carolina",
+  "displayName": "Sweet Carolina™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Día Neutro de Alto Rendimiento Temprano con Fuerte Resistencia a Enfermedades",
+    "paragraphs": [
+      "Sweet Carolina es un día neutro de alto rendimiento temprano con frutos firmes de tamaño mediano-grande y buen sabor. Los resultados de pruebas de sabor sugieren un sabor comparable a Ruby June, con una apariencia general mejor y demostrando excelente tolerancia a la lluvia.",
+      "La resistencia a enfermedades es una fortaleza clave con fuerte resistencia tanto a Fusarium como a Phytophthora. Este perfil de doble resistencia hace que Sweet Carolina sea particularmente valiosa para operaciones que enfrentan presión de enfermedades transmitidas por el suelo.",
+      "La variedad muestra un rendimiento consistente con la primera cosecha en Carolina del Norte típicamente ocurriendo a mediados de marzo, dependiendo de la ubicación y el año. La recomendación de fecha de plantación para Carolina del Norte es aproximadamente el 10 de octubre.",
+      "La disponibilidad limitada de material limpio está planificada para ensayos de productores en 2025, con disponibilidad comercial a gran escala comenzando en la temporada 2026, proporcionando a los productores tiempo para evaluar el rendimiento en sus condiciones específicas de cultivo."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/sweetcarolina/banner.jpg",
+    "carousel": [
+      "/images/cultivars/sweetcarolina/sweetcarolina_1.jpg",
+      "/images/cultivars/sweetcarolina/sweetcarolina_2.jpg",
+      "/images/cultivars/sweetcarolina/sweetcarolina_3.jpg"
+    ]
+  },
+  "features": [
+    "Día neutro de alto rendimiento temprano",
+    "Fuerte resistencia a enfermedades",
+    "Buena tolerancia a la lluvia",
+    "Textura de fruto firme",
+    "Tamaño de fruto mediano-grande"
+  ],
+  "performanceMetrics": {
+    "yield": "26.2t/ha",
+    "size": "24.7g",
+    "appearance": "Excelente",
+    "firmness": "Alto"
+  },
+  "recommendations": {
+    "plantingDate": "~ 10 de octubre (Carolina del Norte)",
+    "chill": "Requisitos estándar de frío para día neutro. Rendimiento optimizado con acumulación adecuada de frío invernal.",
+    "fertility": "Programa de fertilidad estándar adecuado para fresas de día neutro. Ajustar según resultados de análisis de suelo y recomendaciones regionales.",
+    "other": "Fuerte resistencia a Fusarium y Phytophthora. Disponibilidad limitada de material limpio para ensayos de productores en 2025. La disponibilidad comercial a gran escala comenzará en la temporada 2026."
+  }
+} 

@@ -401,7 +401,8 @@ export interface ButtonConfig {
   id: string;
   className: string;
   icon: string;
-  label: string;
+  label?: string;
+  labelKey?: string;
 }
 
 // Attribute to button mapping
@@ -409,57 +410,57 @@ const attributeButtonMap: { [key: string]: Omit<ButtonConfig, 'id'> } = {
   'day-neutral': {
     className: 'premium-button-glass',
     icon: '☀️',
-    label: 'DAY-NEUTRAL'
+    labelKey: 'dayNeutral'
   },
   'short-day': {
     className: 'premium-button-orange-glass',
     icon: '🌙',
-    label: 'SHORT-DAY'
+    labelKey: 'shortDay'
   },
   'fusarium resistant': {
     className: 'premium-button-glass',
     icon: '🛡️',
-    label: 'FUSARIUM RESISTANT'
+    labelKey: 'fusariumResistant'
   },
   'macrophomina resistant': {
     className: 'premium-button-glass',
     icon: '🛡️',
-    label: 'MACROPHOMINA RESISTANT'
+    labelKey: 'macrophominaResistant'
   },
   'high yields': {
     className: 'premium-button-glass',
     icon: '📈',
-    label: 'HIGH YIELDS'
+    labelKey: 'highYields'
   },
   'excellent flavor': {
     className: 'premium-button-pink-glass',
     icon: '😋',
-    label: 'EXCELLENT FLAVOR'
+    labelKey: 'excellentFlavor'
   },
   'premium quality': {
     className: 'premium-button-gold-glass',
     icon: '💎',
-    label: 'PREMIUM QUALITY'
+    labelKey: 'premiumQuality'
   },
   'ultra early': {
     className: 'premium-button-orange-glass',
     icon: '🌅',
-    label: 'ULTRA EARLY'
+    labelKey: 'ultraEarly'
   },
   'organic': {
     className: 'premium-button-green-glass',
     icon: '🌿',
-    label: 'ORGANIC'
+    labelKey: 'organic'
   },
   'cold tolerant': {
     className: 'premium-button-blue-glass',
     icon: '❄️',
-    label: 'COLD TOLERANT'
+    labelKey: 'coldTolerant'
   },
   'rugged': {
     className: 'premium-button-glass',
     icon: '💪',
-    label: 'RUGGED'
+    labelKey: 'rugged'
   }
 };
 

@@ -1,0 +1,42 @@
+{
+  "id": "artesia",
+  "name": "Artesia",
+  "displayName": "Artesia™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Artesia™ - Fresa de Día Neutro Orgánica Premium",
+    "paragraphs": [
+      "Artesia™ se encuentra a la vanguardia del cultivo orgánico de fresas, generando rendimientos y calidad impresionantes en sistemas de cultivo libres de químicos. Este cultivar de día neutro de élite combina rendimiento superior con resistencia completa a enfermedades, creando la solución perfecta para productores orgánicos enfocados en productividad y confiabilidad.",
+      "Reconocida por sus resultados excepcionales en sistemas de cultivo orgánico, Artesia™ produce de manera confiable fuertes rendimientos, calidad de fruto sobresaliente y vigor de planta robusto en evaluaciones de campo. Los operadores orgánicos reportan consistentemente resultados mejorados versus otros cultivares comerciales, especialmente en cuanto a cosecha comercializable, firmeza y apariencia visual.",
+      "Artesia™ ofrece resistencia robusta o moderada a todos los patógenos transmitidos por el suelo que afectan la producción de fresas en California. Este paquete integral de resistencia a enfermedades reduce las pérdidas de campo y simplifica el manejo de enfermedades para productores orgánicos, proporcionando rendimiento confiable en diversas condiciones de cultivo.",
+      "Desde la plantación hasta la cosecha, Artesia™ proporciona la producción, calidad y protección contra enfermedades que caracterizan a las empresas de fresas orgánicas prósperas. Descubra los beneficios de la genética diseñada específicamente para sistemas de cultivo sostenibles y libres de químicos."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/artesia/banner.jpg",
+    "carousel": [
+      "/images/cultivars/artesia/artesia_1.jpg",
+      "/images/cultivars/artesia/artesia_2.jpg",
+      "/images/cultivars/artesia/artesia_3.jpg"
+    ]
+  },
+  "features": [
+    "Producción orgánica optimizada",
+    "Resistencia integral a enfermedades",
+    "Altos rendimientos comercializables",
+    "Rendimiento orgánico superior",
+    "Floración temprana"
+  ],
+  "performanceMetrics": {
+    "yield": "3,133 gramos por planta",
+    "size": "29.4 gramos",
+    "appearance": "3.2 / 5.0",
+    "firmness": "1.17 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Santa María: 15 de octubre - 30 de octubre, Salinas/Watsonville: 25 de octubre - 15 de noviembre",
+    "chill": "La planta rinde mejor con frío suplementario. Recomendamos 2-3 semanas, particularmente bajo condiciones orgánicas. La floración es temprana - comenzar la remoción de flores y aspersiones en consecuencia.",
+    "fertility": "Los programas de fertilizante orgánico deben enfatizar la salud del suelo y la liberación gradual de nutrientes. Las tasas recomendadas de fertilizante orgánico dependen de las condiciones del suelo y los niveles de materia orgánica. Se recomienda análisis regular de suelo para sistemas orgánicos.",
+    "other": "Excelente para sistemas de producción orgánica. Fuerte resistencia a Fusarium. Resistencia moderada a Macrophomina, Verticillium y Colletotrichum. Expresión mínima de enfermedades en patógenos transmitidos por el suelo. Seguir programas de aspersión aprobados para orgánicos."
+  }
+} 

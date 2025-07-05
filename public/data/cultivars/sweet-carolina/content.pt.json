@@ -1,0 +1,42 @@
+{
+  "id": "sweet-carolina",
+  "name": "Sweet Carolina",
+  "displayName": "Sweet Carolina™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Dia Neutro de Alto Rendimento Precoce com Forte Resistência a Doenças",
+    "paragraphs": [
+      "Sweet Carolina é um dia neutro de alto rendimento precoce com frutos firmes de tamanho médio-grande e bom sabor. Os resultados de testes de sabor sugerem um sabor comparável ao Ruby June, com aparência geral melhor e demonstrando excelente tolerância à chuva.",
+      "A resistência a doenças é uma força chave com forte resistência tanto a Fusarium quanto a Phytophthora. Este perfil de dupla resistência torna Sweet Carolina particularmente valiosa para operações que enfrentam pressão de doenças transmitidas pelo solo.",
+      "A variedade mostra desempenho consistente com a primeira colheita na Carolina do Norte tipicamente ocorrendo em meados de março, dependendo da localização e ano. A recomendação de data de plantio para Carolina do Norte é aproximadamente 10 de outubro.",
+      "A disponibilidade limitada de material limpo está planejada para testes de produtores em 2025, com disponibilidade comercial em larga escala começando na temporada 2026, fornecendo aos produtores tempo para avaliar o desempenho em suas condições específicas de cultivo."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/sweetcarolina/banner.jpg",
+    "carousel": [
+      "/images/cultivars/sweetcarolina/sweetcarolina_1.jpg",
+      "/images/cultivars/sweetcarolina/sweetcarolina_2.jpg",
+      "/images/cultivars/sweetcarolina/sweetcarolina_3.jpg"
+    ]
+  },
+  "features": [
+    "Dia neutro de alto rendimento precoce",
+    "Forte resistência a doenças",
+    "Boa tolerância à chuva",
+    "Textura de fruto firme",
+    "Tamanho de fruto médio-grande"
+  ],
+  "performanceMetrics": {
+    "yield": "26.2t/ha",
+    "size": "24.7g",
+    "appearance": "Excelente",
+    "firmness": "Alto"
+  },
+  "recommendations": {
+    "plantingDate": "~ 10 de outubro (Carolina do Norte)",
+    "chill": "Requisitos padrão de frio para dia neutro. Desempenho otimizado com acumulação adequada de frio invernal.",
+    "fertility": "Programa de fertilidade padrão adequado para morangos de dia neutro. Ajustar com base nos resultados de análise de solo e recomendações regionais.",
+    "other": "Forte resistência a Fusarium e Phytophthora. Disponibilidade limitada de material limpo para testes de produtores em 2025. A disponibilidade comercial em larga escala começará na temporada 2026."
+  }
+} 

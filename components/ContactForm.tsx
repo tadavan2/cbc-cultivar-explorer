@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from './LanguageContext';
 
 interface ContactFormProps {
   cultivarName?: string;
@@ -19,6 +20,8 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
     region: '',
     message: prefilledMessage || 'I am interested in learning more about your strawberry cultivars. Please provide information about licensing, availability, and growing recommendations for my operation.'
   });
+
+  const { t } = useTranslation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -108,6 +111,11 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
     e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
   };
 
+  // Helper to ensure only one TM symbol
+  function withTM(name: string) {
+    return name.endsWith('™') ? name : name + '™';
+  }
+
   if (isSuccess) {
     return (
       <div 
@@ -125,14 +133,14 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
           marginBottom: '8px', 
           fontWeight: 'bold' 
         }}>
-          ✓ Message Sent Successfully!
+          {t('messageSent')}
         </div>
         <div style={{ 
           fontFamily: 'var(--font-body)', 
           fontSize: '14px', 
           color: '#d1d5db' 
         }}>
-          We will get back to you within 24 hours.
+          {t('replyTime')}
         </div>
       </div>
     );
@@ -159,10 +167,10 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
             marginBottom: '8px', 
             fontWeight: 'bold' 
           }}>
-            💬 Interested in {cultivarName || 'CBC Cultivars'}?
+            💬 {t('interestedIn').replace('{cultivar}', withTM(cultivarName || ''))}
           </div>
           <div className="text-sm text-gray-300" style={{ fontFamily: 'var(--font-body)' }}>
-            {isExpanded ? '' : 'Click to contact CBC'}
+            {isExpanded ? '' : t('clickToContact')}
           </div>
         </div>
         <div 
@@ -185,7 +193,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
             <div className="grid grid-cols-2" style={{ gap: '24px' }}>
               <div>
                 <label className="block text-xs text-gray-400 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
-                  Name *
+                  {t('name')} *
                 </label>
                 <input
                   type="text"
@@ -198,10 +206,10 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                 />
-                              </div>
+              </div>
               <div>
                 <label className="block text-xs text-gray-400 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
-                  Email *
+                  {t('email')} *
                 </label>
                 <input
                   type="email"
@@ -221,7 +229,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
             <div className="grid grid-cols-2" style={{ gap: '24px' }}>
               <div>
                 <label className="block text-xs text-gray-400 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
-                  Company
+                  {t('company')}
                 </label>
                 <input
                   type="text"
@@ -233,10 +241,10 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                 />
-                              </div>
+              </div>
               <div>
                 <label className="block text-xs text-gray-400 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
-                  Phone
+                  {t('phone')}
                 </label>
                 <input
                   type="tel"
@@ -254,14 +262,14 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
             {/* Region */}
             <div>
               <label className="block text-xs text-gray-400 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
-                Growing Region
+                {t('growingRegion')}
               </label>
               <input
                 type="text"
                 name="region"
                 value={formData.region}
                 onChange={handleInputChange}
-                placeholder="e.g., Central Valley, CA"
+                placeholder={t('regionExample')}
                 className="w-full px-4 py-3 text-white text-sm focus:outline-none transition-all duration-300"
                 style={inputStyle}
                 onFocus={handleFocus}
@@ -272,7 +280,7 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
             {/* Message */}
             <div>
               <label className="block text-xs text-gray-400 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
-                Message *
+                {t('messageLabel')}
               </label>
               <textarea
                 name="message"
@@ -305,10 +313,10 @@ export default function ContactForm({ cultivarName, prefilledMessage }: ContactF
               {isSubmitting ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Sending...
+                  {t('sending')}
                 </div>
               ) : (
-                'Send Inquiry'
+                t('sendInquiry')
               )}
             </button>
           </div>

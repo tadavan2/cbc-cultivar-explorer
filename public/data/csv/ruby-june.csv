@@ -1,9 +1,4 @@
 cultivar,month,yield,firmness,size,appearance
-san-andreas,Mar,1380,8.8,19.5,9.5
-san-andreas,Apr,2100,9.0,20.1,9.7
-san-andreas,May,2450,9.1,20.5,9.8
-san-andreas,Jun,2200,8.9,20.2,9.6
-san-andreas,Jul,1880,8.7,19.8,9.4
-san-andreas,Aug,1620,8.6,19.4,9.2
-san-andreas,Sep,1350,8.5,19.0,9.0
-san-andreas,Oct,1080,8.4,18.6,8.8 
+ruby-june,Mar,29,,29.7,
+ruby-june,Apr,442,,25.3,
+ruby-june,May,220,,22.4,

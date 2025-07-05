@@ -1,0 +1,42 @@
+{
+  "id": "alhambra",
+  "name": "Alhambra",
+  "displayName": "Alhambra™",
+  "type": "summer-plant-day-neutral",
+  "description": {
+    "title": "Alhambra™ - Morango de Dia Neutro de Plantio de Verão Premium",
+    "paragraphs": [
+      "Alhambra™ define a qualidade no cultivo de morangos de dia neutro de plantio de verão, produzindo sabor notável e consistência durante períodos de colheita estendidos. Este cultivar de primeira linha combina sabor sobresaliente com desempenho confiável, criando a solução ótima para produtores que visam qualidade e satisfação do cliente em mercados de temporada tardia e inverno.",
+      "Distinguida por seu excelente perfil de sabor e tamanho de fruto consistentemente grande, Alhambra™ mantém características de qualidade bem entrado o outono tardio e início do inverno. A variedade produz menos frutos descartados e se desempenha excepcionalmente bem sob sistemas de produção em túneis, proporcionando aos produtores opções de cultivo flexíveis.",
+      "Para o sucesso do plantio de verão, Alhambra™ apresenta vigor de planta forte e características adaptativas que garantem desempenho confiável em diversas condições de cultivo. Seu pacote moderado de resistência a doenças e genética comprovada fornecem a base para operações bem-sucedidas de morangos de temporada tardia.",
+      "Desde o estabelecimento até a colheita, Alhambra™ fornece o sabor, qualidade e confiabilidade que caracterizam a produção de elite de morangos. Descubra os benefícios da genética avançada projetada especificamente para sistemas de dia neutro de plantio de verão."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/alhambra/banner.jpg",
+    "carousel": [
+      "/images/cultivars/alhambra/alhambra_1.jpg",
+      "/images/cultivars/alhambra/alhambra_2.jpg",
+      "/images/cultivars/alhambra/alhambra_3.jpg"
+    ]
+  },
+  "features": [
+    "Perfil de sabor excelente",
+    "Dia neutro de plantio de verão",
+    "Tamanho de fruto grande mantido",
+    "Desempenho superior em túneis",
+    "Baixo percentual de descarte"
+  ],
+  "performanceMetrics": {
+    "yield": "1326 gramas/planta",
+    "size": "33.7 gramas",
+    "appearance": "Excelente",
+    "firmness": "Bom"
+  },
+  "recommendations": {
+    "plantingDate": "Santa Maria: 15 de maio - 15 de junho, Oxnard: 15 de junho - 15 de julho",
+    "chill": "Se usado como planta de outono, em vez de plantio frigorífico, Alhambra se beneficia de significativamente mais frio que as variedades típicas de dia neutro. Recomendamos pelo menos 500 horas no solo e 14 dias suplementares.",
+    "fertility": "Os programas de fertilizante para plantio de verão devem enfatizar a nutrição de estabelecimento. Recomendamos fertilizante mínimo para plantios iniciais, com programas de alimentação regulares durante toda a temporada de cultivo.",
+    "other": "Sem requisitos especiais de pulverização. Seguir programas padrão para míldio pulverulento, botrytis e ácaros. Moderadamente resistente a Fusarium e Macrophomina. Se desempenha excepcionalmente bem sob sistemas de túneis."
+  }
+} 

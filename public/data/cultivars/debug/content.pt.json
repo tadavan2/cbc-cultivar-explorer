@@ -1,0 +1,31 @@
+{
+  "id": "debug",
+  "name": "CBC Cultivar Explorer",
+  "displayName": "Bem-vindo ao Explorador de Cultivares CBC",
+  "type": "intro-page",
+  "description": {
+    "title": "Bem-vindo ao Explorador de Cultivares CBC",
+    "paragraphs": [
+      "Descubra as variedades premium de morangos da California Berry Cultivars através do nosso explorador interativo."
+    ]
+  },
+  "images": {
+    "banner": "/images/backgrounds/open_page_bg.jpg",
+    "carousel": [
+      "/images/backgrounds/open_page_bg.jpg"
+    ]
+  },
+  "features": [],
+  "performanceMetrics": {
+    "yield": "",
+    "size": "",
+    "appearance": "",
+    "firmness": ""
+  },
+  "recommendations": {
+    "plantingDate": "",
+    "chill": "",
+    "fertility": "",
+    "other": ""
+  }
+} 

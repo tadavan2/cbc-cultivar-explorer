@@ -1,0 +1,42 @@
+{
+  "id": "belvedere",
+  "name": "Belvedere",
+  "displayName": "Belvedere™",
+  "type": "short-day",
+  "description": {
+    "title": "Excelência de Rendimento Precoce",
+    "paragraphs": [
+      "Belvedere produz rendimentos precoces como variedade de dia curto, apresentando frutos firmes, uniformemente coloridos e premium que alcançam resultados de mercado sobresalientes. Este cultivar robusto combina excelente sabor com elevado conteúdo de brix, criando versatilidade perfeita para usos de mercado fresco e processamento.",
+      "A variedade se destaca por suas excelentes características de vida útil e capacidade de envio, garantindo que o fruto mantenha a qualidade desde o campo até o consumidor. A arquitetura robusta de planta de Belvedere se desempenha melhor em cobertura de linha mais escura com menos fertilidade, tornando-a uma escolha eficiente para sistemas de produção sustentável.",
+      "Com forte resistência a Macrophomina e resistência moderada a Verticillium e Phytophthora, Belvedere oferece proteção confiável contra doenças enquanto entrega rendimentos consistentes. O momento de colheita precoce da variedade e a qualidade premium do fruto a tornam uma excelente escolha para produtores que buscam vantagem de mercado.",
+      "Desde a colheita inicial no final de dezembro até a temporada de pico, Belvedere fornece a confiabilidade, qualidade e proteção contra doenças que caracterizam empresas de morangos rentáveis. Capitalize o posicionamento precoce de mercado com genética estabelecida e um histórico comprovado."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/belvedere/banner.jpg",
+    "carousel": [
+      "/images/cultivars/belvedere/belvedere_1.jpg",
+      "/images/cultivars/belvedere/belvedere_2.jpg",
+      "/images/cultivars/belvedere/belvedere_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedade de dia curto de rendimento precoce",
+    "Alto conteúdo de brix (11.0 média)",
+    "Forte resistência a Macrophomina",
+    "Excelente vida útil e envio",
+    "Qualidade premium de fruto"
+  ],
+  "performanceMetrics": {
+    "yield": "1,696 gramas/planta",
+    "size": "34.8 gramas",
+    "appearance": "4.1/5.0",
+    "firmness": "1.53 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "1 de outubro - 5 de outubro (Oxnard), 1 de outubro (Baja)",
+    "chill": "Como variedade de dia curto, Belvedere se beneficia de frio mínimo mas não se desempenha bem sob condições sem frio.",
+    "fertility": "Fertilizante pré-plantio: 500 lbs de 18-8-13. Planta vigorosa - gerenciar com menos fertilizante e cobertura de linha mais fresca. Aplicar 3 lbs de N por semana após a primeira floração.",
+    "other": "Começar pulverizações para botrytis após o aparecimento da primeira floração. Aplicar pulverizações padrão para míldio pulverulento. Se desempenha melhor em cobertura de linha mais escura com fertilidade reduzida."
+  }
+} 

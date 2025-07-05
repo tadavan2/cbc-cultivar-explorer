@@ -1,0 +1,41 @@
+{
+  "id": "adelanto",
+  "name": "Adelanto",
+  "displayName": "Adelanto™",
+  "type": "short-day",
+  "description": {
+    "title": "Adelanto™ - Morango de Dia Curto Ultra Precoce",
+    "paragraphs": [
+      "Adelanto™ lidera a produção ultra precoce de morangos de dia curto, gerando rendimentos impressionantes quando os preços sazonais atingem seu ponto mais alto. Este cultivar superior combina vigor rápido com potencial de processamento excepcional, criando a solução perfeita para produtores focados na maximização de lucros.",
+      "Reconhecida por seu estabelecimento rápido e produção precoce de frutos, Adelanto™ produz frutos atrativos e bem dimensionados com excelentes características de vida útil. O rendimento equilibrado da variedade e sua textura firme a tornam ideal tanto para aplicações de mercado fresco quanto de processamento.",
+      "Projetada para desempenho máximo, Adelanto™ mostra estrutura de planta aberta e sistemas de raízes resistentes que mantêm produção constante durante toda a temporada de cultivo. Sua resistência estabelecida a Macrophomina e flexibilidade em sistemas de cultivo, desde campo até estufa, garantem resultados confiáveis em diversos ambientes.",
+      "Desde o início da primavera até o pico de colheita, Adelanto™ fornece o momento, a qualidade e os ganhos financeiros que impulsionam negócios de morangos prósperos. Capitalize as vantagens de ser o primeiro no mercado com genética estabelecida e um histórico comprovado."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/adelanto/banner.jpg",
+    "carousel": [
+      "/images/cultivars/adelanto/adelanto_1.jpg",
+      "/images/cultivars/adelanto/adelanto_2.jpg",
+      "/images/cultivars/adelanto/adelanto_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedade ultra precoce de dia curto",
+    "Altos rendimentos de temporada precoce",
+    "Excelente vida útil",
+    "Forte resistência a doenças"
+  ],
+  "performanceMetrics": {
+    "yield": "1,570 gramas/planta",
+    "size": "35.3 gramas",
+    "appearance": "3.5 média",
+    "firmness": "1.39 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Baja, MX: 25 de setembro, Oxnard, CA: 30 de setembro - 2 de outubro",
+    "chill": "Adelanto se beneficia de 50-100 horas de frio no solo, mas não é requerido. A planta se estabelecerá bem com fertilidade suficiente. O frio excessivo pode atrasar a vantagem de colheita precoce.",
+    "fertility": "As recomendações de fertilizante pré-plantio incluem 800 lbs de 18-8-13 em solos arenosos. Aplicações mais leves podem ser suficientes em solos mais pesados. O manejo precoce de nitrogênio é crítico para maximizar os rendimentos precoces.",
+    "other": "Programas de aspersão padrão para míldio pulverulento, botrytis e ácaros. Boa resistência a Macrophomina e resistência moderada a Verticillium. Monitorar de perto as pragas de temporada precoce devido ao crescimento precoce rápido."
+  }
+} 

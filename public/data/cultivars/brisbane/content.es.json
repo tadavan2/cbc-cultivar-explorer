@@ -1,0 +1,41 @@
+{
+  "id": "brisbane",
+  "name": "Brisbane",
+  "displayName": "Brisbane™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Día Neutro Moderado con Apariencia Excelente y Sabor Superior",
+    "paragraphs": [
+      "Brisbane es un día neutro moderado con apariencia excelente. Es una planta más grande, con frutos de firmeza y tamaño similares comparados con otros cultivares comercialmente disponibles. En pruebas de sabor, Brisbane consistentemente se ubica cerca de la cima.",
+      "La resistencia a enfermedades es una fortaleza clave con fuerte resistencia a Fusarium y resistencia moderada a Macrophomina y Verticillium. La variedad rinde mejor con más frío, requiriendo al menos 2 semanas de frío suplementario para rendimiento óptimo.",
+      "Brisbane demuestra rendimiento consistente a través de condiciones de ensayo con patrones de rendimiento confiables desde abril hasta octubre."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/brisbane/banner.jpg",
+    "carousel": [
+      "/images/cultivars/brisbane/brisbane_1.jpg",
+      "/images/cultivars/brisbane/brisbane_2.jpg",
+      "/images/cultivars/brisbane/brisbane_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedad de día neutro moderada",
+    "Calidad de apariencia excelente",
+    "Clasificaciones superiores en pruebas de sabor",
+    "Fuerte resistencia a Fusarium",
+    "Estructura de planta más grande"
+  ],
+  "performanceMetrics": {
+    "yield": "3,128 gramos/planta",
+    "size": "30.2 gramos",
+    "appearance": "3.6 / 5.0",
+    "firmness": "1.21 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "15 de octubre - 30 de octubre (Santa María), 25 de octubre - 15 de noviembre (Salinas/Watsonville)",
+    "chill": "Rinde mejor con más frío. Se requieren al menos 2 semanas de frío suplementario para rendimiento óptimo.",
+    "fertility": "Programa de fertilidad estándar. El régimen regular de fertilizante durante la temporada de fructificación dependerá de los requisitos específicos del rancho.",
+    "other": "Fuerte resistencia a Fusarium, resistencia moderada a Macrophomina y Verticillium. Disponibilidad general en el mercado a partir de 2024."
+  }
+} 

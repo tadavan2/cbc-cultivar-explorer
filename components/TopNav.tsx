@@ -1,9 +1,55 @@
+import { useLanguage, SUPPORTED_LANGUAGES } from './LanguageContext';
+import React from 'react';
+
 interface TopNavProps {
   isMobile?: boolean;
   isLandscape?: boolean;
 }
 
 export default function TopNav({ isMobile = false, isLandscape = false }: TopNavProps) {
+  const { language, setLanguage, supportedLanguages } = useLanguage();
+
+  // Language Switcher UI
+  const LanguageSwitcher = () => {
+    return (
+      <div style={{ marginRight: 8 }}>
+        <select
+          aria-label="Select language"
+          value={language}
+          onChange={e => setLanguage(e.target.value)}
+          className="premium-button-glass"
+          style={{
+            padding: isMobile ? '4px 10px' : '6px 16px',
+            fontSize: isMobile ? '13px' : '15px',
+            fontWeight: 700,
+            borderRadius: '12px',
+            minWidth: isMobile ? 90 : 120,
+            border: '2px solid #22c55e',
+            outline: 'none',
+            boxShadow: '0 4px 16px rgba(34,197,94,0.13), 0 1.5px 6px rgba(0,0,0,0.08)',
+            background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+            color: '#fff',
+            backdropFilter: 'blur(10px) saturate(180%)',
+            cursor: 'pointer',
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
+            transition: 'all 0.18s cubic-bezier(0.4,0,0.2,1)',
+            marginRight: 0,
+          }}
+          onFocus={e => e.currentTarget.style.boxShadow = '0 0 0 3px #22c55e55, 0 4px 16px rgba(34,197,94,0.13)'}
+          onBlur={e => e.currentTarget.style.boxShadow = '0 4px 16px rgba(34,197,94,0.13), 0 1.5px 6px rgba(0,0,0,0.08)'}
+        >
+          {supportedLanguages.map(lang => (
+            <option key={lang.code} value={lang.code} style={{ color: '#222', background: '#fff' }}>
+              {lang.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
   return (
     <nav className={`sticky top-0 z-50 ${isMobile ? (isLandscape ? 'h-12' : 'h-16') : 'h-16'}`} style={{ 
       background: 'rgba(251, 239, 239)', 
@@ -45,14 +91,12 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
           <div>
             <h1 className={`font-bold premium-heading ${isMobile ? (isLandscape ? 'text-xs' : 'text-xs') : 'text-5xl'}`} style={{ 
               lineHeight: '0.9', 
-              fontSize: isMobile ? '22px' : '3.5rem',
+              fontSize: isMobile ? (isLandscape ? '22px' : '14px') : '3.5rem',
               letterSpacing: '-0.02em',
               margin: 0,
               padding: '8px 0'
             }}>
-              {isMobile ? (
-                'CALIFORNIA BERRY CULTIVARS'
-              ) : (
+              {isMobile ? (isLandscape ? 'CALIFORNIA BERRY CULTIVARS' : 'CALIFORNIA BERRY CULTIVARS') : (
                 <>
                   <span style={{ fontWeight: 500 }}>CALIFORNIA </span>
                   <span style={{ fontWeight: 800 }}>BERRY </span>
@@ -63,14 +107,16 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
           </div>
         </div>
         
-        {!isMobile && (
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+          {!isMobile && (
             <div className="hidden md:flex items-center space-x-2 text-sm text-secondary">
               <span className="w-2 h-2 bg-green-400 rounded-full pulse-glow"></span>
               <span>Live Data</span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </nav>
   );

@@ -78,7 +78,8 @@ export const cultivarYieldMax: { [cultivarId: string]: number } = {
   'belvedere': 900,       // Lower yielding but premium
   'alhambra': 500,        // Summer plant, lower yield
   'artesia': 1000,        // Moderate yielding
-  'brisbane': 1000,       // Moderate yielding
+  'brisbane': 1000,
+  'sweet-carolina': 500, // Moderate yielding
   // Others will use default 1000
 };
 

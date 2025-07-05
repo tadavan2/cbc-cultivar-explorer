@@ -10,6 +10,7 @@ import ImageCarousel from './ImageCarousel';
 import InfoOverlayMobile from './InfoOverlayMobile';
 import { getDefaultComparisonCultivar } from '../data/chartData';
 import { getCultivarContent, CultivarContent } from '../data/cultivarContent';
+import { useLanguage, useTranslation } from './LanguageContext';
 
 interface CultivarDetailCardV2Props {
   cultivar: Cultivar;
@@ -18,6 +19,8 @@ interface CultivarDetailCardV2Props {
 }
 
 export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }: CultivarDetailCardV2Props) {
+  const { language } = useLanguage();
+  const { t } = useTranslation();
   const [showInfoOverlay, setShowInfoOverlay] = useState(false);
   const [infoContent, setInfoContent] = useState<InfoOverlayContent | null>(null);
   const [cultivarContent, setCultivarContent] = useState<CultivarContent | null>(null);
@@ -186,12 +189,12 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
     }
   }, [isAlturasPage, isAdelantoPage, isAlhambraPage, isArtesiaPage, isBelvederePage, isCastaicPage, isCarpinteriaPage, isBrisbanePage, isSweetCarolinaPage, selectedCultivar]);
 
-  // Load cultivar content on mount
+  // Load cultivar content on mount and when language changes
   useEffect(() => {
     const loadContent = async () => {
       setContentLoading(true);
       try {
-        const content = await getCultivarContent(cultivar.id);
+        const content = await getCultivarContent(cultivar.id, language);
         setCultivarContent(content);
       } catch (error) {
         console.error('Error loading cultivar content:', error);
@@ -200,9 +203,8 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
         setContentLoading(false);
       }
     };
-    
     loadContent();
-  }, [cultivar.id]);
+  }, [cultivar.id, language]);
 
   // Get info overlay data and button configs for this specific cultivar
   const infoData = getInfoOverlayData(cultivar.id);
@@ -634,32 +636,32 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
 
             {/* Performance Metrics Header */}
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-semibold text-green-400" style={{ fontFamily: 'var(--font-body)' }}>PERFORMANCE METRICS</h2>
+              <h2 className="text-lg font-semibold text-green-400" style={{ fontFamily: 'var(--font-body)' }}>{t('performanceMetrics')}</h2>
             </div>
 
             {/* Stats Grid - 2x2 Layout */}
             <div className="grid grid-cols-2 gap-4">
               {/* Yield */}
               <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}>Yield</div>
+                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}> {t('yield')} </div>
                 <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)' }}>45.0t/ha</div>
               </div>
 
               {/* Size */}
               <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}>Size</div>
+                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}> {t('size')} </div>
                 <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)' }}>Large</div>
               </div>
 
               {/* Appearance */}
               <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}>Appearance</div>
+                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}> {t('appearance')} </div>
                 <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)' }}>Excellent</div>
               </div>
 
               {/* Firmness */}
               <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}>Firmness</div>
+                <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)' }}> {t('firmness')} </div>
                 <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)' }}>High</div>
               </div>
             </div>
@@ -667,7 +669,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
             {/* Key Attributes Header */}
             <div className="flex items-center gap-2">
               <span className="text-xl">🧬</span>
-              <h2 className="text-lg font-semibold text-green-400">KEY ATTRIBUTES</h2>
+              <h2 className="text-lg font-semibold text-green-400">{t('keyAttributes')}</h2>
             </div>
 
             {/* Attributes Grid */}
@@ -806,8 +808,14 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                       key={button.id}
                       className={`${button.className} cultivar-tag whitespace-nowrap`}
                       onClick={() => handleInfoClick(button.id)}
+                      style={{
+                        fontSize: '0.95rem', // 15-20% smaller than 1.1rem
+                        fontWeight: 700,     // bold
+                        textTransform: 'uppercase', // force capitalization
+                        letterSpacing: '0.02em'
+                      }}
                     >
-                      {button.label}
+                      {button.labelKey ? t(button.labelKey) : button.label}
                     </span>
                   ))}
                 </div>
@@ -867,27 +875,27 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                     color: '#000000',
                   }}
                 >
-                  PERFORMANCE METRICS
+                  {t('performanceMetrics')}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {/* Yield */}
                   <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}>Yield</div>
+                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}> {t('yield')} </div>
                     <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '8px' }}>{cultivarContent?.performanceMetrics?.yield || '45.0t/ha'}</div>
                   </div>
                   {/* Size */}
                   <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}>Size</div>
+                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}> {t('size')} </div>
                     <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '8px' }}>{cultivarContent?.performanceMetrics?.size || 'Large'}</div>
                   </div>
                   {/* Appearance */}
                   <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}>Appearance</div>
+                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}> {t('appearance')} </div>
                     <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '8px' }}>{cultivarContent?.performanceMetrics?.appearance || 'Excellent'}</div>
                   </div>
                   {/* Firmness */}
                   <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer">
-                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}>Firmness</div>
+                    <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '8px' }}> {t('firmness')} </div>
                     <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '8px' }}>{cultivarContent?.performanceMetrics?.firmness || 'High'}</div>
                   </div>
                 </div>
@@ -902,7 +910,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                     textShadow: 'none'
                   }}
                 >
-                  RECOMMENDATIONS
+                  {t('recommendations')}
                 </h3>
                 <div className="space-y-4">
                   {/* Planting Date */}
@@ -913,7 +921,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                       marginBottom: '12px'
                     }}
                   >
-                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Planting Date</div>
+                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('plantingDate')}</div>
                     <div className="text-sm font-bold text-white" style={{ fontFamily: 'var(--font-body)' }}>
                       {cultivarContent?.recommendations?.plantingDate || 'Oct 15 - Oct 30'}
                     </div>
@@ -927,7 +935,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                       marginBottom: '12px'
                     }}
                   >
-                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Chill Recommendation</div>
+                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('chillRecommendation')}</div>
                     <div className="text-sm text-white leading-relaxed" style={{ fontFamily: 'var(--font-body)', textAlign: 'justify' }}>
                       {cultivarContent?.recommendations?.chill || 'As with most day-neutrals, supplemental chill can improve quality. We recommend between 1-2 weeks of supplemental chill.'}
                     </div>
@@ -941,7 +949,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                       marginBottom: '12px'
                     }}
                   >
-                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Fertility Recommendation</div>
+                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('fertilityRecommendation')}</div>
                     <div className="text-sm text-white leading-relaxed" style={{ fontFamily: 'var(--font-body)', textAlign: 'justify' }}>
                       {cultivarContent?.recommendations?.fertility || 'Pre-plant fertilizer between 500-600 lbs of 18-8-13 in sandy soils. Regular regime during fruiting season.'}
                     </div>
@@ -955,7 +963,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                       marginBottom: '12px'
                     }}
                   >
-                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Other Recommendations</div>
+                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('otherRecommendations')}</div>
                     <div className="text-sm text-white leading-relaxed" style={{ fontFamily: 'var(--font-body)', textAlign: 'justify' }}>
                       {cultivarContent?.recommendations?.other || 'Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium.'}
                     </div>
@@ -965,7 +973,6 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
               </div>
 
               {/* Chart Section - Hide for Sweet Carolina */}
-              {!isSweetCarolinaPage && (
               <div className="mb-6">
                 <h3 
                   className="text-lg font-semibold mb-4"
@@ -974,7 +981,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                     textShadow: '0 0 10px rgba(0, 255, 136, 0.5)'
                   }}
                 >
-                  Performance Data
+                  {t('performanceData')}
                 </h3>
                 
                 {/* Cultivar Selector - Hide for Alturas on mobile */}
@@ -1005,7 +1012,6 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                   />
                 </div>
               </div>
-              )}
 
               {/* Marketing Banner - MOVED TO BOTTOM for Mobile */}
               <div 
@@ -1254,8 +1260,14 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                         key={button.id}
                         className={`${button.className} cultivar-tag whitespace-nowrap`}
                         onClick={() => handleInfoClick(button.id)}
+                        style={{
+                          fontSize: '0.95rem', // 15-20% smaller than 1.1rem
+                          fontWeight: 700,     // bold
+                          textTransform: 'uppercase', // force capitalization
+                          letterSpacing: '0.02em'
+                        }}
                       >
-                        {button.label}
+                        {button.labelKey ? t(button.labelKey) : button.label}
                       </span>
                     ))}
                   </div>
@@ -1285,21 +1297,21 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                   <div className="grid grid-cols-2">
                     {/* Row 1 */}
                     <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer" style={{ marginRight: '32px', marginBottom: '16px' }}>
-                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}>Yield</div>
+                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}> {t('yield')} </div>
                       <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '16px' }}>{cultivarContent?.performanceMetrics?.yield || '45.0t/ha'}</div>
                     </div>
                     <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer" style={{ marginLeft: '32px', marginBottom: '16px' }}>
-                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}>Size</div>
+                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}> {t('size')} </div>
                       <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '16px' }}>{cultivarContent?.performanceMetrics?.size || 'Large'}</div>
                     </div>
                     
                     {/* Row 2 */}
                     <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer" style={{ marginRight: '32px', marginTop: '16px' }}>
-                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}>Appearance</div>
+                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}> {t('appearance')} </div>
                       <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '16px' }}>{cultivarContent?.performanceMetrics?.appearance || 'Excellent'}</div>
                     </div>
                     <div className="modern-card p-4 text-center hover:scale-105 transition-all duration-300 group cursor-pointer" style={{ marginLeft: '32px', marginTop: '16px' }}>
-                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}>Firmness</div>
+                      <div className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'var(--font-body)', paddingTop: '16px' }}> {t('firmness')} </div>
                       <div className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-body)', paddingBottom: '16px' }}>{cultivarContent?.performanceMetrics?.firmness || 'High'}</div>
                     </div>
                   </div>
@@ -1314,7 +1326,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                       textShadow: 'none'
                     }}
                   >
-                    RECOMMENDATIONS
+                    {t('recommendations')}
                   </h3>
                   <div className="space-y-4">
                     {/* Planting Date */}
@@ -1325,7 +1337,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                         marginBottom: '12px'
                       }}
                     >
-                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Planting Date</div>
+                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('plantingDate')}</div>
                       <div className="text-sm font-bold text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {cultivarContent?.recommendations?.plantingDate || 'Oct 15 - Oct 30'}
                       </div>
@@ -1339,7 +1351,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                         marginBottom: '12px'
                       }}
                     >
-                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Chill Recommendation</div>
+                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('chillRecommendation')}</div>
                       <div className="text-sm text-white leading-relaxed" style={{ fontFamily: 'var(--font-body)', textAlign: 'justify' }}>
                         {cultivarContent?.recommendations?.chill || 'As with most day-neutrals, supplemental chill can improve quality. We recommend between 1-2 weeks of supplemental chill.'}
                       </div>
@@ -1353,7 +1365,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                         marginBottom: '12px'
                       }}
                     >
-                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Fertility Recommendation</div>
+                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('fertilityRecommendation')}</div>
                       <div className="text-sm text-white leading-relaxed" style={{ fontFamily: 'var(--font-body)', textAlign: 'justify' }}>
                         {cultivarContent?.recommendations?.fertility || 'Pre-plant fertilizer between 500-600 lbs of 18-8-13 in sandy soils. Regular regime during fruiting season.'}
                       </div>
@@ -1367,7 +1379,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                         marginBottom: '12px'
                       }}
                     >
-                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>Other Recommendations</div>
+                      <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#d1d5db', marginBottom: '16px', fontWeight: 'bold' }}>{t('otherRecommendations')}</div>
                       <div className="text-sm text-white leading-relaxed" style={{ fontFamily: 'var(--font-body)', textAlign: 'justify' }}>
                         {cultivarContent?.recommendations?.other || 'Follow standard sprays for powdery mildew, botrytis, and mites. Strong resistance to Fusarium.'}
                       </div>
@@ -1397,7 +1409,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                 {/* Performance Chart */}
                 <div style={{ marginTop: '24px' }}>
                   {/* Cultivar Selector - Hide for Sweet Carolina */}
-                  {!isSweetCarolinaPage && (
+                  { (
                   <div style={{ marginBottom: '20px' }}>
                     {isAlturasPage ? (
                       /* Alturas-specific selector */
@@ -1426,7 +1438,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Alturas
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1507,7 +1519,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Adelanto
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1588,7 +1600,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Alhambra
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1669,7 +1681,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Artesia
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1750,7 +1762,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Belvedere
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1831,7 +1843,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Castaic
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1912,7 +1924,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Carpinteria
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -1993,7 +2005,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Brisbane
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -2074,7 +2086,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             fontSize: '18px',
                             fontFamily: 'var(--font-body, system-ui)'
                           }}>
-                            Compare Sweet Carolina
+                            {t('compare')} {cultivar.name}
                           </h3>
                         </div>
                         
@@ -2141,7 +2153,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                   )}
                   
                   {/* Chart Component - Hide for Sweet Carolina */}
-                  {!isSweetCarolinaPage && (
+                  { (
                     <>
                   <CultivarChart 
                     cultivarId={selectedCultivar}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { getAvailableCultivarsFromCSV, getCultivarInfo, getSmartComparisonCultivars } from '../data/chartData';
+import { useTranslation } from './LanguageContext';
 
 interface CultivarSelectorProps {
   selectedCultivar: string;
@@ -16,6 +17,7 @@ const CultivarSelector: React.FC<CultivarSelectorProps> = ({
 }) => {
   const availableCultivars = getAvailableCultivarsFromCSV();
   const smartComparisonCultivars = getSmartComparisonCultivars(selectedCultivar);
+  const { t } = useTranslation();
   
   // Group cultivars by type
   const cultivarsByType = availableCultivars.reduce((groups, cultivarId) => {
@@ -26,6 +28,11 @@ const CultivarSelector: React.FC<CultivarSelectorProps> = ({
     groups[info.type].push({ id: cultivarId, info });
     return groups;
   }, {} as { [type: string]: { id: string; info: { type: string; season: string } }[] });
+
+  // Get the label for the selected cultivar
+  const selectedCultivarLabel = selectedCultivar
+    ? selectedCultivar.charAt(0).toUpperCase() + selectedCultivar.slice(1).replace(/-/g, ' ')
+    : '';
 
   const buttonStyle = {
     padding: '12px 16px',
@@ -157,14 +164,14 @@ const CultivarSelector: React.FC<CultivarSelectorProps> = ({
                 marginBottom: '4px',
                 fontFamily: 'var(--font-body, system-ui)'
               }}>
-                Compare with:
+                {t('compare').replace('{cultivar}', selectedCultivarLabel)}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 <button
                   onClick={() => onComparisonChange(undefined)}
                   style={!comparisonCultivar ? selectedButtonStyle : buttonStyle}
                 >
-                  None
+                  {t('none')}
                 </button>
                 {smartComparisonCultivars.map((id) => (
                   <button

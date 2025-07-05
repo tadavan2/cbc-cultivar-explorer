@@ -1,5 +1,6 @@
 import { FilterState } from '../types/cultivar';
 import { allFlowerTypes, allAttributes, allAttribute2, cultivars } from '../data/cultivars';
+import { useTranslation } from './LanguageContext';
 
 interface CultivarFilterPanelProps {
   filters: FilterState;
@@ -35,6 +36,7 @@ const getFilterThemeClass = (value: string, category: string): string => {
 };
 
 export default function CultivarFilterPanel({ filters, onFiltersChange }: CultivarFilterPanelProps) {
+  const { t } = useTranslation();
   const toggleFilter = (category: keyof FilterState, value: string) => {
     // Special handling for disease resistance that might be in either category
     const diseaseResistances = ['fusarium resistant', 'macrophomina resistant'] as const;
@@ -86,9 +88,15 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
   };
 
   const getAttributeLabel = (attribute: string): string => {
-    if (attribute === 'fusarium resistant') return 'Fusarium';
-    if (attribute === 'macrophomina resistant') return 'Macrophomina';
-    return attribute.charAt(0).toUpperCase() + attribute.slice(1);
+    if (attribute === 'fusarium resistant') return t('fusarium');
+    if (attribute === 'macrophomina resistant') return t('macrophomina');
+    if (attribute === 'premium quality') return t('premiumQuality');
+    if (attribute === 'excellent flavor') return t('excellentFlavor');
+    if (attribute === 'ultra early') return t('ultraEarly');
+    if (attribute === 'organic') return t('organic');
+    if (attribute === 'cold tolerant') return t('coldTolerant');
+    // Default: Capitalize first letter
+    return String(attribute).charAt(0).toUpperCase() + String(attribute).slice(1);
   };
 
   // Dynamic filtering: Get available options based on current selections
@@ -129,80 +137,69 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
   // Deduplicate traits by combining and removing duplicates
   const allTraits = allAttributes.filter(attr => !diseaseResistances.includes(attr as (typeof diseaseResistances)[number]))
     .concat(allAttribute2.filter(attr => !diseaseResistances.includes(attr as (typeof diseaseResistances)[number])));
-  const traits = Array.from(new Set(allTraits)); // Remove duplicates
+  const traits: string[] = Array.from(new Set(allTraits)); // Remove duplicates
 
   // Filter group items to only show available options
   const filterGroups = [
     {
-      title: 'Flower Type',
+      title: t('flowerType'),
       items: allFlowerTypes.filter(ft => availableOptions.flowerTypes.includes(ft))
         .map(flowerType => ({
           category: 'flowerType' as keyof FilterState,
           value: flowerType,
-          label: flowerType === 'DN' ? 'Day-Neutral' : 'Short-Day',
+          label: flowerType === 'DN' ? t('dayNeutral') : t('shortDay'),
           icon: '',
           isActive: filters.flowerType.includes(flowerType),
           isAvailable: availableOptions.flowerTypes.includes(flowerType)
         }))
     },
     {
-      title: 'Disease Resistance',
+      title: t('diseaseResistance'),
       items: diseaseResistances
         .filter(attr => availableOptions.attributes.includes(attr) || availableOptions.attribute2.includes(attr))
         .map(attribute => {
-          // For disease resistance, we need to check both arrays since some cultivars
-          // have the same resistance in different categories
           const inAttributes = availableOptions.attributes.includes(attribute);
           const inAttribute2 = availableOptions.attribute2.includes(attribute);
-          
-          // If it's available in both, prefer attributes for consistency
-          // If only in one, use that one
           const category = inAttributes ? 'attributes' : 'attribute2';
           const isAvailable = inAttributes || inAttribute2;
-          
           return {
             category: category as keyof FilterState,
             value: attribute,
             label: getAttributeLabel(attribute),
-            icon: getAttributeIcon(),
+            icon: '',
             isActive: filters.attributes.includes(attribute) || filters.attribute2.includes(attribute),
             isAvailable: isAvailable
           };
         })
     },
     {
-      title: 'Planting Season',
+      title: t('plantingSeason'),
       items: plantingSeasons
         .filter(mt => availableOptions.marketTypes.includes(mt))
         .map(marketType => ({
           category: 'marketType' as keyof FilterState,
           value: marketType,
-          label: marketType.charAt(0).toUpperCase() + marketType.slice(1),
-          icon: getAttributeIcon(),
+          label:
+            marketType === 'fall plant' ? t('fallPlant') :
+            marketType === 'summer plant' ? t('summerPlant') :
+            marketType === 'eastern fall plant' ? t('easternFallPlant') :
+            String(marketType).charAt(0).toUpperCase() + String(marketType).slice(1),
+          icon: '',
           isActive: filters.marketType.includes(marketType),
           isAvailable: availableOptions.marketTypes.includes(marketType)
         }))
     },
     {
-      title: 'Traits',
+      title: t('traits'),
       items: traits
-        .filter(trait => {
-          const isInAttributes = allAttributes.includes(trait);
-          const availableSet = isInAttributes ? availableOptions.attributes : availableOptions.attribute2;
-          return availableSet.includes(trait);
-        })
-        .map(trait => {
-          const isInAttributes = allAttributes.includes(trait);
-          const category = isInAttributes ? 'attributes' : 'attribute2';
-          return {
-            category: category as keyof FilterState,
-            value: trait,
-            label: trait.charAt(0).toUpperCase() + trait.slice(1),
-            icon: getAttributeIcon(),
-            isActive: filters[category].includes(trait),
-            isAvailable: isInAttributes ? availableOptions.attributes.includes(trait) : availableOptions.attribute2.includes(trait)
-          };
-        })
+        .map((trait: string) => ({
+          category: (availableOptions.attributes.includes(trait) ? 'attributes' : 'attribute2') as keyof FilterState,
+          value: trait,
+          label: getAttributeLabel(trait),
+          icon: '',
+          isActive: filters.attributes.includes(trait) || filters.attribute2.includes(trait),
+          isAvailable: availableOptions.attributes.includes(trait) || availableOptions.attribute2.includes(trait)
+        }))
     }
   ].filter(group => group.items.length > 0); // Only show groups that have items
 
@@ -230,7 +227,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
                 marginBottom: '8px'
               }}
             >
-              Clear All ({activeFilterCount})
+              {t('clearAll')} ({activeFilterCount})
             </button>
           </div>
         </div>

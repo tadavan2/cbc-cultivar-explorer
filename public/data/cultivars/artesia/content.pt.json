@@ -1,0 +1,42 @@
+{
+  "id": "artesia",
+  "name": "Artesia",
+  "displayName": "Artesia™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Artesia™ - Morango de Dia Neutro Orgânico Premium",
+    "paragraphs": [
+      "Artesia™ está na vanguarda do cultivo orgânico de morangos, gerando rendimentos e qualidade impressionantes em sistemas de cultivo livres de químicos. Este cultivar de dia neutro de elite combina desempenho superior com resistência completa a doenças, criando a solução perfeita para produtores orgânicos focados em produtividade e confiabilidade.",
+      "Reconhecida por seus resultados excepcionais em sistemas de cultivo orgânico, Artesia™ produz de forma confiável fortes rendimentos, qualidade de fruto sobresaliente e vigor de planta robusto em avaliações de campo. Os operadores orgânicos relatam consistentemente resultados melhorados versus outros cultivares comerciais, especialmente quanto à colheita comercializável, firmeza e aparência visual.",
+      "Artesia™ oferece resistência robusta ou moderada a todos os patógenos transmitidos pelo solo que afetam a produção de morangos na Califórnia. Este pacote integral de resistência a doenças reduz as perdas de campo e simplifica o manejo de doenças para produtores orgânicos, proporcionando desempenho confiável em diversas condições de cultivo.",
+      "Desde o plantio até a colheita, Artesia™ fornece a produção, qualidade e proteção contra doenças que caracterizam empresas de morangos orgânicos prósperas. Descubra os benefícios da genética projetada especificamente para sistemas de cultivo sustentáveis e livres de químicos."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/artesia/banner.jpg",
+    "carousel": [
+      "/images/cultivars/artesia/artesia_1.jpg",
+      "/images/cultivars/artesia/artesia_2.jpg",
+      "/images/cultivars/artesia/artesia_3.jpg"
+    ]
+  },
+  "features": [
+    "Produção orgânica otimizada",
+    "Resistência integral a doenças",
+    "Altos rendimentos comercializáveis",
+    "Desempenho orgânico superior",
+    "Floração precoce"
+  ],
+  "performanceMetrics": {
+    "yield": "3,133 gramas por planta",
+    "size": "29.4 gramas",
+    "appearance": "3.2 / 5.0",
+    "firmness": "1.17 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Santa Maria: 15 de outubro - 30 de outubro, Salinas/Watsonville: 25 de outubro - 15 de novembro",
+    "chill": "A planta se desempenha melhor com frio suplementar. Recomendamos 2-3 semanas, particularmente sob condições orgânicas. A floração é precoce - começar a remoção de flores e pulverizações em conformidade.",
+    "fertility": "Os programas de fertilizante orgânico devem enfatizar a saúde do solo e a liberação gradual de nutrientes. As taxas recomendadas de fertilizante orgânico dependem das condições do solo e dos níveis de matéria orgânica. Análise regular de solo recomendada para sistemas orgânicos.",
+    "other": "Excelente para sistemas de produção orgânica. Forte resistência a Fusarium. Resistência moderada a Macrophomina, Verticillium e Colletotrichum. Expressão mínima de doenças em patógenos transmitidos pelo solo. Seguir programas de pulverização aprovados para orgânicos."
+  }
+} 

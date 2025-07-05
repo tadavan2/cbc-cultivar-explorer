@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Legend } from 'recharts';
+import { useTranslation } from './LanguageContext';
 
 interface SpiderChartProps {
   cultivarId: string;
@@ -18,6 +19,7 @@ const SpiderChart: React.FC<SpiderChartProps> = ({
   comparisonCultivarId,
   height = 300
 }) => {
+  const { t } = useTranslation();
   const [spiderData, setSpiderData] = useState<SpiderTraitData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,15 +45,17 @@ const SpiderChart: React.FC<SpiderChartProps> = ({
           csvData[cultivar] = {};
           
           for (let j = 1; j < headers.length; j++) {
-            csvData[cultivar][headers[j]] = parseFloat(values[j]);
+            csvData[cultivar][headers[j].trim()] = parseFloat(values[j]);
           }
         }
         
         // Transform data for radar chart
-        const traitNames = headers.slice(1); // Remove 'cultivar_id'
+        const traitNames = headers.slice(1).map(h => h.trim()); // Remove 'cultivar_id' and trim whitespace
         const radarData: SpiderTraitData[] = traitNames.map(trait => {
+          const translated = t(trait);
+          const label = translated !== trait ? translated : trait.charAt(0).toUpperCase() + trait.slice(1).replace('_', ' ');
           const dataPoint: SpiderTraitData = {
-            trait: trait.charAt(0).toUpperCase() + trait.slice(1).replace('_', ' '),
+            trait: label,
             fullMark: 5,
           };
           
@@ -78,7 +82,7 @@ const SpiderChart: React.FC<SpiderChartProps> = ({
     };
     
     loadSpiderData();
-  }, [cultivarId, comparisonCultivarId]);
+  }, [cultivarId, comparisonCultivarId, t]);
 
   if (loading) {
     return (

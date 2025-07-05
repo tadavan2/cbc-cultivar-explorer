@@ -1,0 +1,42 @@
+{
+  "id": "alturas",
+  "name": "Alturas",
+  "displayName": "Alturas™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Alturas™ - Morango de Dia Neutro Premium",
+    "paragraphs": [
+      "Alturas™ está na vanguarda do desenvolvimento de morangos de dia neutro, alcançando resultados excepcionais durante temporadas de colheita estendidas. Este cultivar de primeira linha equilibra fortes rendimentos com excelente qualidade de fruto, proporcionando aos produtores comerciais consistência confiável e rentabilidade.",
+      "Distinguida por seus frutos vibrantes e atrativos que mantêm o tamanho e a qualidade durante toda a temporada, Alturas™ oferece excelente vida útil e características de transporte. O perfil de sabor equilibrado da variedade e seu apelo visual marcante a tornam uma favorita tanto entre produtores quanto consumidores.",
+      "Construída para eficiência, Alturas™ apresenta uma arquitetura de planta aberta que facilita a colheita fácil enquanto reduz os custos de mão de obra. Seu forte pacote de resistência a doenças e características de cultivo adaptativas garantem desempenho confiável em diversas condições de cultivo e climas.",
+      "Desde o plantio até a colheita, Alturas™ fornece a qualidade, confiabilidade e retornos financeiros que caracterizam empresas de morangos prósperas. Descubra como o desenvolvimento inovador e a genética testada podem transformar seu sistema de produção."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/alturas/banner.jpg",
+    "carousel": [
+      "/images/cultivars/alturas/alturas_1.jpg",
+      "/images/cultivars/alturas/alturas_2.jpg",
+      "/images/cultivars/alturas/alturas_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedade de dia neutro premium",
+    "Qualidade de fruto superior",
+    "Vida útil estendida",
+    "Pacote de resistência a doenças",
+    "Colheita eficiente"
+  ],
+  "performanceMetrics": {
+    "yield": "3,955 gramas/planta",
+    "size": "36.5 gramas média",
+    "appearance": "4.1 / 5.0",
+    "firmness": "1.1 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Santa Maria: 15 de outubro - 30 de outubro, Salinas/Watsonville: 25 de outubro - 15 de novembro",
+    "chill": "Como com a maioria dos dias neutros, o frio suplementar pode melhorar a qualidade. Recomendamos entre 10-15 dias de frio suplementar. Níveis aumentados de frio, até 25 dias, aumentam ligeiramente a firmeza e aparência durante o pico. No entanto, plantas com muito frio se tornarão maiores e difíceis de gerenciar tarde na temporada.",
+    "fertility": "Recomendamos fertilizante pré-plantio. Os intervalos variam, mas entre 500 e 600 lbs de 18-8-13 é suficiente em solos arenosos. Solos mais pesados requererão menos fertilizante. Um regime regular de fertilizante durante a temporada de frutificação dependerá dos requisitos específicos do rancho.",
+    "other": "Sem requisitos especiais. Seguir pulverizações padrão para míldio pulverulento, botrytis e ácaros. Forte resistência a Fusarium. Moderadamente resistente a Macrophomina. Moderadamente suscetível a Verticillium."
+  }
+} 

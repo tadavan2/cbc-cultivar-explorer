@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend } from 'recharts';
 import { getChartDataFromCSV, chartMetrics, ChartDataResponse } from '../data/chartData';
+import { useTranslation } from './LanguageContext';
 
 // Type for Recharts tick props
 interface TickProps {
@@ -27,6 +28,7 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const { t } = useTranslation();
   
   // Responsive check
   useEffect(() => {
@@ -219,7 +221,7 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
                 }
               }}
             >
-              {chartMetrics[metricKey].label.split(' ')[0]}
+              {t(metricKey)}
             </button>
           ))}
         </div>
@@ -243,7 +245,7 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
             <YAxis
               tick={<RotatedYAxisTick />}
               label={{ 
-                value: metric.label, 
+                value: t(selectedMetric + 'Label'),
                 angle: -90, 
                 position: 'outsideLeft',
                 style: { 
@@ -268,7 +270,7 @@ const CultivarChart: React.FC<CultivarChartProps> = ({
                      (metric.cultivarFirmnessRange[0] + metric.cultivarFirmnessRange[1]) / 2, 
                      metric.cultivarFirmnessRange[1]] :
                     [0.75, 1.0, 1.25, 1.5, 1.75]) :
-                selectedMetric === 'appearance' ? [1, 2, 3, 4, 5] : 
+                selectedMetric === 'appearance' ? [2, 3, 4, 5] : 
                 undefined
               }
             />

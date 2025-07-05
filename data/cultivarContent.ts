@@ -40,28 +40,38 @@ export interface CultivarContent {
 // Cache for loaded content
 const contentCache: Record<string, CultivarContent | null> = {};
 
-export async function getCultivarContent(cultivarId: string): Promise<CultivarContent | null> {
-  // Check cache first
-  if (contentCache[cultivarId] !== undefined) {
-    return contentCache[cultivarId];
+export async function getCultivarContent(cultivarId: string, lang: string): Promise<CultivarContent | null> {
+  const cacheKey = `${cultivarId}_${lang}`;
+  if (contentCache[cacheKey] !== undefined) {
+    return contentCache[cacheKey];
   }
-  
+  let url: string;
+  let response: Response;
   try {
-    const response = await fetch(`/data/cultivars/${cultivarId}/content.json`);
-    
+    if (lang === 'en') {
+      // For English, always use content.json
+      url = `/data/cultivars/${cultivarId}/content.json`;
+      response = await fetch(url);
+    } else {
+      // For other languages, try content.{lang}.json first
+      url = `/data/cultivars/${cultivarId}/content.${lang}.json`;
+      response = await fetch(url);
+      if (!response.ok) {
+        // Fallback to English
+        url = `/data/cultivars/${cultivarId}/content.json`;
+        response = await fetch(url);
+      }
+    }
     if (!response.ok) {
-      contentCache[cultivarId] = null;
+      contentCache[cacheKey] = null;
       return null;
     }
-    
     const content: CultivarContent = await response.json();
-    
-    // Cache the result
-    contentCache[cultivarId] = content;
+    contentCache[cacheKey] = content;
     return content;
   } catch (error) {
-    console.error('Error loading cultivar content for:', cultivarId, error);
-    contentCache[cultivarId] = null;
+    console.error('Error loading cultivar content for:', cultivarId, lang, error);
+    contentCache[cacheKey] = null;
     return null;
   }
 }

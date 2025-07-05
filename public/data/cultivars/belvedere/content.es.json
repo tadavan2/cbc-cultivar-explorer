@@ -1,0 +1,42 @@
+{
+  "id": "belvedere",
+  "name": "Belvedere",
+  "displayName": "Belvedere™",
+  "type": "short-day",
+  "description": {
+    "title": "Excelencia de Rendimiento Temprano",
+    "paragraphs": [
+      "Belvedere produce rendimientos tempranos como variedad de día corto, presentando frutos firmes, uniformemente coloreados y premium que logran resultados de mercado sobresalientes. Este cultivar robusto combina excelente sabor con elevado contenido de brix, creando versatilidad perfecta para usos de mercado fresco y procesamiento.",
+      "La variedad se destaca por sus excelentes características de vida útil y capacidad de envío, asegurando que el fruto mantenga la calidad desde el campo hasta el consumidor. La arquitectura robusta de planta de Belvedere rinde mejor en acolchado de hilera más oscuro con menos fertilidad, convirtiéndola en una elección eficiente para sistemas de producción sostenible.",
+      "Con fuerte resistencia a Macrophomina y resistencia moderada a Verticillium y Phytophthora, Belvedere ofrece protección confiable contra enfermedades mientras entrega rendimientos consistentes. El momento de cosecha temprana de la variedad y la calidad premium del fruto la convierten en una excelente elección para productores que buscan ventaja de mercado.",
+      "Desde la cosecha inicial a fines de diciembre hasta la temporada pico, Belvedere proporciona la confiabilidad, calidad y protección contra enfermedades que caracterizan a las empresas de fresas rentables. Capitalice el posicionamiento temprano de mercado con genética establecida y un historial comprobado."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/belvedere/banner.jpg",
+    "carousel": [
+      "/images/cultivars/belvedere/belvedere_1.jpg",
+      "/images/cultivars/belvedere/belvedere_2.jpg",
+      "/images/cultivars/belvedere/belvedere_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedad de día corto de rendimiento temprano",
+    "Alto contenido de brix (11.0 promedio)",
+    "Fuerte resistencia a Macrophomina",
+    "Excelente vida útil y envío",
+    "Calidad premium de fruto"
+  ],
+  "performanceMetrics": {
+    "yield": "1,696 gramos/planta",
+    "size": "34.8 gramos",
+    "appearance": "4.1/5.0",
+    "firmness": "1.53 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "1 de octubre - 5 de octubre (Oxnard), 1 de octubre (Baja)",
+    "chill": "Como variedad de día corto, Belvedere se beneficia de frío mínimo pero no rinde bien bajo condiciones sin frío.",
+    "fertility": "Fertilizante pre-plantación: 500 lbs de 18-8-13. Planta vigorosa - manejar con menos fertilizante y acolchado de hilera más fresco. Aplicar 3 lbs de N por semana después de la primera floración.",
+    "other": "Comenzar aspersiones para botrytis después de la aparición de la primera floración. Aplicar aspersiones estándar para mildiu polvoriento. Rinde mejor en acolchado de hilera más oscuro con fertilidad reducida."
+  }
+} 

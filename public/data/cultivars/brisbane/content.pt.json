@@ -1,0 +1,41 @@
+{
+  "id": "brisbane",
+  "name": "Brisbane",
+  "displayName": "Brisbane™",
+  "type": "day-neutral",
+  "description": {
+    "title": "Dia Neutro Moderado com Aparência Excelente e Sabor Superior",
+    "paragraphs": [
+      "Brisbane é um dia neutro moderado com aparência excelente. É uma planta maior, com frutos de firmeza e tamanho similares comparados com outros cultivares comercialmente disponíveis. Em testes de sabor, Brisbane consistentemente se classifica próximo ao topo.",
+      "A resistência a doenças é uma força chave com forte resistência a Fusarium e resistência moderada a Macrophomina e Verticillium. A variedade se desempenha melhor com mais frio, requerendo pelo menos 2 semanas de frio suplementar para desempenho ótimo.",
+      "Brisbane demonstra desempenho consistente através de condições de teste com padrões de rendimento confiáveis de abril a outubro."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/brisbane/banner.jpg",
+    "carousel": [
+      "/images/cultivars/brisbane/brisbane_1.jpg",
+      "/images/cultivars/brisbane/brisbane_2.jpg",
+      "/images/cultivars/brisbane/brisbane_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedade de dia neutro moderada",
+    "Qualidade de aparência excelente",
+    "Classificações superiores em testes de sabor",
+    "Forte resistência a Fusarium",
+    "Estrutura de planta maior"
+  ],
+  "performanceMetrics": {
+    "yield": "3,128 gramas/planta",
+    "size": "30.2 gramas",
+    "appearance": "3.6 / 5.0",
+    "firmness": "1.21 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "15 de outubro - 30 de outubro (Santa Maria), 25 de outubro - 15 de novembro (Salinas/Watsonville)",
+    "chill": "Se desempenha melhor com mais frio. Pelo menos 2 semanas de frio suplementar requeridas para desempenho ótimo.",
+    "fertility": "Programa de fertilidade padrão. O regime regular de fertilizante durante a temporada de frutificação dependerá dos requisitos específicos do rancho.",
+    "other": "Forte resistência a Fusarium, resistência moderada a Macrophomina e Verticillium. Disponibilidade geral no mercado a partir de 2024."
+  }
+} 

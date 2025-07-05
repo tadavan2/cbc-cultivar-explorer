@@ -1,0 +1,42 @@
+{
+  "id": "castaic",
+  "name": "Castaic",
+  "displayName": "Castaic™",
+  "type": "short-day",
+  "description": {
+    "title": "Líder de Dia Curto de Alto Rendimento",
+    "paragraphs": [
+      "Castaic é uma variedade de dia curto de alto rendimento com frutos uniformemente coloridos, firmes e grandes. O sabor é bom sem problemas de cor após o pico, e a casca permanece firme durante toda a temporada. A variedade demonstra potencial de rendimento impressionante com forte consistência de produção.",
+      "Com sua estrutura de planta maior, Castaic mantém o tamanho da planta com plástico escuro e manejo de fertilidade mais baixo. O cultivar mostra excelente adaptabilidade a diversas condições de cultivo enquanto entrega qualidade premium de fruto que atende às demandas do mercado.",
+      "Os testes de desempenho demonstram o potencial de rendimento superior de Castaic, com produção acumulativa atingindo 1.8 kg/planta, ou aproximadamente 30% mais que Fronteras sob o mesmo tratamento. A variedade supera os cultivares padrão em rendimento total enquanto mantém excelentes pontuações de firmeza e aparência do fruto.",
+      "Os testes atuais sugerem que Castaic é moderadamente resistente à maioria das doenças transmitidas pelo solo, com mais dados disponíveis em breve. A variedade representa a próxima geração de cultivares de dia curto de alto desempenho para produtores da Califórnia."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/castaic/banner.jpg",
+    "carousel": [
+      "/images/cultivars/castaic/castaic_1.jpg",
+      "/images/cultivars/castaic/castaic_2.jpg",
+      "/images/cultivars/castaic/castaic_3.jpg"
+    ]
+  },
+  "features": [
+    "Variedade de dia curto de alto rendimento",
+    "Frutos uniformemente coloridos, firmes e grandes",
+    "Bom perfil de sabor",
+    "Sem problemas de cor após o pico",
+    "Excelente consistência de produção"
+  ],
+  "performanceMetrics": {
+    "yield": "1,812 gramas/planta",
+    "size": "40.2 gramas",
+    "appearance": "3.9 / 5.0",
+    "firmness": "1.3 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "1 de outubro - 5 de outubro (Oxnard), 1 de outubro - 15 de outubro (Santa Maria)",
+    "chill": "Como com a maioria dos morangos de dia curto, é difícil acumular frio do viveiro. Embora testemos plantas de baixo a sem frio, a maioria dos dias curtos sofrerá lacunas de rendimento se plantados muito cedo. Recomendamos uma janela de plantio padrão, similar a Fronteras.",
+    "fertility": "Recomendamos fertilizante pré-plantio. Os intervalos variarão por localização, mas no lado baixo a moderado. Solos mais pesados requererão menos fertilizante. Um regime regular de fertilizante durante a temporada de frutificação dependerá dos requisitos específicos do rancho.",
+    "other": "Sem requisitos especiais. Seguir pulverizações padrão para míldio pulverulento, botrytis e ácaros."
+  }
+} 

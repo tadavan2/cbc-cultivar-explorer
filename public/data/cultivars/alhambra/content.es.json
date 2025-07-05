@@ -1,0 +1,42 @@
+{
+  "id": "alhambra",
+  "name": "Alhambra",
+  "displayName": "Alhambra™",
+  "type": "summer-plant-day-neutral",
+  "description": {
+    "title": "Alhambra™ - Fresa de Día Neutro de Plantación de Verano Premium",
+    "paragraphs": [
+      "Alhambra™ define la calidad en el cultivo de fresas de día neutro de plantación de verano, produciendo sabor notable y consistencia durante períodos de cosecha extendidos. Este cultivar de primer nivel combina sabor sobresaliente con rendimiento confiable, creando la solución óptima para productores que buscan calidad y satisfacción del cliente en mercados de temporada tardía e invierno.",
+      "Distinguida por su excelente perfil de sabor y tamaño de fruto consistentemente grande, Alhambra™ mantiene características de calidad bien entrado el otoño tardío y principios del invierno. La variedad produce menos frutos descartados y rinde excepcionalmente bien bajo sistemas de producción en túneles, proporcionando a los productores opciones de cultivo flexibles.",
+      "Para el éxito de la plantación de verano, Alhambra™ presenta vigor de planta fuerte y características adaptativas que aseguran rendimiento confiable en diversas condiciones de cultivo. Su paquete moderado de resistencia a enfermedades y genética probada proporcionan la base para operaciones exitosas de fresas de temporada tardía.",
+      "Desde el establecimiento hasta la cosecha, Alhambra™ proporciona el sabor, calidad y confiabilidad que caracterizan la producción de élite de fresas. Descubra los beneficios de la genética avanzada diseñada específicamente para sistemas de día neutro de plantación de verano."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/alhambra/banner.jpg",
+    "carousel": [
+      "/images/cultivars/alhambra/alhambra_1.jpg",
+      "/images/cultivars/alhambra/alhambra_2.jpg",
+      "/images/cultivars/alhambra/alhambra_3.jpg"
+    ]
+  },
+  "features": [
+    "Perfil de sabor excelente",
+    "Día neutro de plantación de verano",
+    "Tamaño de fruto grande mantenido",
+    "Rendimiento superior en túneles",
+    "Bajo porcentaje de descarte"
+  ],
+  "performanceMetrics": {
+    "yield": "1326 gramos/planta",
+    "size": "33.7 gramos",
+    "appearance": "Excelente",
+    "firmness": "Bueno"
+  },
+  "recommendations": {
+    "plantingDate": "Santa María: 15 de mayo - 15 de junio, Oxnard: 15 de junio - 15 de julio",
+    "chill": "Si se usa como planta de otoño, en lugar de plantación frigorífica, Alhambra se beneficia de significativamente más frío que las variedades típicas de día neutro. Recomendamos al menos 500 horas en el suelo y 14 días suplementarios.",
+    "fertility": "Los programas de fertilizante para plantación de verano deben enfatizar la nutrición de establecimiento. Recomendamos fertilizante mínimo para plantaciones iniciales, con programas de alimentación regulares durante toda la temporada de cultivo.",
+    "other": "Sin requisitos especiales de aspersión. Seguir programas estándar para mildiu polvoriento, botrytis y ácaros. Moderadamente resistente a Fusarium y Macrophomina. Rinde excepcionalmente bien bajo sistemas de túneles."
+  }
+} 

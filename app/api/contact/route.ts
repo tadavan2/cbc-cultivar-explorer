@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to avoid build-time errors if API key is missing
+const getResend = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY environment variable is not set');
+  }
+  return new Resend(apiKey);
+};
 
 // Function to get location from IP
 async function getLocationFromIP(ip: string) {
@@ -81,7 +88,8 @@ export async function POST(request: NextRequest) {
     const locationData = await getLocationFromIP(ip.split(',')[0]); // Get first IP if multiple
 
     // Send email using Resend
-    const emailData = await resend.emails.send({
+    const resend = getResend();
+    await resend.emails.send({
       from: 'CBC Cultivar Explorer <explorer@cbcberry.com>',
       to: ['kyle@cbcberry.com'], // Your CBC email
       subject: `New Contact: ${name}${company ? ` from ${company}` : ''}${cultivar ? ` - Interested in ${cultivar}` : ''}`,
@@ -176,8 +184,6 @@ export async function POST(request: NextRequest) {
         Source: CBC Cultivar Explorer
       `
     });
-
-    console.log('Email sent successfully:', emailData);
 
     return NextResponse.json({ 
       success: true, 

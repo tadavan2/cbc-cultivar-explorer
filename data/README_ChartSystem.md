@@ -44,7 +44,7 @@ alturas,Oct,2413,8.5,19.1,9.3
 - Removed ~30 lines of `premium-button-inactive` CSS
 - Self-contained styling within components
 
-### 4. Scalable for All 9 Cultivars
+### 4. Scalable for All Cultivars
 ```tsx
 // Use for any cultivar - completely dynamic
 <CultivarChart 

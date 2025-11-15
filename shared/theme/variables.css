@@ -1,0 +1,30 @@
+/**
+ * Global CSS Variables - Reusable Design Tokens
+ * 
+ * PURPOSE:
+ * Centralized CSS custom properties for colors, fonts, and design tokens.
+ * These are reusable across multiple apps (cultivars.cbcberry.com and www.cbcberry.com).
+ * 
+ * EXTRACTION STATUS:
+ * Extracted from app/globals.css during Phase 1 refactoring (2025).
+ * 
+ * USAGE:
+ * Import this file in your app's main CSS file or layout.
+ * Example: @import '../shared/theme/variables.css';
+ */
+
+:root {
+  /* Color Palette */
+  --background: #0a0f1c;
+  --foreground: #ffffff;
+  --card-bg: #1a2332;
+  --border: #2a3441;
+  --accent-green: #00ff88;
+  --accent-teal: #00d4aa;
+  --text-muted: #8b9dc3;
+  
+  /* Typography */
+  --font-header: 'Futura', 'Futura PT', 'Century Gothic', 'AppleGothic', sans-serif;
+  --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+

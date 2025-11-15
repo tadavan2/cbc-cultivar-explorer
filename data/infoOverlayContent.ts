@@ -1,3 +1,36 @@
+/**
+ * Info Overlay Content System
+ * 
+ * PURPOSE:
+ * Manages educational/informational overlay content that appears when users click
+ * info buttons throughout the application. Supports multi-language content.
+ * 
+ * CONTENT STRUCTURE:
+ * - Base content: Applies to all cultivars (e.g., "What are Day-Neutral Strawberries?")
+ * - Cultivar-specific content: Unique content for specific cultivars
+ * - Multi-language support: English, Spanish, Portuguese
+ * 
+ * BUTTON GENERATION:
+ * The generateButtonConfigs() function automatically creates info buttons based on:
+ * - Cultivar attributes (e.g., "day-neutral" → day-neutral info button)
+ * - Cultivar-specific info keys
+ * - Market types and traits
+ * 
+ * CONTENT SOURCES:
+ * - baseInfoOverlayData: General educational content
+ * - cultivarSpecificInfoData: Cultivar-specific content
+ * - i18n files: Language-specific content in data/i18n/infoOverlay.{lang}.json
+ * 
+ * USAGE:
+ * Used by CultivarDetailCardV2 to generate info buttons and display overlay content.
+ * 
+ * RELATED FILES:
+ * - components/CultivarDetailCardV2.tsx: Primary consumer
+ * - components/InfoOverlayMobile.tsx: Mobile overlay display
+ * - data/i18n/infoOverlay.{lang}.json: Language-specific content
+ * - components/LanguageContext.tsx: Provides current language
+ */
+
 import { Cultivar } from '../types/cultivar';
 
 export interface InfoOverlayContent {

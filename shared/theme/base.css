@@ -1,0 +1,155 @@
+/**
+ * Base Glassmorphism Styles - Reusable Foundation
+ * 
+ * PURPOSE:
+ * Core glassmorphism effects and base styles reusable across apps.
+ * These provide the foundation for glass panels, cards, and UI elements.
+ * 
+ * EXTRACTION STATUS:
+ * Extracted from app/globals.css during Phase 1 refactoring (2025).
+ * 
+ * DEPENDENCIES:
+ * - variables.css (for CSS custom properties)
+ * 
+ * USAGE:
+ * Import after variables.css in your app's main CSS file.
+ * Example: @import '../shared/theme/variables.css';
+ *          @import '../shared/theme/base.css';
+ */
+
+/* Base HTML/Body Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Hide scrollbars globally while maintaining scroll functionality */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Dark theme base styles with background image support */
+.dark-theme {
+  background: transparent; /* Remove opaque background to show background image */
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fixed background image system */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/backgrounds/bg_blue_swirl.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -2;
+  opacity: 1;
+}
+
+/* Very subtle overlay only if needed for text readability */
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.1) 0%, 
+    rgba(0, 0, 0, 0.05) 50%, 
+    rgba(0, 0, 0, 0.1) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Glassmorphism Base Styles */
+.glass-panel {
+  background: linear-gradient(145deg, 
+    rgba(26, 35, 50, 0.25) 0%, 
+    rgba(36, 45, 61, 0.35) 50%, 
+    rgba(26, 35, 50, 0.25) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.glass-text {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-badge {
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 136, 0.15) 0%, 
+    rgba(0, 212, 170, 0.15) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 12px;
+  padding: 4px 12px;
+  box-shadow: 
+    0 4px 16px rgba(0, 255, 136, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Glass Scrollbar */
+.scrollbar-glass::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrollbar-glass::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, 
+    rgba(26, 35, 50, 0.3) 0%, 
+    rgba(36, 45, 61, 0.3) 100%);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.scrollbar-glass::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #00ff88 0%, #00d4aa 100%);
+  border-radius: 4px;
+  box-shadow: 
+    0 2px 8px rgba(0, 255, 136, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.scrollbar-glass::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #00d4aa 0%, #4ade80 100%);
+  box-shadow: 
+    0 4px 12px rgba(0, 255, 136, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Hidden Scrollbar Utility */
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+

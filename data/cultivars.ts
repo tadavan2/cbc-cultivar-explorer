@@ -1,3 +1,40 @@
+/**
+ * Core Cultivar Data Definitions
+ * 
+ * PURPOSE:
+ * This file contains the primary data structure for all cultivars in the system.
+ * It defines the base cultivar registry with IDs, names, types, attributes, and basic stats.
+ * 
+ * DATA STRUCTURE:
+ * Each cultivar object contains:
+ * - id: Unique identifier (used in URLs and data lookups)
+ * - name: Display name
+ * - emoji: Icon emoji for fallback display
+ * - imageUrl: Legacy image URL (not actively used)
+ * - flowerType: 'DN' (day-neutral), 'SD' (short-day), etc.
+ * - marketType: Market category (e.g., 'fall plant', 'organic')
+ * - attributes: Primary trait array
+ * - attribute2: Secondary trait array
+ * - stats: Basic performance metrics (yield, brix, shelf life, fruit weight)
+ * - description: Brief description
+ * - imageGallery: Legacy image array (not actively used)
+ * 
+ * CULTIVAR COUNT:
+ * Currently 11 cultivars: debug (home page), alturas, adelanto, alhambra, artesia,
+ * belvedere, brisbane, castaic, carpinteria, sweet-carolina
+ * 
+ * DATA FLOW:
+ * - This file is imported by app/page.tsx for the cultivar list
+ * - Rich content is loaded separately from public/data/cultivars/{id}/content.json
+ * - Chart data is loaded from public/data/csv/{id}.csv
+ * 
+ * RELATED FILES:
+ * - types/cultivar.ts: TypeScript interface definitions
+ * - public/data/cultivars/{id}/content.json: Rich content for each cultivar
+ * - data/chartData.ts: Chart data and comparison logic
+ * - app/page.tsx: Main consumer of this data
+ */
+
 import { Cultivar } from '../types/cultivar';
 
 export const cultivars: Cultivar[] = [

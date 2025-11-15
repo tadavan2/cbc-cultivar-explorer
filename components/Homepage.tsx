@@ -31,11 +31,9 @@ interface HomepageProps {
 
 export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
   const { t } = useTranslation();
-  console.log('DEBUG: Homepage render - isMobile:', isMobile, 'isLandscape:', isLandscape);
   
   // Mobile Portrait Layout
   if (isMobile && !isLandscape) {
-    console.log('DEBUG: Rendering mobile portrait homepage layout');
     return (
       <div className="h-full w-full relative" style={{ margin: '0px' }}>
         <div 
@@ -74,8 +72,6 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
                 marginLeft: '6px'
               }}
               priority
-              onError={() => console.log('DEBUG: Mobile image failed to load')}
-              onLoad={() => console.log('DEBUG: Mobile image loaded successfully')}
             />
           </div>
           
@@ -141,7 +137,6 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
   
   // Mobile Landscape Layout
   if (isMobile && isLandscape) {
-    console.log('DEBUG: Rendering mobile landscape homepage layout');
     return (
       <div className="h-full w-full relative" style={{ margin: 'px' }}>
         <div 
@@ -179,8 +174,6 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
                 height: '100%'
               }}
               priority
-              onError={() => console.log('DEBUG: Mobile landscape image failed to load')}
-              onLoad={() => console.log('DEBUG: Mobile landscape image loaded successfully')}
             />
           </div>
           
@@ -245,7 +238,6 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
   }
   
   // Desktop Layout
-  console.log('DEBUG: Rendering desktop homepage layout');
   return (
     <div className="h-full w-full flex items-center justify-center">
       <div 
@@ -279,8 +271,6 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               borderRadius: '20px'
             }}
             priority
-            onError={() => console.log('DEBUG: Desktop image failed to load')}
-            onLoad={() => console.log('DEBUG: Desktop image loaded successfully')}
           />
         </div>
         

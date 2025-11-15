@@ -1,6 +1,306 @@
+/**
+ * Cultivar-Specific Color Themes
+ * 
+ * PURPOSE:
+ * Defines specialized color schemes for cultivar cards and filter buttons based on
+ * market groups, flower types, and key traits. These themes are applied dynamically
+ * via JavaScript helper functions.
+ * 
+ * PHASE 1 REFACTORING (2025):
+ * All theme colors have been extracted to CSS custom properties (156 variables)
+ * defined in the :root selector below. All theme classes now reference these
+ * variables instead of hardcoded rgba values, enabling centralized color management
+ * and easy theme updates across all button systems.
+ * 
+ * THEME CATEGORIES:
+ * - Day-Neutral (Yellow gradient): Alturas, Alhambra, Brisbane, Carpinteria
+ * - Short-Day (Orange gradient): Adelanto
+ * - Organic (Green gradient): Artesia
+ * - Cold-Tolerant (Blue gradient): Belvedere
+ * - Home/Debug (Red gradient): Debug cultivar (home page)
+ * - Fall Plant, Excellent Flavor, Premium Quality: Additional trait-based themes
+ * 
+ * USAGE:
+ * Themes are applied via helper functions:
+ * - getCultivarThemeClass(cultivarId) in app/page.tsx
+ * - getFilterThemeClass(value, category) in components/CultivarFilterPanel.tsx
+ * 
+ * CLASS NAMING:
+ * - .cultivar-theme-{category}: Applied to cultivar cards
+ * - .filter-theme-{category}: Applied to filter buttons
+ * 
+ * DESIGN PATTERN:
+ * Each theme uses gradient backgrounds with glassmorphism effects.
+ * Colors are chosen to represent the market positioning or trait.
+ * All color values now use CSS custom properties for consistency.
+ * 
+ * RELATED FILES:
+ * - app/globals.css: Base glassmorphism and card styles, premium-button-*-glass classes
+ * - app/page.tsx: Theme class application logic
+ * - components/CultivarFilterPanel.tsx: Filter theme application
+ * - docs/CSS_THEME_SYSTEM.md: Comprehensive theme documentation
+ */
+
+/* ============================================================================
+ * CSS CUSTOM PROPERTIES - Theme Color Variables
+ * ============================================================================
+ * Centralized color definitions for all theme systems.
+ * These variables are used across cultivar-theme-*, filter-theme-*, and
+ * premium-button-*-glass classes to ensure consistency and enable easy
+ * theme updates in one location.
+ */
+
+:root {
+  /* Day-Neutral Theme (Yellow) */
+  --theme-day-neutral-bg-start: rgba(255, 235, 59, 0.9);
+  --theme-day-neutral-bg-mid: rgba(255, 213, 79, 0.8);
+  --theme-day-neutral-bg-end: rgba(255, 193, 7, 0.9);
+  --theme-day-neutral-bg-start-filter: rgba(255, 235, 59, 0.8);
+  --theme-day-neutral-bg-mid-filter: rgba(255, 213, 79, 0.7);
+  --theme-day-neutral-bg-end-filter: rgba(255, 193, 7, 0.8);
+  --theme-day-neutral-bg-start-hover: rgba(255, 235, 59, 0.9);
+  --theme-day-neutral-bg-mid-hover: rgba(255, 213, 79, 0.8);
+  --theme-day-neutral-bg-end-hover: rgba(255, 193, 7, 0.9);
+  --theme-day-neutral-bg-start-selected: rgba(255, 235, 59, 1);
+  --theme-day-neutral-bg-mid-selected: rgba(255, 213, 79, 0.9);
+  --theme-day-neutral-bg-end-selected: rgba(255, 193, 7, 1);
+  --theme-day-neutral-border: rgba(255, 235, 59, 0.3);
+  --theme-day-neutral-border-hover: rgba(255, 235, 59, 0.5);
+  --theme-day-neutral-border-selected: rgba(255, 235, 59, 0.6);
+  --theme-day-neutral-border-selected-strong: rgba(255, 235, 59, 0.8);
+  --theme-day-neutral-shadow: rgba(255, 235, 59, 0.2);
+  --theme-day-neutral-shadow-selected: rgba(255, 235, 59, 0.3);
+  --theme-day-neutral-shadow-selected-strong: rgba(255, 235, 59, 0.4);
+
+  /* Short-Day Theme (Orange) */
+  --theme-short-day-bg-start: rgba(255, 102, 0, 0.95);
+  --theme-short-day-bg-mid: rgba(255, 69, 0, 0.9);
+  --theme-short-day-bg-end: rgba(255, 140, 0, 0.95);
+  --theme-short-day-bg-start-filter: rgba(255, 102, 0, 0.8);
+  --theme-short-day-bg-mid-filter: rgba(255, 69, 0, 0.7);
+  --theme-short-day-bg-end-filter: rgba(255, 140, 0, 0.8);
+  --theme-short-day-bg-start-hover: rgba(255, 102, 0, 0.9);
+  --theme-short-day-bg-mid-hover: rgba(255, 69, 0, 0.8);
+  --theme-short-day-bg-end-hover: rgba(255, 140, 0, 0.9);
+  --theme-short-day-bg-start-selected: rgba(255, 102, 0, 1);
+  --theme-short-day-bg-mid-selected: rgba(255, 69, 0, 0.9);
+  --theme-short-day-bg-end-selected: rgba(255, 140, 0, 1);
+  --theme-short-day-border: rgba(255, 102, 0, 0.3);
+  --theme-short-day-border-hover: rgba(255, 102, 0, 0.5);
+  --theme-short-day-border-selected: rgba(255, 102, 0, 0.6);
+  --theme-short-day-border-selected-strong: rgba(255, 102, 0, 0.8);
+  --theme-short-day-shadow: rgba(255, 102, 0, 0.2);
+  --theme-short-day-shadow-selected: rgba(255, 102, 0, 0.3);
+  --theme-short-day-shadow-selected-strong: rgba(255, 102, 0, 0.4);
+  --theme-short-day-border-dark: rgba(139, 69, 19, 0.8);
+
+  /* Organic Theme (Green) */
+  --theme-organic-bg-start: rgba(34, 197, 94, 0.9);
+  --theme-organic-bg-mid: rgba(16, 185, 129, 0.8);
+  --theme-organic-bg-end: rgba(5, 150, 105, 0.9);
+  --theme-organic-bg-start-filter: rgba(34, 197, 94, 0.8);
+  --theme-organic-bg-mid-filter: rgba(16, 185, 129, 0.7);
+  --theme-organic-bg-end-filter: rgba(5, 150, 105, 0.8);
+  --theme-organic-bg-start-hover: rgba(34, 197, 94, 0.9);
+  --theme-organic-bg-mid-hover: rgba(16, 185, 129, 0.8);
+  --theme-organic-bg-end-hover: rgba(5, 150, 105, 0.9);
+  --theme-organic-bg-start-selected: rgba(34, 197, 94, 1);
+  --theme-organic-bg-mid-selected: rgba(16, 185, 129, 0.9);
+  --theme-organic-bg-end-selected: rgba(5, 150, 105, 1);
+  --theme-organic-border: rgba(34, 197, 94, 0.3);
+  --theme-organic-border-hover: rgba(34, 197, 94, 0.5);
+  --theme-organic-border-selected: rgba(34, 197, 94, 0.6);
+  --theme-organic-border-selected-strong: rgba(34, 197, 94, 0.8);
+  --theme-organic-shadow: rgba(34, 197, 94, 0.2);
+  --theme-organic-shadow-selected: rgba(34, 197, 94, 0.3);
+  --theme-organic-shadow-selected-strong: rgba(34, 197, 94, 0.4);
+  --theme-organic-border-dark: rgba(0, 100, 0, 0.8);
+
+  /* Cold-Tolerant Theme (Blue) */
+  --theme-cold-tolerant-bg-start: rgba(14, 165, 233, 0.9);
+  --theme-cold-tolerant-bg-mid: rgba(6, 182, 212, 0.8);
+  --theme-cold-tolerant-bg-end: rgba(8, 145, 178, 0.9);
+  --theme-cold-tolerant-bg-start-filter: rgba(14, 165, 233, 0.8);
+  --theme-cold-tolerant-bg-mid-filter: rgba(6, 182, 212, 0.7);
+  --theme-cold-tolerant-bg-end-filter: rgba(8, 145, 178, 0.8);
+  --theme-cold-tolerant-bg-start-hover: rgba(14, 165, 233, 0.9);
+  --theme-cold-tolerant-bg-mid-hover: rgba(6, 182, 212, 0.8);
+  --theme-cold-tolerant-bg-end-hover: rgba(8, 145, 178, 0.9);
+  --theme-cold-tolerant-bg-start-selected: rgba(14, 165, 233, 1);
+  --theme-cold-tolerant-bg-mid-selected: rgba(6, 182, 212, 0.9);
+  --theme-cold-tolerant-bg-end-selected: rgba(8, 145, 178, 1);
+  --theme-cold-tolerant-border: rgba(14, 165, 233, 0.3);
+  --theme-cold-tolerant-border-hover: rgba(14, 165, 233, 0.5);
+  --theme-cold-tolerant-border-selected: rgba(14, 165, 233, 0.6);
+  --theme-cold-tolerant-border-selected-strong: rgba(14, 165, 233, 0.8);
+  --theme-cold-tolerant-shadow: rgba(14, 165, 233, 0.2);
+  --theme-cold-tolerant-shadow-selected: rgba(14, 165, 233, 0.3);
+  --theme-cold-tolerant-shadow-selected-strong: rgba(14, 165, 233, 0.4);
+  --theme-cold-tolerant-border-dark: rgba(0, 0, 139, 0.8);
+
+  /* Excellent Flavor Theme (Red) */
+  --theme-excellent-flavor-bg-start: rgba(239, 68, 68, 0.9);
+  --theme-excellent-flavor-bg-mid: rgba(220, 38, 38, 0.8);
+  --theme-excellent-flavor-bg-end: rgba(185, 28, 28, 0.9);
+  --theme-excellent-flavor-bg-start-filter: rgba(239, 68, 68, 0.8);
+  --theme-excellent-flavor-bg-mid-filter: rgba(220, 38, 38, 0.7);
+  --theme-excellent-flavor-bg-end-filter: rgba(185, 28, 28, 0.8);
+  --theme-excellent-flavor-bg-start-hover: rgba(239, 68, 68, 0.9);
+  --theme-excellent-flavor-bg-mid-hover: rgba(220, 38, 38, 0.8);
+  --theme-excellent-flavor-bg-end-hover: rgba(185, 28, 28, 0.9);
+  --theme-excellent-flavor-bg-start-selected: rgba(239, 68, 68, 1);
+  --theme-excellent-flavor-bg-mid-selected: rgba(220, 38, 38, 0.9);
+  --theme-excellent-flavor-bg-end-selected: rgba(185, 28, 28, 1);
+  --theme-excellent-flavor-border: rgba(239, 68, 68, 0.3);
+  --theme-excellent-flavor-border-hover: rgba(239, 68, 68, 0.5);
+  --theme-excellent-flavor-border-selected: rgba(239, 68, 68, 0.6);
+  --theme-excellent-flavor-border-selected-strong: rgba(239, 68, 68, 0.8);
+  --theme-excellent-flavor-shadow: rgba(239, 68, 68, 0.2);
+  --theme-excellent-flavor-shadow-selected: rgba(239, 68, 68, 0.3);
+  --theme-excellent-flavor-shadow-selected-strong: rgba(239, 68, 68, 0.4);
+  --theme-excellent-flavor-border-dark: rgba(139, 0, 0, 0.8);
+
+  /* Premium Quality Theme (Gold) */
+  --theme-premium-quality-bg-start: rgba(253, 224, 71, 0.95);
+  --theme-premium-quality-bg-mid: rgba(250, 204, 21, 0.9);
+  --theme-premium-quality-bg-mid2: rgba(245, 158, 11, 0.95);
+  --theme-premium-quality-bg-end: rgba(217, 119, 6, 0.9);
+  --theme-premium-quality-bg-start-filter: rgba(253, 224, 71, 0.8);
+  --theme-premium-quality-bg-mid-filter: rgba(250, 204, 21, 0.7);
+  --theme-premium-quality-bg-mid2-filter: rgba(245, 158, 11, 0.8);
+  --theme-premium-quality-bg-end-filter: rgba(217, 119, 6, 0.8);
+  --theme-premium-quality-bg-start-hover: rgba(253, 224, 71, 0.9);
+  --theme-premium-quality-bg-mid-hover: rgba(250, 204, 21, 0.8);
+  --theme-premium-quality-bg-mid2-hover: rgba(245, 158, 11, 0.9);
+  --theme-premium-quality-bg-end-hover: rgba(217, 119, 6, 0.9);
+  --theme-premium-quality-bg-start-selected: rgba(253, 224, 71, 1);
+  --theme-premium-quality-bg-mid-selected: rgba(250, 204, 21, 0.9);
+  --theme-premium-quality-bg-mid2-selected: rgba(245, 158, 11, 1);
+  --theme-premium-quality-bg-end-selected: rgba(217, 119, 6, 1);
+  --theme-premium-quality-border: rgba(253, 224, 71, 0.3);
+  --theme-premium-quality-border-hover: rgba(253, 224, 71, 0.5);
+  --theme-premium-quality-border-selected: rgba(253, 224, 71, 0.6);
+  --theme-premium-quality-border-selected-strong: rgba(253, 224, 71, 0.8);
+  --theme-premium-quality-shadow: rgba(245, 158, 11, 0.2);
+  --theme-premium-quality-shadow-selected: rgba(245, 158, 11, 0.3);
+  --theme-premium-quality-shadow-selected-strong: rgba(245, 158, 11, 0.4);
+  --theme-premium-quality-shadow-glow: rgba(245, 158, 11, 0.3);
+  --theme-premium-quality-shadow-glow-hover: rgba(245, 158, 11, 0.5);
+  --theme-premium-quality-shadow-glow-selected: rgba(245, 158, 11, 0.6);
+  --theme-premium-quality-border-dark: rgba(184, 134, 11, 0.8);
+
+  /* Fall Plant Theme (Burnt Orange) */
+  --theme-fall-plant-bg-start: rgba(251, 146, 60, 0.9);
+  --theme-fall-plant-bg-mid: rgba(234, 88, 12, 0.8);
+  --theme-fall-plant-bg-end: rgba(194, 65, 12, 0.9);
+  --theme-fall-plant-bg-start-filter: rgba(251, 146, 60, 0.8);
+  --theme-fall-plant-bg-mid-filter: rgba(234, 88, 12, 0.7);
+  --theme-fall-plant-bg-end-filter: rgba(194, 65, 12, 0.8);
+  --theme-fall-plant-bg-start-hover: rgba(251, 146, 60, 0.9);
+  --theme-fall-plant-bg-mid-hover: rgba(234, 88, 12, 0.8);
+  --theme-fall-plant-bg-end-hover: rgba(194, 65, 12, 0.9);
+  --theme-fall-plant-bg-start-selected: rgba(251, 146, 60, 1);
+  --theme-fall-plant-bg-mid-selected: rgba(234, 88, 12, 0.9);
+  --theme-fall-plant-bg-end-selected: rgba(194, 65, 12, 1);
+  --theme-fall-plant-border: rgba(251, 146, 60, 0.3);
+  --theme-fall-plant-border-hover: rgba(251, 146, 60, 0.5);
+  --theme-fall-plant-border-selected: rgba(251, 146, 60, 0.6);
+  --theme-fall-plant-shadow: rgba(251, 146, 60, 0.2);
+  --theme-fall-plant-shadow-selected: rgba(251, 146, 60, 0.3);
+  --theme-fall-plant-shadow-selected-strong: rgba(251, 146, 60, 0.4);
+  --theme-fall-plant-border-dark: rgba(139, 69, 19, 0.8);
+
+  /* Common shared values */
+  --theme-white-overlay: rgba(255, 255, 255, 0.1);
+  --theme-white-overlay-strong: rgba(255, 255, 255, 0.2);
+  --theme-white-overlay-stronger: rgba(255, 255, 255, 0.3);
+  --theme-black-overlay: rgba(0, 0, 0, 0.1);
+  --theme-black-overlay-strong: rgba(0, 0, 0, 0.2);
+  --theme-black-overlay-stronger: rgba(0, 0, 0, 0.3);
+  --theme-black-overlay-dark: rgba(0, 0, 0, 0.4);
+  --theme-black-overlay-darker: rgba(0, 0, 0, 0.6);
+  --theme-text-dark: rgba(0, 0, 0, 0.8);
+  --theme-text-dark-strong: rgba(0, 0, 0, 0.9);
+  --theme-text-dark-strongest: rgba(0, 0, 0, 1);
+}
+
 /* Cultivar Color Themes by Market Groups and Traits
  * This file contains specialized color schemes for different cultivar cards
  * based on their market positioning and key characteristics.
+ */
+
+/* ============================================================================
+ * BASE THEME CLASSES - Common Structural Patterns
+ * ============================================================================
+ * Phase 2 Refactoring: Base classes contain common structural properties
+ * shared across all theme variants. Theme-specific classes extend these
+ * base classes and add color variables.
+ */
+
+/* Base class for cultivar card themes - common structure */
+.theme-base-card {
+  backdrop-filter: blur(2px) saturate(180%);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Shimmer effect - shared across all cultivar card themes */
+.theme-base-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--theme-white-overlay), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.theme-base-card:hover::before {
+  left: 100%;
+}
+
+/* Base hover transform for cultivar cards */
+.theme-base-card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+/* Base selected transform for cultivar cards */
+.theme-base-card.selected-glass {
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Base class for filter button themes - common structure */
+.theme-base-filter {
+  border-radius: 12px;
+  color: var(--theme-text-dark);
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+
+/* Base hover transform for filter buttons */
+.theme-base-filter:hover {
+  transform: translateY(-1px);
+}
+
+/* Base selected transform for filter buttons */
+.theme-base-filter.selected-glass {
+  color: var(--theme-text-dark-strongest);
+  font-weight: 700;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ============================================================================
+ * CULTIVAR CARD THEMES
+ * ============================================================================
  */
 
 /* Day-Neutral Market Group (Marathon Season: March-November)
@@ -8,59 +308,34 @@
  * Cultivars: Alturas, Alhambra, Brisbane, Carpinteria
  */
 .cultivar-theme-day-neutral {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(255, 235, 59, 0.9) 0%, 
-    rgba(255, 213, 79, 0.8) 50%, 
-    rgba(255, 193, 7, 0.9) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-day-neutral-bg-start) 0%, 
+    var(--theme-day-neutral-bg-mid) 50%, 
+    var(--theme-day-neutral-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cultivar-theme-day-neutral::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
-  transition: left 0.5s;
-}
-
-.cultivar-theme-day-neutral:hover::before {
-  left: 100%;
 }
 
 .cultivar-theme-day-neutral:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(255, 235, 59, 0.3);
+  border-color: var(--theme-day-neutral-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(255, 235, 59, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(255, 235, 59, 0.1);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-day-neutral-shadow),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 1px var(--theme-day-neutral-border);
 }
 
 .cultivar-theme-day-neutral.selected-glass {
-  border-color: rgba(255, 235, 59, 0.6);
+  border-color: var(--theme-day-neutral-border-selected);
   box-shadow: 
-    0 16px 48px rgba(255, 235, 59, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(255, 235, 59, 0.2);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-day-neutral-shadow-selected),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 2px var(--theme-day-neutral-shadow);
 }
 
 /* Short-Day Market Group (Sprint Season: Winter/Spring Supply)
@@ -68,59 +343,34 @@
  * Cultivars: Adelanto, Belvedere, Castaic
  */
 .cultivar-theme-short-day {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(255, 102, 0, 0.95) 0%, 
-    rgba(255, 69, 0, 0.9) 50%, 
-    rgba(255, 140, 0, 0.95) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-short-day-bg-start) 0%, 
+    var(--theme-short-day-bg-mid) 50%, 
+    var(--theme-short-day-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cultivar-theme-short-day::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
-  transition: left 0.5s;
-}
-
-.cultivar-theme-short-day:hover::before {
-  left: 100%;
 }
 
 .cultivar-theme-short-day:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(255, 102, 0, 0.3);
+  border-color: var(--theme-short-day-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(255, 102, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(255, 102, 0, 0.1);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-short-day-shadow),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 1px var(--theme-short-day-border);
 }
 
 .cultivar-theme-short-day.selected-glass {
-  border-color: rgba(255, 102, 0, 0.6);
+  border-color: var(--theme-short-day-border-selected);
   box-shadow: 
-    0 16px 48px rgba(255, 102, 0, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(255, 102, 0, 0.2);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-short-day-shadow-selected),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 2px var(--theme-short-day-shadow);
 }
 
 /* Organic Variety (Artesia Only)
@@ -128,59 +378,34 @@
  * Cultivar: Artesia
  */
 .cultivar-theme-organic {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(34, 197, 94, 0.9) 0%, 
-    rgba(16, 185, 129, 0.8) 50%, 
-    rgba(5, 150, 105, 0.9) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-organic-bg-start) 0%, 
+    var(--theme-organic-bg-mid) 50%, 
+    var(--theme-organic-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cultivar-theme-organic::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
-  transition: left 0.5s;
-}
-
-.cultivar-theme-organic:hover::before {
-  left: 100%;
 }
 
 .cultivar-theme-organic:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(34, 197, 94, 0.3);
+  border-color: var(--theme-organic-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(34, 197, 94, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(34, 197, 94, 0.1);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-organic-shadow),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 1px var(--theme-organic-border);
 }
 
 .cultivar-theme-organic.selected-glass {
-  border-color: rgba(34, 197, 94, 0.6);
+  border-color: var(--theme-organic-border-selected);
   box-shadow: 
-    0 16px 48px rgba(34, 197, 94, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(34, 197, 94, 0.2);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-organic-shadow-selected),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 2px var(--theme-organic-shadow);
 }
 
 /* Cold Tolerant Variety (Sweet Carolina Only)
@@ -188,59 +413,34 @@
  * Cultivar: Sweet Carolina
  */
 .cultivar-theme-cold-tolerant {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(14, 165, 233, 0.9) 0%, 
-    rgba(6, 182, 212, 0.8) 50%, 
-    rgba(8, 145, 178, 0.9) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-cold-tolerant-bg-start) 0%, 
+    var(--theme-cold-tolerant-bg-mid) 50%, 
+    var(--theme-cold-tolerant-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cultivar-theme-cold-tolerant::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
-  transition: left 0.5s;
-}
-
-.cultivar-theme-cold-tolerant:hover::before {
-  left: 100%;
 }
 
 .cultivar-theme-cold-tolerant:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(14, 165, 233, 0.3);
+  border-color: var(--theme-cold-tolerant-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(14, 165, 233, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(14, 165, 233, 0.1);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-cold-tolerant-shadow),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 1px var(--theme-cold-tolerant-border);
 }
 
 .cultivar-theme-cold-tolerant.selected-glass {
-  border-color: rgba(14, 165, 233, 0.6);
+  border-color: var(--theme-cold-tolerant-border-selected);
   box-shadow: 
-    0 16px 48px rgba(14, 165, 233, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(14, 165, 233, 0.2);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-cold-tolerant-shadow-selected),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 2px var(--theme-cold-tolerant-shadow);
 }
 
 /* Image Container Improvements for Cultivar Icons */
@@ -338,139 +538,85 @@
 
 /* Fall Plant Theme - Burnt orange/fall colors */
 .cultivar-theme-fall-plant {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(251, 146, 60, 0.9) 0%, 
-    rgba(234, 88, 12, 0.8) 50%, 
-    rgba(194, 65, 12, 0.9) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-fall-plant-bg-start) 0%, 
+    var(--theme-fall-plant-bg-mid) 50%, 
+    var(--theme-fall-plant-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cultivar-theme-fall-plant::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
-  transition: left 0.5s;
-}
-
-.cultivar-theme-fall-plant:hover::before {
-  left: 100%;
 }
 
 .cultivar-theme-fall-plant:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(251, 146, 60, 0.3);
+  border-color: var(--theme-fall-plant-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(251, 146, 60, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(251, 146, 60, 0.1);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-fall-plant-shadow),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 1px var(--theme-fall-plant-border);
 }
 
 .cultivar-theme-fall-plant.selected-glass {
-  border-color: rgba(251, 146, 60, 0.6);
+  border-color: var(--theme-fall-plant-border-selected);
   box-shadow: 
-    0 16px 48px rgba(251, 146, 60, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(251, 146, 60, 0.2);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-fall-plant-shadow-selected),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 2px var(--theme-fall-plant-shadow);
 }
 
 /* Excellent Flavor Theme - Rich red gradient */
 .cultivar-theme-excellent-flavor {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(239, 68, 68, 0.9) 0%, 
-    rgba(220, 38, 38, 0.8) 50%, 
-    rgba(185, 28, 28, 0.9) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-excellent-flavor-bg-start) 0%, 
+    var(--theme-excellent-flavor-bg-mid) 50%, 
+    var(--theme-excellent-flavor-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cultivar-theme-excellent-flavor::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
-  transition: left 0.5s;
-}
-
-.cultivar-theme-excellent-flavor:hover::before {
-  left: 100%;
 }
 
 .cultivar-theme-excellent-flavor:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(239, 68, 68, 0.3);
+  border-color: var(--theme-excellent-flavor-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(239, 68, 68, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(239, 68, 68, 0.1);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-excellent-flavor-shadow),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 1px var(--theme-excellent-flavor-border);
 }
 
 .cultivar-theme-excellent-flavor.selected-glass {
-  border-color: rgba(239, 68, 68, 0.6);
+  border-color: var(--theme-excellent-flavor-border-selected);
   box-shadow: 
-    0 16px 48px rgba(239, 68, 68, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 2px rgba(239, 68, 68, 0.2);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-excellent-flavor-shadow-selected),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
+    0 0 0 2px var(--theme-excellent-flavor-shadow);
 }
 
 /* Premium Quality Theme - Special golden/sparkly gradient */
 .cultivar-theme-premium-quality {
+  /* Extend base card structure */
   background: linear-gradient(135deg, 
-    rgba(253, 224, 71, 0.95) 0%, 
-    rgba(250, 204, 21, 0.9) 30%, 
-    rgba(245, 158, 11, 0.95) 70%, 
-    rgba(217, 119, 6, 0.9) 100%);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    var(--theme-premium-quality-bg-start) 0%, 
+    var(--theme-premium-quality-bg-mid) 30%, 
+    var(--theme-premium-quality-bg-mid2) 70%, 
+    var(--theme-premium-quality-bg-end) 100%);
+  border: 1px solid var(--theme-white-overlay);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 8px 32px var(--theme-black-overlay-strong),
+    inset 0 1px 0 var(--theme-white-overlay-strong),
     0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 0 20px rgba(245, 158, 11, 0.3);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
+    0 0 20px var(--theme-premium-quality-shadow-glow);
 }
 
+/* Premium quality has special shimmer animation - override base */
 .cultivar-theme-premium-quality::before {
   content: '';
   position: absolute;
@@ -495,315 +641,250 @@
 }
 
 .cultivar-theme-premium-quality:hover {
-  transform: translateY(-8px) scale(1.05);
-  border-color: rgba(253, 224, 71, 0.3);
+  border-color: var(--theme-premium-quality-border);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(245, 158, 11, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 0 0 1px rgba(245, 158, 11, 0.1),
-    0 0 30px rgba(245, 158, 11, 0.5);
+    0 20px 60px var(--theme-black-overlay-dark),
+    0 8px 32px var(--theme-premium-quality-shadow-selected),
+    inset 0 1px 0 var(--theme-white-overlay-stronger),
+    0 0 0 1px var(--theme-premium-quality-shadow),
+    0 0 30px var(--theme-premium-quality-shadow-glow-hover);
 }
 
 .cultivar-theme-premium-quality.selected-glass {
-  border-color: rgba(253, 224, 71, 0.6);
+  border-color: var(--theme-premium-quality-border-selected);
   box-shadow: 
-    0 16px 48px rgba(245, 158, 11, 0.4),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 0 0 2px rgba(245, 158, 11, 0.2),
-    0 0 40px rgba(245, 158, 11, 0.6);
-  transform: translateY(-6px) scale(1.08);
+    0 16px 48px var(--theme-premium-quality-shadow-selected-strong),
+    0 8px 32px var(--theme-black-overlay-dark),
+    inset 0 1px 0 var(--theme-white-overlay-stronger),
+    0 0 0 2px var(--theme-premium-quality-shadow),
+    0 0 40px var(--theme-premium-quality-shadow-glow-selected);
 }
 
 /* Filter Button Theme Classes - Simplified versions without heavy shadows */
 
 /* Filter Day-Neutral Theme - Simplified for buttons */
 .filter-theme-day-neutral {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(255, 235, 59, 0.8) 0%, 
-    rgba(255, 213, 79, 0.7) 50%, 
-    rgba(255, 193, 7, 0.8) 100%);
-  border: 1px solid rgba(255, 235, 59, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-day-neutral-bg-start-filter) 0%, 
+    var(--theme-day-neutral-bg-mid-filter) 50%, 
+    var(--theme-day-neutral-bg-end-filter) 100%);
+  border: 1px solid var(--theme-day-neutral-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-day-neutral:hover {
   background: linear-gradient(135deg, 
-    rgba(255, 235, 59, 0.9) 0%, 
-    rgba(255, 213, 79, 0.8) 50%, 
-    rgba(255, 193, 7, 0.9) 100%);
-  border-color: rgba(255, 235, 59, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 235, 59, 0.2);
+    var(--theme-day-neutral-bg-start-hover) 0%, 
+    var(--theme-day-neutral-bg-mid-hover) 50%, 
+    var(--theme-day-neutral-bg-end-hover) 100%);
+  border-color: var(--theme-day-neutral-border-hover);
+  box-shadow: 0 4px 12px var(--theme-day-neutral-shadow);
 }
 
 .filter-theme-day-neutral.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(255, 235, 59, 1) 0%, 
-    rgba(255, 213, 79, 0.9) 50%, 
-    rgba(255, 193, 7, 1) 100%);
-  border: 3px solid rgba(0, 0, 0, 0.6);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-day-neutral-bg-start-selected) 0%, 
+    var(--theme-day-neutral-bg-mid-selected) 50%, 
+    var(--theme-day-neutral-bg-end-selected) 100%);
+  border: 3px solid var(--theme-black-overlay-darker);
   box-shadow: 
-    0 8px 20px rgba(255, 235, 59, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    0 8px 20px var(--theme-day-neutral-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-stronger);
 }
 
 /* Filter Short-Day Theme - Simplified for buttons */
 .filter-theme-short-day {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(255, 102, 0, 0.8) 0%, 
-    rgba(255, 69, 0, 0.7) 50%, 
-    rgba(255, 140, 0, 0.8) 100%);
-  border: 1px solid rgba(255, 102, 0, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-short-day-bg-start-filter) 0%, 
+    var(--theme-short-day-bg-mid-filter) 50%, 
+    var(--theme-short-day-bg-end-filter) 100%);
+  border: 1px solid var(--theme-short-day-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-short-day:hover {
   background: linear-gradient(135deg, 
-    rgba(255, 102, 0, 0.9) 0%, 
-    rgba(255, 69, 0, 0.8) 50%, 
-    rgba(255, 140, 0, 0.9) 100%);
-  border-color: rgba(255, 102, 0, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+    var(--theme-short-day-bg-start-hover) 0%, 
+    var(--theme-short-day-bg-mid-hover) 50%, 
+    var(--theme-short-day-bg-end-hover) 100%);
+  border-color: var(--theme-short-day-border-hover);
+  box-shadow: 0 4px 12px var(--theme-short-day-shadow);
 }
 
 .filter-theme-short-day.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(255, 102, 0, 1) 0%, 
-    rgba(255, 69, 0, 0.9) 50%, 
-    rgba(255, 140, 0, 1) 100%);
-  border: 3px solid rgba(139, 69, 19, 0.8);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-short-day-bg-start-selected) 0%, 
+    var(--theme-short-day-bg-mid-selected) 50%, 
+    var(--theme-short-day-bg-end-selected) 100%);
+  border: 3px solid var(--theme-short-day-border-dark);
   box-shadow: 
-    0 8px 20px rgba(255, 102, 0, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    0 8px 20px var(--theme-short-day-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-strong);
 }
 
 /* Filter Organic Theme - Simplified for buttons */
 .filter-theme-organic {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(34, 197, 94, 0.8) 0%, 
-    rgba(16, 185, 129, 0.7) 50%, 
-    rgba(5, 150, 105, 0.8) 100%);
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-organic-bg-start-filter) 0%, 
+    var(--theme-organic-bg-mid-filter) 50%, 
+    var(--theme-organic-bg-end-filter) 100%);
+  border: 1px solid var(--theme-organic-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-organic:hover {
   background: linear-gradient(135deg, 
-    rgba(34, 197, 94, 0.9) 0%, 
-    rgba(16, 185, 129, 0.8) 50%, 
-    rgba(5, 150, 105, 0.9) 100%);
-  border-color: rgba(34, 197, 94, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+    var(--theme-organic-bg-start-hover) 0%, 
+    var(--theme-organic-bg-mid-hover) 50%, 
+    var(--theme-organic-bg-end-hover) 100%);
+  border-color: var(--theme-organic-border-hover);
+  box-shadow: 0 4px 12px var(--theme-organic-shadow);
 }
 
 .filter-theme-organic.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(34, 197, 94, 1) 0%, 
-    rgba(16, 185, 129, 0.9) 50%, 
-    rgba(5, 150, 105, 1) 100%);
-  border: 3px solid rgba(0, 100, 0, 0.8);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-organic-bg-start-selected) 0%, 
+    var(--theme-organic-bg-mid-selected) 50%, 
+    var(--theme-organic-bg-end-selected) 100%);
+  border: 3px solid var(--theme-organic-border-dark);
   box-shadow: 
-    0 8px 20px rgba(34, 197, 94, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    0 8px 20px var(--theme-organic-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-strong);
 }
 
 /* Filter Cold Tolerant Theme - Simplified for buttons */
 .filter-theme-cold-tolerant {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(14, 165, 233, 0.8) 0%, 
-    rgba(6, 182, 212, 0.7) 50%, 
-    rgba(8, 145, 178, 0.8) 100%);
-  border: 1px solid rgba(14, 165, 233, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-cold-tolerant-bg-start-filter) 0%, 
+    var(--theme-cold-tolerant-bg-mid-filter) 50%, 
+    var(--theme-cold-tolerant-bg-end-filter) 100%);
+  border: 1px solid var(--theme-cold-tolerant-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-cold-tolerant:hover {
   background: linear-gradient(135deg, 
-    rgba(14, 165, 233, 0.9) 0%, 
-    rgba(6, 182, 212, 0.8) 50%, 
-    rgba(8, 145, 178, 0.9) 100%);
-  border-color: rgba(14, 165, 233, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+    var(--theme-cold-tolerant-bg-start-hover) 0%, 
+    var(--theme-cold-tolerant-bg-mid-hover) 50%, 
+    var(--theme-cold-tolerant-bg-end-hover) 100%);
+  border-color: var(--theme-cold-tolerant-border-hover);
+  box-shadow: 0 4px 12px var(--theme-cold-tolerant-shadow);
 }
 
 .filter-theme-cold-tolerant.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(14, 165, 233, 1) 0%, 
-    rgba(6, 182, 212, 0.9) 50%, 
-    rgba(8, 145, 178, 1) 100%);
-  border: 3px solid rgba(0, 0, 139, 0.8);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-cold-tolerant-bg-start-selected) 0%, 
+    var(--theme-cold-tolerant-bg-mid-selected) 50%, 
+    var(--theme-cold-tolerant-bg-end-selected) 100%);
+  border: 3px solid var(--theme-cold-tolerant-border-dark);
   box-shadow: 
-    0 8px 20px rgba(14, 165, 233, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    0 8px 20px var(--theme-cold-tolerant-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-strong);
 }
 
 /* Filter Fall Plant Theme - Simplified for buttons */
 .filter-theme-fall-plant {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(251, 146, 60, 0.8) 0%, 
-    rgba(234, 88, 12, 0.7) 50%, 
-    rgba(194, 65, 12, 0.8) 100%);
-  border: 1px solid rgba(251, 146, 60, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-fall-plant-bg-start-filter) 0%, 
+    var(--theme-fall-plant-bg-mid-filter) 50%, 
+    var(--theme-fall-plant-bg-end-filter) 100%);
+  border: 1px solid var(--theme-fall-plant-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-fall-plant:hover {
   background: linear-gradient(135deg, 
-    rgba(251, 146, 60, 0.9) 0%, 
-    rgba(234, 88, 12, 0.8) 50%, 
-    rgba(194, 65, 12, 0.9) 100%);
-  border-color: rgba(251, 146, 60, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
+    var(--theme-fall-plant-bg-start-hover) 0%, 
+    var(--theme-fall-plant-bg-mid-hover) 50%, 
+    var(--theme-fall-plant-bg-end-hover) 100%);
+  border-color: var(--theme-fall-plant-border-hover);
+  box-shadow: 0 4px 12px var(--theme-fall-plant-shadow);
 }
 
 .filter-theme-fall-plant.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(251, 146, 60, 1) 0%, 
-    rgba(234, 88, 12, 0.9) 50%, 
-    rgba(194, 65, 12, 1) 100%);
-  border: 3px solid rgba(139, 69, 19, 0.8);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-fall-plant-bg-start-selected) 0%, 
+    var(--theme-fall-plant-bg-mid-selected) 50%, 
+    var(--theme-fall-plant-bg-end-selected) 100%);
+  border: 3px solid var(--theme-fall-plant-border-dark);
   box-shadow: 
-    0 8px 20px rgba(251, 146, 60, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    0 8px 20px var(--theme-fall-plant-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-strong);
 }
 
 /* Filter Excellent Flavor Theme - Simplified for buttons */
 .filter-theme-excellent-flavor {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(239, 68, 68, 0.8) 0%, 
-    rgba(220, 38, 38, 0.7) 50%, 
-    rgba(185, 28, 28, 0.8) 100%);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-excellent-flavor-bg-start-filter) 0%, 
+    var(--theme-excellent-flavor-bg-mid-filter) 50%, 
+    var(--theme-excellent-flavor-bg-end-filter) 100%);
+  border: 1px solid var(--theme-excellent-flavor-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-excellent-flavor:hover {
   background: linear-gradient(135deg, 
-    rgba(239, 68, 68, 0.9) 0%, 
-    rgba(220, 38, 38, 0.8) 50%, 
-    rgba(185, 28, 28, 0.9) 100%);
-  border-color: rgba(239, 68, 68, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    var(--theme-excellent-flavor-bg-start-hover) 0%, 
+    var(--theme-excellent-flavor-bg-mid-hover) 50%, 
+    var(--theme-excellent-flavor-bg-end-hover) 100%);
+  border-color: var(--theme-excellent-flavor-border-hover);
+  box-shadow: 0 4px 12px var(--theme-excellent-flavor-shadow);
 }
 
 .filter-theme-excellent-flavor.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(239, 68, 68, 1) 0%, 
-    rgba(220, 38, 38, 0.9) 50%, 
-    rgba(185, 28, 28, 1) 100%);
-  border: 3px solid rgba(139, 0, 0, 0.8);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-excellent-flavor-bg-start-selected) 0%, 
+    var(--theme-excellent-flavor-bg-mid-selected) 50%, 
+    var(--theme-excellent-flavor-bg-end-selected) 100%);
+  border: 3px solid var(--theme-excellent-flavor-border-dark);
   box-shadow: 
-    0 8px 20px rgba(239, 68, 68, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    0 8px 20px var(--theme-excellent-flavor-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-strong);
 }
 
 /* Filter Premium Quality Theme - Simplified for buttons */
 .filter-theme-premium-quality {
+  /* Extend base filter structure */
   background: linear-gradient(135deg, 
-    rgba(253, 224, 71, 0.8) 0%, 
-    rgba(250, 204, 21, 0.7) 30%, 
-    rgba(245, 158, 11, 0.8) 70%, 
-    rgba(217, 119, 6, 0.8) 100%);
-  border: 1px solid rgba(253, 224, 71, 0.3);
-  border-radius: 12px;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    var(--theme-premium-quality-bg-start-filter) 0%, 
+    var(--theme-premium-quality-bg-mid-filter) 30%, 
+    var(--theme-premium-quality-bg-mid2-filter) 70%, 
+    var(--theme-premium-quality-bg-end-filter) 100%);
+  border: 1px solid var(--theme-premium-quality-border);
+  box-shadow: 0 2px 8px var(--theme-black-overlay);
 }
 
 .filter-theme-premium-quality:hover {
   background: linear-gradient(135deg, 
-    rgba(253, 224, 71, 0.9) 0%, 
-    rgba(250, 204, 21, 0.8) 30%, 
-    rgba(245, 158, 11, 0.9) 70%, 
-    rgba(217, 119, 6, 0.9) 100%);
-  border-color: rgba(253, 224, 71, 0.5);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+    var(--theme-premium-quality-bg-start-hover) 0%, 
+    var(--theme-premium-quality-bg-mid-hover) 30%, 
+    var(--theme-premium-quality-bg-mid2-hover) 70%, 
+    var(--theme-premium-quality-bg-end-hover) 100%);
+  border-color: var(--theme-premium-quality-border-hover);
+  box-shadow: 0 4px 12px var(--theme-premium-quality-shadow);
 }
 
 .filter-theme-premium-quality.selected-glass {
   background: linear-gradient(135deg, 
-    rgba(253, 224, 71, 1) 0%, 
-    rgba(250, 204, 21, 0.9) 30%, 
-    rgba(245, 158, 11, 1) 70%, 
-    rgba(217, 119, 6, 1) 100%);
-  border: 3px solid rgba(184, 134, 11, 0.8);
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  transform: translateY(-2px) scale(1.02);
+    var(--theme-premium-quality-bg-start-selected) 0%, 
+    var(--theme-premium-quality-bg-mid-selected) 30%, 
+    var(--theme-premium-quality-bg-mid2-selected) 70%, 
+    var(--theme-premium-quality-bg-end-selected) 100%);
+  border: 3px solid var(--theme-premium-quality-border-dark);
   box-shadow: 
-    0 8px 20px rgba(245, 158, 11, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    0 8px 20px var(--theme-premium-quality-shadow-selected-strong),
+    0 4px 12px var(--theme-black-overlay-stronger),
+    inset 0 2px 4px var(--theme-white-overlay-stronger);
 } 

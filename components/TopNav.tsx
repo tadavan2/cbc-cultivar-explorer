@@ -1,13 +1,39 @@
 import { useLanguage } from './LanguageContext';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 interface TopNavProps {
   isMobile?: boolean;
   isLandscape?: boolean;
+  onHeightChange?: (height: number) => void;
 }
 
-export default function TopNav({ isMobile = false, isLandscape = false }: TopNavProps) {
+export default function TopNav({ isMobile = false, isLandscape = false, onHeightChange }: TopNavProps) {
   const { language, setLanguage, supportedLanguages } = useLanguage();
+  const navRef = useRef<HTMLElement>(null);
+
+  // Measure and report height changes
+  useEffect(() => {
+    const updateHeight = () => {
+      if (navRef.current && onHeightChange) {
+        const height = navRef.current.offsetHeight;
+        onHeightChange(height);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    
+    // Use ResizeObserver for more accurate height tracking
+    const resizeObserver = new ResizeObserver(updateHeight);
+    if (navRef.current) {
+      resizeObserver.observe(navRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+      resizeObserver.disconnect();
+    };
+  }, [onHeightChange]);
 
   // Language Switcher UI
   const LanguageSwitcher = () => {
@@ -17,7 +43,7 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
           aria-label="Select language"
           value={language}
           onChange={e => setLanguage(e.target.value)}
-          className="premium-button-glass"
+          className="theme-base-premium-button premium-button-glass"
           style={{
             padding: isMobile ? '4px 10px' : '6px 16px',
             fontSize: isMobile ? '13px' : '15px',
@@ -51,10 +77,14 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
   };
 
   return (
-    <nav className={`sticky top-0 z-50 ${isMobile ? (isLandscape ? 'h-12' : 'h-16') : 'h-16'}`} style={{ 
-      background: 'rgba(251, 239, 239)', 
-      borderBottom: '4px solid rgba(192, 21, 21, 0.6)'
-    }}>
+    <nav 
+      ref={navRef}
+      className={`sticky top-0 z-50 ${isMobile ? (isLandscape ? 'min-h-12' : 'min-h-16') : 'min-h-16'}`} 
+      style={{ 
+        background: 'rgba(251, 239, 239)', 
+        borderBottom: '4px solid rgba(192, 21, 21, 0.6)'
+      }}
+    >
       <div className={`flex items-center justify-between h-full ${isMobile ? 'px-4' : 'px-12'}`}>
         <div className="flex items-center space-x-4">
           {/* Back Arrow to CBC Homepage */}
@@ -89,13 +119,19 @@ export default function TopNav({ isMobile = false, isLandscape = false }: TopNav
           </a>
           
           <div>
-            <h1 className={`font-bold premium-heading ${isMobile ? (isLandscape ? 'text-xs' : 'text-xs') : 'text-5xl'}`} style={{ 
-              lineHeight: '0.9', 
-              fontSize: isMobile ? (isLandscape ? '22px' : '14px') : '3.5rem',
-              letterSpacing: '-0.02em',
-              margin: 0,
-              padding: '8px 0'
-            }}>
+            <h1 
+              className={`font-bold premium-heading ${isMobile ? (isLandscape ? 'text-xs' : 'text-xs') : 'topnav-title-responsive'}`} 
+              style={{ 
+                lineHeight: '0.9', 
+                fontSize: isMobile 
+                  ? (isLandscape ? '22px' : '14px') 
+                  : 'clamp(1.5rem, 4.5vw, 3.5rem)', // Responsive: min 1.5rem, preferred 4.5vw, max 3.5rem
+                letterSpacing: '-0.02em',
+                margin: 0,
+                padding: '8px 0',
+                whiteSpace: 'nowrap' // Prevent wrapping
+              }}
+            >
               {isMobile ? (isLandscape ? 'CALIFORNIA BERRY CULTIVARS' : 'CALIFORNIA BERRY CULTIVARS') : (
                 <>
                   <span style={{ fontWeight: 500 }}>CALIFORNIA </span>

@@ -7,31 +7,34 @@ interface CultivarFilterPanelProps {
   onFiltersChange: (filters: FilterState) => void;
 }
 
-// Helper function to determine filter button theme class based on trait type
+// Helper function to determine filter button theme class - data-driven mapping
 const getFilterThemeClass = (value: string, category: string): string => {
-  // Flower Type color mapping
+  // Flower Type mapping
   if (category === 'flowerType') {
-    if (value === 'DN') return 'filter-theme-day-neutral'; // Day-Neutral = Yellow
-    if (value === 'SD') return 'filter-theme-short-day'; // Short-Day = Orange
+    if (value === 'DN') return 'filter-theme-day-neutral';
+    if (value === 'SD') return 'filter-theme-short-day';
   }
   
-  // Planting Season color mapping
-  if (value === 'fall plant') return 'filter-theme-fall-plant'; // Burnt orange/fall colors
-  if (value === 'summer plant') return 'filter-theme-day-neutral'; // Same yellow as day-neutral
-  if (value === 'eastern fall plant') return 'filter-theme-cold-tolerant'; // Same icy blue as Sweet Carolina
+  // Value-to-theme mapping
+  const themeMap: Record<string, string> = {
+    'fall plant': 'filter-theme-fall-plant',
+    'summer plant': 'filter-theme-day-neutral',
+    'eastern fall plant': 'filter-theme-cold-tolerant',
+    'organic': 'filter-theme-organic',
+    'cold tolerant': 'filter-theme-cold-tolerant',
+    'excellent flavor': 'filter-theme-excellent-flavor',
+    'high yields': 'filter-theme-day-neutral',
+    'ultra early': 'filter-theme-short-day',
+    'premium quality': 'filter-theme-premium-quality',
+  };
   
-  // Trait color mapping
-  if (value === 'organic') return 'filter-theme-organic'; // Green
-  if (value === 'cold tolerant') return 'filter-theme-cold-tolerant'; // Icy Blue
-  if (value === 'excellent flavor') return 'filter-theme-excellent-flavor'; // Red
-  if (value === 'high yields') return 'filter-theme-day-neutral'; // Same yellow
-  if (value === 'ultra early') return 'filter-theme-short-day'; // Same orange
-  if (value === 'premium quality') return 'filter-theme-premium-quality'; // Special golden/sparkly
+  // Check direct mapping first
+  if (themeMap[value]) return themeMap[value];
   
   // Disease resistance - use yellow theme
   if (value.includes('resistant')) return 'filter-theme-day-neutral';
   
-  // Default to glass for everything else
+  // Default
   return 'filter-button-glass';
 };
 
@@ -207,16 +210,10 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
           <div className="text-center">
             <button
               onClick={clearAllFilters}
-              className="premium-button text-sm font-semibold"
+              className="theme-base-premium-button premium-button-glass text-sm font-semibold"
               style={{
                 padding: '12px 24px',
                 fontSize: '14px',
-                background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)',
-                border: 'none',
-                borderRadius: '12px',
-                color: '#ffffff',
-                boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 fontFamily: 'var(--font-body)',
                 marginTop: '16px',
                 marginBottom: '8px'
@@ -255,7 +252,7 @@ export default function CultivarFilterPanel({ filters, onFiltersChange }: Cultiv
                     onClick={() => toggleFilter(option.category, option.value)}
                     disabled={!option.isAvailable && !option.isActive}
                     className={`
-                      w-full ${getFilterThemeClass(option.value, option.category)} text-left transition-all duration-300 whitespace-nowrap
+                      w-full theme-base-filter ${getFilterThemeClass(option.value, option.category)} text-left transition-all duration-300 whitespace-nowrap
                       ${option.isActive ? 'selected-glass' : ''}
                       ${!option.isAvailable && !option.isActive ? 'opacity-40 cursor-not-allowed' : ''}
                     `}

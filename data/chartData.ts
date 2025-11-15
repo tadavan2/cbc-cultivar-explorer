@@ -1,3 +1,42 @@
+/**
+ * Chart Data and Comparison Logic
+ * 
+ * PURPOSE:
+ * Provides chart data for performance comparison visualizations.
+ * Handles both hardcoded data and dynamic CSV loading.
+ * 
+ * CHART METRICS:
+ * - Yield: Cumulative line chart + monthly bars (Y-axis max: 3000, cultivar-specific overrides)
+ * - Firmness: Trend line + monthly bars (Y-axis max: 10, cultivar-specific ranges)
+ * - Size: Trend line + monthly bars (Y-axis max: 25)
+ * - Appearance: Trend line + monthly bars (Y-axis max: 10)
+ * 
+ * DATA SOURCES:
+ * 1. Hardcoded data: cultivarChartData object (fallback/default data)
+ * 2. CSV files: public/data/csv/{cultivarId}.csv (preferred, loaded dynamically)
+ * 
+ * KEY FUNCTIONS:
+ * - getChartData(): Main function to retrieve chart data for a cultivar/metric
+ * - loadCultivarDataFromCSV(): Loads chart data from CSV file
+ * - getChartDataFromCSV(): Wrapper that tries CSV first, falls back to hardcoded
+ * - getDefaultComparisonCultivar(): Returns default comparison cultivar for each cultivar
+ * - getAvailableCultivars(): Returns list of cultivars with chart data
+ * 
+ * COMPARISON LOGIC:
+ * Each cultivar can be compared with specific other cultivars.
+ * Default comparisons are defined per cultivar (e.g., alturas vs monterey).
+ * 
+ * CULTIVAR-SPECIFIC CONFIGURATIONS:
+ * - cultivarYieldMax: Override Y-axis max for yield charts
+ * - cultivarFirmnessRange: Custom firmness ranges for specific cultivars
+ * 
+ * RELATED FILES:
+ * - components/CultivarChart.tsx: Chart visualization component
+ * - components/CultivarDetailCardV2.tsx: Uses this for chart data
+ * - public/data/csv/{id}.csv: CSV data source files
+ * - data/csvParser.ts: CSV parsing utilities
+ */
+
 import { Cultivar } from '../types/cultivar';
 
 // Chart data interfaces
@@ -194,14 +233,12 @@ export function getChartData(cultivarId: string, metricId: string, comparisonCul
     );
     if (partialMatch) {
       primaryData = cultivarChartData[partialMatch];
-      console.log(`Chart: Using partial match "${partialMatch}" for cultivar "${cultivarId}"`);
     }
   }
   
   // Final fallback to 'alturas' if nothing found
   if (!primaryData) {
     primaryData = cultivarChartData['alturas'];
-    console.log(`Chart: No data found for "${cultivarId}", falling back to "alturas"`);
   }
   
   const comparisonData = comparisonCultivarId ? cultivarChartData[comparisonCultivarId] : null;
@@ -279,8 +316,6 @@ export async function loadChartDataFromCSV(csvFilePath: string): Promise<Cultiva
   // alturas,Sep,1406,8.2,18.5,9.1
   // alturas,Oct,2413,8.5,19.1,9.3
   // ...
-  
-  console.log('CSV loading not yet implemented');
   return [];
 }
 
@@ -299,7 +334,6 @@ export async function loadCultivarDataFromCSV(cultivarId: string): Promise<Culti
   try {
     const response = await fetch(`/data/csv/${cultivarId}.csv`);
     if (!response.ok) {
-      console.warn(`CSV file not found for cultivar: ${cultivarId}`);
       return null;
     }
     

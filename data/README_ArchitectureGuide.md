@@ -1,7 +1,31 @@
 # CBC Cultivar Explorer - Complete Architecture Guide
 
 ## 🌟 Global Architecture Overview
-This is a **California Berry Cultivars Explorer** - a responsive Next.js web application for comparing strawberry cultivars with performance charts, filtering, and data-driven CSV loading. The app is designed to be scalable to 9+ cultivars while maintaining clean, maintainable code.
+This is a **California Berry Cultivars Explorer** - a responsive Next.js web application for comparing strawberry cultivars with performance charts, filtering, and data-driven CSV loading. The app is designed to be scalable to 11+ cultivars while maintaining clean, maintainable code.
+
+## ⚠️ REFACTORING CONTEXT FOR AI (2025)
+
+**Original Goal**: Simplify and REDUCE code complexity for future maintenance (info/graphic updates only). Not adding abstraction layers - actual code reduction.
+
+**What Was Accomplished**:
+- ✅ Removed dead code: CultivarCard.tsx, CultivarList.tsx (94 lines deleted)
+- ✅ Created CultivarIcon component: Eliminated 256+ lines of duplication in page.tsx
+- ✅ Simplified useEffect patterns: Consolidated cultivar-specific logic into memoized config objects
+- ✅ Removed debug code: All console.log statements removed from 13 files
+- ✅ CSS cleanup: Removed 20 unused animations (~400 lines), removed 236 lines of dead button classes
+- ✅ globals.css reduced: 2550 → 1895 lines (-655 lines)
+
+**Reality Check**:
+- CSS variables (Phase 1): Added 156 variables (+81 lines) to centralize colors - enables single-source updates but adds abstraction
+- Base classes (Phase 2): Added `.theme-base-*` classes - reduces duplication but adds indirection
+- Documentation: Added 1,201 lines of docs (needed for AI, but increases total codebase)
+- **Net result**: +677 lines total (docs + new component outweighed CSS reduction)
+- **Question**: Did we simplify or just reorganize? Future AI should evaluate if abstraction layers actually reduce maintenance burden.
+
+**What Still Needs Work**:
+- Further CSS consolidation opportunities
+- Evaluate if CSS variables/base classes can be inlined if they don't reduce actual code
+- Consider removing abstraction layers if they increase cognitive load without clear benefit
 
 ## 🎨 Global Themes & Design System
 
@@ -55,14 +79,26 @@ The CBC Cultivar Explorer uses a **single unified view system**:
 ```
 cbc-cultivar-explorer/
 ├── app/
-│   └── page.tsx                          # Main app logic, view selection
+│   ├── page.tsx                          # Main app logic, view selection
+│   ├── layout.tsx                        # Root layout with providers
+│   ├── globals.css                       # Global styles and theme system
+│   ├── cultivar-themes.css              # Cultivar-specific color themes
+│   └── api/
+│       └── contact/
+│           └── route.ts                  # Contact form API endpoint
 ├── components/
 │   ├── TopNav.tsx                       # Navigation header
 │   ├── CultivarDetailCardV2.tsx         # Rich marketing layout (primary view)
+│   ├── CultivarIcon.tsx                 # Reusable icon rendering component (NEW)
+│   ├── Homepage.tsx                     # Welcome/intro page
 │   ├── CultivarChart.tsx                # Performance comparison charts  
 │   ├── SpiderChart.tsx                  # Trait radar charts
 │   ├── CultivarSelector.tsx             # Chart cultivar selection UI
-│   └── CultivarFilterPanel.tsx          # Filter controls sidebar
+│   ├── CultivarFilterPanel.tsx          # Filter controls sidebar
+│   ├── ImageCarousel.tsx                # Auto-rotating image display
+│   ├── ContactForm.tsx                  # Inquiry form
+│   ├── InfoOverlayMobile.tsx            # Mobile info overlay
+│   └── LanguageContext.tsx              # i18n support
 ├── data/
 │   ├── cultivars.ts                      # Primary cultivar registry
 │   ├── chartData.ts                      # Performance chart data
@@ -183,6 +219,26 @@ Cultivars have two attribute arrays:
 
 Filter panel automatically deduplicates: `Array.from(new Set(allTraits))`
 
+## 🎨 Icon System
+
+### CultivarIcon Component
+The `CultivarIcon` component centralizes icon rendering logic, eliminating code duplication.
+
+**Features:**
+- Renders custom PNG icons for cultivars that have them (10 cultivars)
+- Falls back to emoji + name display for cultivars without custom icons
+- Supports multi-language icon variants (English, Spanish, Portuguese)
+- Handles responsive sizing (mobile vs desktop)
+
+**Icon Mapping:**
+- Custom icons exist for: adelanto, debug, alhambra, alturas, artesia, belvedere, brisbane, castaic, carpinteria, sweet-carolina
+- Icons stored in: `public/images/icons/`
+- Format: `{cultivar-id}_card_icon.png` (English)
+- Format: `{cultivar-id}_{lang}_card_icon.png` (Spanish/Portuguese)
+
+**Usage:**
+Used in `app/page.tsx` for both mobile and desktop cultivar card displays. Replaces 256+ lines of duplicated conditional rendering logic.
+
 ## 🎯 Filter Panel System
 
 ### Filter Categories
@@ -206,10 +262,11 @@ Located in `public/images/icons/`:
 - **Responsive sizing**: 95px mobile, 130px desktop
 
 ### Icon Logic (app/page.tsx)
-Two separate implementations:
-- **Mobile cards** (lines ~250-300): 95px sizing
-- **Desktop cards** (lines ~350-450): 130px sizing
-- Hardcoded conditional checks per cultivar ID
+**Now uses CultivarIcon component:**
+- Single reusable component for both mobile and desktop
+- Handles all icon rendering logic centrally
+- Supports multi-language icon variants
+- Eliminates 256+ lines of duplicated code
 
 ### Rich Content Images
 Located in `public/data/cultivars/{id}/`:
@@ -433,7 +490,8 @@ Update `public/data/csv/spider_traits.csv` with cultivar row.
 ### 3. **useEffect Dependency Arrays**
 - **Symptom**: Comparison logic doesn't work properly
 - **Cause**: Forgot to add new page variables to dependency arrays
-- **Fix**: Add `isNewCultivarPage` to all relevant useEffect deps
+- **Fix**: Use the `cultivarConfig` memoized object instead of individual boolean flags
+- **Note**: The codebase has been refactored to use a centralized `cultivarConfig` object that eliminates the need for multiple cultivar-specific boolean flags
 
 ### 4. **Image Path Confusion**
 - **Correct**: `/images/cultivars/cultivarname/banner.jpg`

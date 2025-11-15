@@ -6,10 +6,13 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
+import "../shared/theme/variables.css";
+import "../shared/theme/base.css";
+import "../shared/theme/components.css";
 import "./globals.css";
 import "./cultivar-themes.css";
 import { Analytics } from '@vercel/analytics/next';
-import { LanguageProvider, TranslationProvider } from '../components/LanguageContext';
+import { LanguageProvider, TranslationProvider } from '../shared/components/LanguageContext';
 
 const inter = Inter({
   variable: "--font-inter",

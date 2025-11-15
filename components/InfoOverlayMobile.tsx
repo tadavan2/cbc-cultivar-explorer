@@ -1,6 +1,6 @@
 import React from 'react';
 import { InfoOverlayContent } from '../data/infoOverlayContent';
-import { useLanguage, useTranslation } from './LanguageContext';
+import { useTranslation } from './LanguageContext';
 
 interface InfoOverlayMobileProps {
   isVisible: boolean;
@@ -9,17 +9,11 @@ interface InfoOverlayMobileProps {
 }
 
 export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoOverlayMobileProps) {
-  const { language } = useLanguage();
   const { getInfoOverlay } = useTranslation();
   
-  console.log('DEBUG: InfoOverlayMobile render - isVisible:', isVisible, 'content:', !!content);
-  
   if (!isVisible || !content) {
-    console.log('DEBUG: InfoOverlayMobile early return - isVisible:', isVisible, 'content:', !!content);
     return null;
   }
-  
-  console.log('DEBUG: InfoOverlayMobile rendering overlay with key:', content.key, 'title:', content.content.title);
 
   // Use the correct translation key for cultivar-specific overlays
   let translationKey = content.key;
@@ -29,16 +23,6 @@ export default function InfoOverlayMobile({ isVisible, content, onClose }: InfoO
   const overlayObj = getInfoOverlay(translationKey) || getInfoOverlay(content.key);
   const finalTitle = overlayObj && overlayObj.title ? overlayObj.title : content.content.title;
   const finalContent = overlayObj && overlayObj.content ? overlayObj.content : content.content.content;
-
-  // Debug logging
-  console.log('[InfoOverlayMobile DEBUG]', {
-    language,
-    content,
-    translationKey,
-    overlayObj,
-    finalTitle,
-    finalContent
-  });
 
   return (
     <div 

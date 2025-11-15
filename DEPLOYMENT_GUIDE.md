@@ -50,15 +50,24 @@ git commit -m "Add new cultivar images for [cultivar-name]"
 git push
 ```
 
-### 4. **Update Entire Folder** (e.g., all cultivar data)
+### 4. **Update Cultivar Content** (JSON files)
 ```bash
-# Make your changes, then:
-git add data/
-git commit -m "Update all cultivar data"
+# Edit content files in public/data/cultivars/[cultivar-id]/
+# Files: content.json, content.es.json, content.pt.json
+git add public/data/cultivars/
+git commit -m "Update: cultivar content for [cultivar-name]"
 git push
 ```
 
-### 5. **Major Update** (multiple components, data, images)
+### 5. **Update Chart Data** (CSV files)
+```bash
+# Edit CSV files in public/data/csv/
+git add public/data/csv/
+git commit -m "Update: chart data for [cultivar-name]"
+git push
+```
+
+### 6. **Major Update** (multiple components, data, images)
 ```bash
 # Make all your changes, then:
 git add .
@@ -89,28 +98,75 @@ npm run start    # Test production build locally
 
 ---
 
-## 📁 File Structure Guide
+## 📁 Current File Structure
 
 ```
 cbc-cultivar-explorer/
-├── app/                    # Main app pages
-├── components/             # React components  
-├── data/                   # CSV data, configurations
+├── app/
+│   ├── page.tsx              # Main app router and layout
+│   ├── layout.tsx            # Root layout with providers
+│   ├── globals.css           # Global styles and theme system
+│   ├── cultivar-themes.css   # Cultivar-specific color themes
+│   └── api/
+│       └── contact/
+│           └── route.ts      # Contact form API endpoint
+├── components/
+│   ├── CultivarDetailCardV2.tsx  # Primary detail view component
+│   ├── CultivarIcon.tsx          # Reusable icon rendering (NEW)
+│   ├── Homepage.tsx              # Welcome/intro page
+│   ├── TopNav.tsx                # Navigation bar
+│   ├── CultivarFilterPanel.tsx   # Filter controls
+│   ├── CultivarChart.tsx         # Performance comparison charts
+│   ├── SpiderChart.tsx           # Trait radar charts
+│   ├── CultivarSelector.tsx      # Cultivar selection UI
+│   ├── ImageCarousel.tsx         # Auto-rotating image display
+│   ├── ContactForm.tsx           # Inquiry form
+│   ├── InfoOverlayMobile.tsx     # Mobile info overlay
+│   └── LanguageContext.tsx       # i18n support
+├── data/
+│   ├── cultivars.ts              # Core cultivar data definitions
+│   ├── cultivarContent.ts        # Content loading logic
+│   ├── chartData.ts              # Chart data and comparison logic
+│   ├── infoOverlayContent.ts     # Info overlay system
+│   ├── csvParser.ts              # CSV parsing utilities
+│   └── i18n/                     # Translation files
+│       ├── en.json, es.json, pt.json
+│       └── infoOverlay.*.json
 ├── public/
 │   ├── images/
-│   │   ├── cultivars/      # Cultivar-specific images
-│   │   ├── backgrounds/    # Background images
-│   │   └── icons/          # Icon files
+│   │   ├── cultivars/            # Cultivar-specific images
+│   │   │   └── [cultivar-id]/    # banner.jpg, [id]_1.jpg, etc.
+│   │   ├── backgrounds/          # Background images
+│   │   └── icons/                # Card icons (31 PNG files)
 │   └── data/
-│       └── csv/            # CSV data files
-└── types/                  # TypeScript definitions
+│       ├── cultivars/            # Rich content JSON files
+│       │   └── [cultivar-id]/
+│       │       ├── content.json
+│       │       ├── content.es.json
+│       │       └── content.pt.json
+│       └── csv/                  # Chart data CSV files
+├── types/
+│   ├── cultivar.ts               # TypeScript type definitions
+│   └── background.ts
+├── docs/
+│   ├── INDEX.md                  # Master documentation index
+│   ├── CODE_STRUCTURE.md         # Code structure guide
+│   └── CSS_THEME_SYSTEM.md       # CSS architecture documentation
+└── data/
+    └── README_ArchitectureGuide.md  # Complete architecture guide
 ```
 
 ---
 
 ## 🚀 Deployment Process
 
-Your app auto-deploys when you push to GitHub main branch:
+### Branch Strategy
+- **Production Branch**: `feature/major-ui-redesign-with-carousels` (currently deployed to Vercel)
+- **Development Branch**: `refactor/clean-code-2025` (for refactoring work)
+- **Main Branch**: `main` (default branch)
+
+### Auto-Deployment
+The app auto-deploys when you push to the production branch:
 
 1. **GitHub** receives your push
 2. **Vercel** detects the change
@@ -120,7 +176,14 @@ Your app auto-deploys when you push to GitHub main branch:
 
 ### Check Deployment Status
 - Visit your [Vercel Dashboard](https://vercel.com/dashboard)
+- Check which branch is set as production branch in Vercel settings
 - Or check the GitHub repo for deployment status badges
+
+### Switching Production Branch
+To change which branch deploys to production:
+1. Go to Vercel Dashboard → Project Settings → Git
+2. Change the "Production Branch" setting
+3. Save changes
 
 ---
 
@@ -131,6 +194,8 @@ Your app auto-deploys when you push to GitHub main branch:
 git status                  # See what files changed
 git diff                    # See exact changes made
 git log --oneline          # See recent commits
+git branch                 # List all branches
+git remote -v              # Check remote repository URLs
 ```
 
 ### Staging Changes
@@ -150,17 +215,17 @@ git commit --amend -m "New message"       # Fix last commit message
 
 ### Pushing & Pulling
 ```bash
-git push                   # Push to GitHub (triggers deployment)
+git push                   # Push to current branch
+git push origin branch-name # Push to specific branch
 git pull                   # Get latest changes from GitHub
-git push origin main       # Explicit push to main branch
 ```
 
-### Branches (if needed)
+### Branches
 ```bash
 git branch                 # List branches
 git checkout -b new-feature # Create new branch
-git checkout main          # Switch to main branch
-git merge new-feature      # Merge branch into current
+git checkout branch-name   # Switch to branch
+git merge branch-name      # Merge branch into current
 ```
 
 ---
@@ -176,9 +241,10 @@ sips -s format png your-image.jpg --out your-image.png  # Convert format
 ```
 
 **Recommended image sizes:**
-- Cultivar banners: 1200x400px
-- Cultivar thumbnails: 300x200px  
-- Icons: 64x64px or 128x128px
+- Cultivar banners: 1200x400px (3:1 aspect ratio)
+- Cultivar carousel images: 1200x800px
+- Card icons: 130px width, 50px height (mobile), or 130px width (desktop)
+- Background images: Optimized for full-screen display
 
 ---
 
@@ -232,8 +298,13 @@ git commit -m "Update: optimize all cultivar images"
 git commit -m "Improve: chart loading performance"
 
 # Content
-git commit -m "Content: add 5 new strawberry cultivars"
+git commit -m "Content: add new strawberry cultivar"
+git commit -m "Content: update cultivar descriptions"
 git commit -m "Images: batch upload cultivar photos"
+
+# Refactoring
+git commit -m "Refactor: extract icon rendering to component"
+git commit -m "Refactor: simplify useEffect patterns"
 ```
 
 ---
@@ -242,7 +313,39 @@ git commit -m "Images: batch upload cultivar photos"
 
 1. **Develop**: `npm run dev` → make changes → test locally
 2. **Verify**: `npm run build` → check for errors
-3. **Deploy**: `git add .` → `git commit -m "message"` → `git push`
-4. **Monitor**: Check Vercel dashboard for deployment status
+3. **Commit**: `git add .` → `git commit -m "message"`
+4. **Deploy**: `git push` (to production branch)
+5. **Monitor**: Check Vercel dashboard for deployment status
 
-**Remember**: Every `git push` triggers a new deployment! 
+**Remember**: Every `git push` to the production branch triggers a new deployment!
+
+---
+
+## 📚 Key Components Reference
+
+### Recently Refactored Components
+- **CultivarIcon.tsx**: New component that centralizes icon rendering logic (replaces 256+ lines of duplication)
+- **CultivarDetailCardV2.tsx**: Simplified useEffect patterns and cultivar-specific logic
+- **page.tsx**: Now uses CultivarIcon component for cleaner code
+
+### Removed Components (Dead Code)
+- ~~CultivarCard.tsx~~ (deleted - not used)
+- ~~CultivarList.tsx~~ (deleted - not used)
+
+### Data Files
+- **cultivars.ts**: Core cultivar registry (11 cultivars)
+- **cultivarContent.ts**: Loads rich content from JSON files
+- **chartData.ts**: Chart data and comparison logic
+- **infoOverlayContent.ts**: Info overlay system
+
+---
+
+## 🔗 Related Documentation
+
+- `docs/INDEX.md` - Master documentation index (start here!)
+- `README.md` - Project overview and features
+- `docs/CODE_STRUCTURE.md` - File-by-file code structure guide
+- `docs/CSS_THEME_SYSTEM.md` - CSS architecture and theme system
+- `data/README_ArchitectureGuide.md` - Complete architecture documentation
+- `data/README_ChartSystem.md` - Chart system documentation
+- `data/README_InfoOverlaySystem.md` - Info overlay system documentation

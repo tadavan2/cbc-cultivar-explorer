@@ -1,3 +1,38 @@
+/**
+ * CBC Cultivar Explorer - Main Application Page
+ * 
+ * PURPOSE:
+ * This is the root page component that handles the overall application layout, routing,
+ * and state management. It serves as the main entry point for the Next.js app router.
+ * 
+ * KEY RESPONSIBILITIES:
+ * - Manages selected cultivar state and view transitions
+ * - Handles responsive layout detection (mobile/desktop/landscape)
+ * - Renders either Homepage or CultivarDetailCardV2 based on selection
+ * - Manages filter state and filtered cultivar list
+ * - Provides cultivar card grid with theme-based styling
+ * 
+ * COMPONENT HIERARCHY:
+ * - Homepage: Welcome/intro page (rendered when no cultivar selected or 'debug' selected)
+ * - CultivarDetailCardV2: Detailed cultivar view with charts, images, and info
+ * - TopNav: Sticky navigation bar with language switcher
+ * - CultivarFilterPanel: Sidebar filter controls (desktop) or drawer (mobile)
+ * - CultivarIcon: Reusable icon rendering component
+ * 
+ * KEY DEPENDENCIES:
+ * - data/cultivars.ts: Core cultivar data definitions
+ * - components/CultivarDetailCardV2.tsx: Primary detail view
+ * - components/Homepage.tsx: Welcome page
+ * - components/CultivarFilterPanel.tsx: Filter controls
+ * - components/CultivarIcon.tsx: Icon rendering
+ * - components/LanguageContext.tsx: i18n support
+ * 
+ * RELATED FILES:
+ * - app/layout.tsx: Root layout with providers and global styles
+ * - types/cultivar.ts: TypeScript type definitions
+ * - app/cultivar-themes.css: Theme classes for cultivar cards
+ */
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -7,37 +42,24 @@ import TopNav from '../components/TopNav';
 import CultivarDetailCardV2 from '../components/CultivarDetailCardV2';
 import CultivarFilterPanel from '../components/CultivarFilterPanel';
 import Homepage from '../components/Homepage';
+import CultivarIcon from '../components/CultivarIcon';
 import { useLanguage } from '../components/LanguageContext';
 
-// Helper function to determine cultivar theme class based on market group
+// Helper function to determine cultivar theme class - data-driven from cultivar properties
 const getCultivarThemeClass = (cultivarId: string): string => {
-  // Day-Neutral Market Group (Marathon Season)
-  const dayNeutralCultivars = ['alturas', 'alhambra', 'brisbane', 'carpinteria'];
+  const cultivar = cultivars.find(c => c.id === cultivarId);
+  if (!cultivar) return 'cultivar-card-glass';
   
-  // Short-Day Market Group (Sprint Season)
-  const shortDayCultivars = ['adelanto', 'belvedere', 'castaic'];
+  // Check for specific traits first (takes priority)
+  const allAttributes = [...(cultivar.attributes || []), ...(cultivar.attribute2 || [])];
+  if (allAttributes.includes('organic')) return 'cultivar-theme-organic';
+  if (allAttributes.includes('cold tolerant')) return 'cultivar-theme-cold-tolerant';
   
-  // Organic Variety
-  if (cultivarId === 'artesia') {
-    return 'cultivar-theme-organic';
-  }
+  // Then check flower type
+  if (cultivar.flowerType === 'DN') return 'cultivar-theme-day-neutral';
+  if (cultivar.flowerType === 'SD') return 'cultivar-theme-short-day';
   
-  // Cold Tolerant Variety
-  if (cultivarId === 'sweet-carolina') {
-    return 'cultivar-theme-cold-tolerant';
-  }
-  
-  // Day-Neutral varieties
-  if (dayNeutralCultivars.includes(cultivarId)) {
-    return 'cultivar-theme-day-neutral';
-  }
-  
-  // Short-Day varieties
-  if (shortDayCultivars.includes(cultivarId)) {
-    return 'cultivar-theme-short-day';
-  }
-  
-  // Default to regular glass styling for debug and any others
+  // Default to regular glass styling
   return 'cultivar-card-glass';
 };
 
@@ -63,17 +85,9 @@ export default function Home() {
   // Desktop filter panel dock state - starts closed for clean entry
   const [isFilterPanelDocked, setIsFilterPanelDocked] = useState(false);
   const [isDesktopOrWideTablet, setIsDesktopOrWideTablet] = useState(false);
+  const [topNavHeight, setTopNavHeight] = useState(64); // Default 64px (h-16)
 
   const { language } = useLanguage();
-
-  // Debug: Log the current state
-  console.log('DEBUG:', { 
-    isDesktopOrWideTablet, 
-    isFilterPanelDocked, 
-    windowWidth: typeof window !== 'undefined' ? window.innerWidth : 'SSR' 
-  });
-
-
 
   // Handle cultivar change with fade transition
   const handleCultivarChange = (newCultivar: Cultivar) => {
@@ -135,32 +149,9 @@ export default function Home() {
       // Only true desktop/large tablets get the dock system
       const desktopOrWideTablet = width >= 740 && !mobile;
       
-      // DEBUG: Log all calculations
-      console.log('PAGE.TSX DEBUG:', {
-        width,
-        height,
-        ratio: ratio.toFixed(2),
-        'ratio > 2': ratio > 2,
-        landscape,
-        'width < 740': width < 740,
-        mobile,
-        desktopOrWideTablet,
-        'final condition (mobile && !desktopOrWideTablet)': mobile && !desktopOrWideTablet
-      });
-        setIsLandscape(landscape);
-        setIsMobile(mobile);
-        
-        setIsDesktopOrWideTablet(desktopOrWideTablet);
-        
-        // Debug logging to understand responsive logic
-        console.log('RESPONSIVE DEBUG:', {
-          width,
-          height, 
-          mobile,
-          landscape,
-          desktopOrWideTablet,
-          shouldShowMobile: mobile && !desktopOrWideTablet
-        });
+      setIsLandscape(landscape);
+      setIsMobile(mobile);
+      setIsDesktopOrWideTablet(desktopOrWideTablet);
     };
 
     checkScreenSize();
@@ -183,7 +174,7 @@ export default function Home() {
     // Apply normal filtering logic to other cultivars
     if (filters.flowerType.length > 0 && !filters.flowerType.includes(cultivar.flowerType)) return false;
     if (filters.marketType.length > 0 && !filters.marketType.includes(cultivar.marketType)) return false;
-    // FIXED: Use AND logic - cultivar must have ALL selected attributes (check both arrays for each trait)
+    // Use AND logic - cultivar must have ALL selected attributes (check both arrays for each trait)
     if (filters.attributes.length > 0 && !filters.attributes.every(attr => 
       cultivar.attributes.includes(attr) || cultivar.attribute2.includes(attr)
     )) return false;
@@ -213,7 +204,6 @@ export default function Home() {
             position: 'fixed',
             bottom: isCultivarDrawerOpen ? (isLandscape ? '90px' : '94px') : '16px',
             left: '50%',
-            // FIXED: Always use the same transform, never let it be undefined
             transform: 'translateX(-50%)',
             background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white pill
             backdropFilter: 'blur(10px) saturate(180%)',
@@ -230,7 +220,6 @@ export default function Home() {
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.2)',
             // NO MORE bouncing animation - user didn't like it
             transformOrigin: 'center center',
-            // FIXED: Ensure animation doesn't override the centering during transition
             willChange: 'bottom, transform' // Optimize for transitions
           }}
         >
@@ -340,16 +329,10 @@ export default function Home() {
                     attributes: [],
                     attribute2: []
                   })}
-                  className="premium-button text-sm font-semibold"
+                  className="theme-base-premium-button premium-button-glass text-sm font-semibold"
                   style={{
                     padding: '12px 24px',
-                    fontSize: '14px',
-                    background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)',
-                    border: 'none',
-                    borderRadius: '12px',
-                    color: '#ffffff',
-                    boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2)',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                    fontSize: '14px'
                   }}
                 >
                   Clear All
@@ -414,143 +397,16 @@ export default function Home() {
                         setIsFilterDrawerOpen(false);
                       }}
                       className={`
-                        flex-shrink-0 w-25 h-25 ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
+                        flex-shrink-0 w-25 h-25 theme-base-card ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
                         ${selectedCultivar.id === cultivar.id ? 'selected-glass' : ''}
                       `}
                       style={{
                         marginRight: index < filteredCultivars.length - 1 ? '12px' : '0'
                       }}
                     >
-                      {cultivar.id === 'adelanto' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/adelanto_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/adelanto_pt_card_icon.png' :
-                              '/images/icons/adelanto_card_icon.png'
-                            }
-                            alt="Adelanto Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'debug' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/open_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/open_pt_card_icon.png' :
-                              '/images/icons/open_card_icon.png'
-                            }
-                            alt="CBC Cultivar Explorer Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'alhambra' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/alhambra_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/alhambra_pt_card_icon.png' :
-                              '/images/icons/alhambra_card_icon.png'
-                            }
-                            alt="Alhambra Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'alturas' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/alturas_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/alturas_pt_card_icon.png' :
-                              '/images/icons/alturas_card_icon.png'
-                            }
-                            alt="Alturas Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'artesia' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/artesia_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/artesia_pt_card_icon.png' :
-                              '/images/icons/artesia_card_icon.png'
-                            }
-                            alt="Artesia Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'belvedere' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/belvedere_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/belvedere_pt_card_icon.png' :
-                              '/images/icons/belvedere_card_icon.png'
-                            }
-                            alt="Belvedere Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'brisbane' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/brisbane_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/brisbane_pt_card_icon.png' :
-                              '/images/icons/brisbane_card_icon.png'
-                            }
-                            alt="Brisbane Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'castaic' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/castaic_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/castaic_pt_card_icon.png' :
-                              '/images/icons/castaic_card_icon.png'
-                            }
-                            alt="Castaic Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'carpinteria' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/carpinteria_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/carpinteria_pt_card_icon.png' :
-                              '/images/icons/carpinteria_card_icon.png'
-                            }
-                            alt="Carpinteria Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : cultivar.id === 'sweet-carolina' ? (
-                        <div className="flex items-center justify-center h-full p-2">
-                          <img 
-                            src={
-                              language === 'es' ? '/images/icons/sweetcarolina_es_card_icon.png' :
-                              language === 'pt' ? '/images/icons/sweetcarolina_pt_card_icon.png' :
-                              '/images/icons/sweetcarolina_card_icon.png'
-                            }
-                            alt="Sweet Carolina Icon"
-                            className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center h-full text-center p-2">
-                          <div className="text-2xl mb-1 drop-shadow-lg">{cultivar.emoji}</div>
-                          <div className="cultivar-tag-mobile truncate w-full px-1 glass-text text-xs">
-                            {cultivar.name}
-                          </div>
-                        </div>
-                      )}
+                      <CultivarIcon cultivar={cultivar} language={language} isMobile={true} />
                       {selectedCultivar.id === cultivar.id && (
-                        <div className="absolute top-1 right-1">
+                        <div className="absolute top-1 right-1 z-10">
                           <div className="w-2 h-2 bg-green-400 rounded-full pulse-glow-glass shadow-lg"></div>
                         </div>
                       )}
@@ -576,7 +432,7 @@ export default function Home() {
   // Desktop Layout with Dockable Filter Panel (≥1024px only)
   return (
     <div className="dark-theme h-screen w-screen overflow-hidden flex flex-col scrollbar-hidden">
-      <TopNav />
+      <TopNav onHeightChange={setTopNavHeight} />
       
       {/* Main Layout Container */}
       <div className="flex-1 flex h-full w-full overflow-hidden relative">
@@ -587,8 +443,8 @@ export default function Home() {
                             width: isDesktopOrWideTablet && isFilterPanelDocked ? 'calc(100% - 154px)' : '100%'
           }}
         >
-          {/* Detail Card Area - More height since bottom panel is smaller */}
-          <div className="h-[85%] overflow-hidden" style={{padding: '24px 24px 12px 24px'}}>
+          {/* Detail Card Area - Takes remaining space above bottom panel */}
+          <div className="flex-1 overflow-hidden" style={{padding: '24px 24px 12px 24px', paddingBottom: '12px'}}>
             <div className={`h-full transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
               {isHomepage ? (
                 <Homepage 
@@ -605,8 +461,8 @@ export default function Home() {
             </div>
           </div>
           
-          {/* Bottom Cultivar Cards - Reduced height for rectangular cards */}
-          <div className="h-[10%] min-h-[65px] flex items-center relative" style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(10px) saturate(180%)' }}>
+          {/* Bottom Cultivar Cards - Sticky to bottom like TopNav */}
+          <div className="h-[5%] min-h-[65px] flex items-center relative flex-shrink-0" style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(10px) saturate(180%)' }}>
             {/* Fixed navigation background panel - masks scrolling cards */}
             <div 
               style={{ 
@@ -737,151 +593,17 @@ export default function Home() {
                     setIsCultivarDrawerOpen(false);
                     setIsFilterDrawerOpen(false);
                   }}
-                  className={`
-                    flex-shrink-0 w-25 h-25 ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
+                    className={`
+                    flex-shrink-0 w-25 h-25 theme-base-card ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
                     ${selectedCultivar.id === cultivar.id ? 'selected-glass' : ''}
                   `}
                   style={{
                     marginRight: index < filteredCultivars.length - 1 ? '12px' : '0'
                   }}
                 >
-                  {cultivar.id === 'adelanto' ? (
-                    // Special layout for Adelanto with custom icon only
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/adelanto_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/adelanto_pt_card_icon.png' :
-                          '/images/icons/adelanto_card_icon.png'
-                        }
-                        alt="Adelanto Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'debug' ? (
-                    // Special layout for CBC Cultivar Explorer with custom icon only
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/open_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/open_pt_card_icon.png' :
-                          '/images/icons/open_card_icon.png'
-                        }
-                        alt="CBC Cultivar Explorer Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'alhambra' ? (
-                    // Special layout for Alhambra with custom icon only
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/alhambra_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/alhambra_pt_card_icon.png' :
-                          '/images/icons/alhambra_card_icon.png'
-                        }
-                        alt="Alhambra Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'alturas' ? (
-                    // Special layout for Alturas with custom icon only
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/alturas_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/alturas_pt_card_icon.png' :
-                          '/images/icons/alturas_card_icon.png'
-                        }
-                        alt="Alturas Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'artesia' ? (
-                    // Special layout for Artesia with custom icon only
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/artesia_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/artesia_pt_card_icon.png' :
-                          '/images/icons/artesia_card_icon.png'
-                        }
-                        alt="Artesia Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'belvedere' ? (
-                    // Special layout for Belvedere with custom icon only
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/belvedere_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/belvedere_pt_card_icon.png' :
-                          '/images/icons/belvedere_card_icon.png'
-                        }
-                        alt="Belvedere Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'brisbane' ? (
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/brisbane_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/brisbane_pt_card_icon.png' :
-                          '/images/icons/brisbane_card_icon.png'
-                        }
-                        alt="Brisbane Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'castaic' ? (
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/castaic_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/castaic_pt_card_icon.png' :
-                          '/images/icons/castaic_card_icon.png'
-                        }
-                        alt="Castaic Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'carpinteria' ? (
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/carpinteria_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/carpinteria_pt_card_icon.png' :
-                          '/images/icons/carpinteria_card_icon.png'
-                        }
-                        alt="Carpinteria Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : cultivar.id === 'sweet-carolina' ? (
-                    <div className="flex items-center justify-center h-full p-2">
-                      <img 
-                        src={
-                          language === 'es' ? '/images/icons/sweetcarolina_es_card_icon.png' :
-                          language === 'pt' ? '/images/icons/sweetcarolina_pt_card_icon.png' :
-                          '/images/icons/sweetcarolina_card_icon.png'
-                        }
-                        alt="Sweet Carolina Icon"
-                        className="w-full h-full object-contain max-w-[130px] max-h-[50px] drop-shadow-lg"
-                      />
-                    </div>
-                  ) : (
-                    // Default layout for other cultivars
-                    <div className="flex flex-col items-center justify-center h-full text-center p-4">
-                      <div className="text-4xl mb-3 drop-shadow-lg">{cultivar.emoji}</div>
-                      <div className="cultivar-tag truncate w-full px-2 glass-text">
-                        {cultivar.name}
-                      </div>
-                    </div>
-                  )}
+                  <CultivarIcon cultivar={cultivar} language={language} isMobile={false} />
                   {selectedCultivar.id === cultivar.id && (
-                    <div className="absolute top-2 right-2">
+                    <div className="absolute top-2 right-2 z-10">
                       <div className="w-3 h-3 bg-green-400 rounded-full pulse-glow-glass shadow-lg"></div>
                     </div>
                   )}
@@ -897,9 +619,10 @@ export default function Home() {
           <>
             {/* Filter Panel Container */}
             <div 
-              className="fixed h-[calc(100vh-64px)] bg-white/80 border-l border-white/20 overflow-hidden transition-all duration-500 ease-in-out z-40"
+              className="fixed bg-white/80 border-l border-white/20 overflow-hidden transition-all duration-500 ease-in-out z-40"
               style={{
-                top: '64px',
+                top: `${topNavHeight}px`,
+                height: `calc(100vh - ${topNavHeight}px)`,
                 right: isFilterPanelDocked ? '0px' : '-154px',
                 width: '154px'
               }}

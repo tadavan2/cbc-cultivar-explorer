@@ -1,3 +1,35 @@
+/**
+ * Cultivar Content Loading System
+ * 
+ * PURPOSE:
+ * Handles loading of rich content data for cultivars from JSON files.
+ * Supports multi-language content with fallback to English.
+ * 
+ * CONTENT STRUCTURE:
+ * Each cultivar has content files in public/data/cultivars/{id}/:
+ * - content.json: English content (default)
+ * - content.es.json: Spanish content
+ * - content.pt.json: Portuguese content
+ * 
+ * CONTENT DATA INCLUDES:
+ * - Description: Marketing title and paragraphs
+ * - Images: Banner and carousel image paths
+ * - Performance Metrics: Yield, size, appearance, firmness
+ * - Recommendations: Planting dates, chill, fertility, other tips
+ * 
+ * CACHING:
+ * Implements simple in-memory cache to avoid repeated fetches of the same content.
+ * Cache key format: {cultivarId}_{lang}
+ * 
+ * USAGE:
+ * Called from CultivarDetailCardV2 component to load rich content for display.
+ * 
+ * RELATED FILES:
+ * - components/CultivarDetailCardV2.tsx: Primary consumer
+ * - public/data/cultivars/{id}/content.json: Content source files
+ * - components/LanguageContext.tsx: Provides current language
+ */
+
 export interface CultivarDescription {
   title: string;
   paragraphs: string[];

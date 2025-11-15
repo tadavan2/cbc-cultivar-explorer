@@ -1,0 +1,271 @@
+/**
+ * Reusable Component Styles
+ * 
+ * PURPOSE:
+ * Reusable component styles for cards, buttons, and UI elements.
+ * These can be used across multiple apps (cultivars.cbcberry.com and www.cbcberry.com).
+ * 
+ * EXTRACTION STATUS:
+ * Extracted from app/globals.css during Phase 1 refactoring (2025).
+ * 
+ * DEPENDENCIES:
+ * - variables.css (for CSS custom properties)
+ * - base.css (for glassmorphism base styles)
+ * 
+ * USAGE:
+ * Import after base.css in your app's main CSS file.
+ * Example: @import '../shared/theme/variables.css';
+ *          @import '../shared/theme/base.css';
+ *          @import '../shared/theme/components.css';
+ */
+
+/* Modern Card Styles */
+.modern-card {
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(31, 41, 55, 1);
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 2px 8px rgba(34, 197, 94, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 136, 0.3), 
+    transparent);
+}
+
+.modern-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 2px 6px rgba(0, 255, 136, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 0 1px rgba(0, 255, 136, 0.2);
+  border-color: rgba(0, 255, 136, 0.4);
+}
+
+/* Static version of modern card without hover effects */
+.modern-card-static {
+  background: rgba(17, 24, 39, 0.525);
+  backdrop-filter: blur(4px) saturate(175%);
+  border: 1px solid rgba(31, 41, 55, 0.55);
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(34, 197, 94, 0.075),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  position: relative;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.modern-card-static::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 136, 0.3), 
+    transparent);
+}
+
+/* Gradient Text Styles */
+.gradient-text {
+  background: linear-gradient(135deg, #00ff88 0%, #00d4aa 50%, #4ade80 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+  position: relative;
+  font-family: var(--font-header);
+}
+
+.gradient-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 136, 0.5), 
+    transparent);
+  border-radius: 1px;
+}
+
+.premium-heading {
+  background: linear-gradient(135deg, #000000 0%, #cf4e27 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #000000;
+  background-image: linear-gradient(135deg, #000000 0%, #e33d3d 100%);
+  font-family: var(--font-header);
+}
+
+/* Navigation Styles */
+.nav-glass {
+  background: linear-gradient(145deg, 
+    rgba(26, 35, 50, 0.8) 0%, 
+    rgba(36, 45, 61, 0.9) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Glow Effects */
+.glow-green {
+  box-shadow: 
+    0 0 30px rgba(0, 255, 136, 0.4),
+    0 0 60px rgba(0, 255, 136, 0.2);
+}
+
+.glow-teal {
+  box-shadow: 
+    0 0 30px rgba(0, 212, 170, 0.4),
+    0 0 60px rgba(0, 212, 170, 0.2);
+}
+
+/* Typography Utilities */
+.text-primary {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.text-secondary {
+  color: #8b9dc3;
+  font-weight: 500;
+}
+
+.text-accent {
+  color: #00ff88;
+  font-weight: 700;
+}
+
+/* Premium Button Base Class */
+.theme-base-premium-button {
+  backdrop-filter: blur(2px) saturate(180%);
+  border-radius: 16px;
+  margin-right: 6px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none;
+  text-shadow: none;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.theme-base-premium-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.theme-base-premium-button:hover::before {
+  left: 100%;
+}
+
+.theme-base-premium-button:hover {
+  transform: translateY(-2px);
+}
+
+.theme-base-premium-button.selected-glass {
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+/* Premium Button Variants - Using CSS Variables from cultivar-themes.css */
+/* Note: These use theme variables defined in cultivar-themes.css */
+/* For homepage, you may want to define simpler variants or use inline styles */
+
+.premium-button-glass {
+  background: linear-gradient(135deg, 
+    var(--theme-day-neutral-bg-start, rgba(255, 235, 59, 0.9)) 0%, 
+    var(--theme-day-neutral-bg-mid, rgba(255, 213, 79, 0.8)) 50%, 
+    var(--theme-day-neutral-bg-end, rgba(255, 193, 7, 0.9)) 100%);
+  border: 1px solid var(--theme-day-neutral-border, rgba(255, 235, 59, 0.3));
+  color: var(--theme-text-dark, rgba(0, 0, 0, 0.8));
+  font-weight: 700;
+  padding: 16px 16px;
+  font-size: 14px;
+  letter-spacing: 0.025em;
+  align-items: center;
+}
+
+.premium-button-glass:hover {
+  border-color: var(--theme-day-neutral-border-hover, rgba(255, 235, 59, 0.5));
+}
+
+.premium-button-glass.selected-glass {
+  border-color: var(--theme-day-neutral-border-selected-strong, rgba(255, 235, 59, 0.8));
+}
+
+/* Animation Keyframes */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 136, 0.4),
+      0 0 40px rgba(0, 255, 136, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(0, 255, 136, 0.6),
+      0 0 60px rgba(0, 255, 136, 0.3);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow-glass {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 136, 0.6),
+      0 0 40px rgba(0, 255, 136, 0.3),
+      inset 0 0 10px rgba(0, 255, 136, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(0, 255, 136, 0.8),
+      0 0 60px rgba(0, 255, 136, 0.4),
+      inset 0 0 15px rgba(0, 255, 136, 0.3);
+  }
+}
+
+.pulse-glow-glass {
+  animation: pulse-glow-glass 2s infinite;
+}
+

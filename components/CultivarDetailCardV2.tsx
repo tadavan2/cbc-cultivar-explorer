@@ -1,3 +1,53 @@
+/**
+ * CultivarDetailCardV2 - Primary Detail View Component
+ * 
+ * PURPOSE:
+ * This is the main component for displaying detailed information about a selected cultivar.
+ * It provides a rich marketing-style layout with images, charts, metrics, and interactive elements.
+ * 
+ * KEY FEATURES:
+ * - Responsive layouts for mobile portrait, mobile landscape, and desktop
+ * - Image carousels with auto-rotation
+ * - Performance comparison charts (yield, firmness, size, appearance)
+ * - Spider/radar charts for trait comparison
+ * - Info overlay system for educational content
+ * - Contact form for cultivar inquiries
+ * - Multi-language support (English, Spanish, Portuguese)
+ * 
+ * COMPONENT STRUCTURE:
+ * - Banner image with cultivar name
+ * - Image carousel (3-4 images)
+ * - Description section with marketing content
+ * - Performance metrics display
+ * - Chart section with cultivar selector
+ * - Spider chart for trait visualization
+ * - Recommendations section
+ * - Contact form
+ * 
+ * KEY DEPENDENCIES:
+ * - data/cultivarContent.ts: Loads rich content from JSON files
+ * - data/chartData.ts: Provides chart data and comparison logic
+ * - data/infoOverlayContent.ts: Info overlay content and button generation
+ * - components/CultivarChart.tsx: Performance comparison charts
+ * - components/SpiderChart.tsx: Trait radar charts
+ * - components/CultivarSelector.tsx: Cultivar selection UI
+ * - components/ImageCarousel.tsx: Auto-rotating image display
+ * - components/ContactForm.tsx: Inquiry form
+ * - components/InfoOverlayMobile.tsx: Mobile info overlay display
+ * - components/LanguageContext.tsx: i18n support
+ * 
+ * STATE MANAGEMENT:
+ * - Uses cultivarConfig memoization for cultivar-specific settings
+ * - Manages comparison cultivar selection
+ * - Handles info overlay display state
+ * - Loads and caches cultivar content
+ * 
+ * RELATED FILES:
+ * - app/page.tsx: Parent component that renders this
+ * - public/data/cultivars/{id}/content.json: Rich content data
+ * - public/data/csv/{id}.csv: Chart data source
+ */
+
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { Cultivar } from '../types/cultivar';
@@ -27,78 +77,55 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
   const [contentLoading, setContentLoading] = useState(true);
   const [screenWidth, setScreenWidth] = useState(400); // Default width for SSR
   
-  // DEBUG: Add console logging
-  console.log('DEBUG: Component render - cultivar.id:', cultivar.id, 'isMobile:', isMobile, 'isLandscape:', isLandscape);
-  
   // Chart state management
   const [selectedCultivar, setSelectedCultivar] = useState(cultivar.id);
   const [comparisonCultivar, setComparisonCultivar] = useState<string | undefined>(undefined);
 
-  // Alturas-specific logic
+  // Cultivar-specific configuration
+  const cultivarConfig = useMemo(() => {
+    const configs: { [key: string]: { comparisonOptions: string[], hasDefaultComparison: boolean } } = {
+      'alturas': { comparisonOptions: ['monterey', 'cabrillo', 'carpinteria'], hasDefaultComparison: true },
+      'adelanto': { comparisonOptions: ['belvedere', 'castaic', 'fronteras'], hasDefaultComparison: false },
+      'alhambra': { comparisonOptions: ['portola'], hasDefaultComparison: false },
+      'artesia': { comparisonOptions: ['monterey', 'cabrillo'], hasDefaultComparison: false },
+      'belvedere': { comparisonOptions: ['adelanto', 'castaic', 'fronteras'], hasDefaultComparison: false },
+      'castaic': { comparisonOptions: ['adelanto', 'belvedere', 'fronteras'], hasDefaultComparison: false },
+      'carpinteria': { comparisonOptions: ['monterey', 'cabrillo', 'alturas'], hasDefaultComparison: false },
+      'brisbane': { comparisonOptions: ['monterey', 'cabrillo'], hasDefaultComparison: false },
+      'sweet-carolina': { comparisonOptions: ['ruby-june'], hasDefaultComparison: false }
+    };
+    return configs[cultivar.id] || { comparisonOptions: [], hasDefaultComparison: false };
+  }, [cultivar.id]);
+
+  // Get comparison options for current cultivar
+  const comparisonOptions = cultivarConfig.comparisonOptions;
+
+  // Boolean flags for cultivar pages (kept for backward compatibility with existing code)
   const isAlturasPage = cultivar.id === 'alturas';
-  const alturasComparisonOptions = useMemo(() => ['monterey', 'cabrillo', 'carpinteria'], []);
-  
-  // Adelanto-specific logic
   const isAdelantoPage = cultivar.id === 'adelanto';
-  const adelantoComparisonOptions = ['belvedere', 'castaic', 'fronteras'];
-  
-  // Alhambra-specific logic
   const isAlhambraPage = cultivar.id === 'alhambra';
-  const alhambraComparisonOptions = ['portola'];
-
-  // Artesia-specific logic
   const isArtesiaPage = cultivar.id === 'artesia';
-  const artesiaComparisonOptions = ['monterey', 'cabrillo'];
-
-  // Belvedere-specific logic
   const isBelvederePage = cultivar.id === 'belvedere';
-  const belvedereComparisonOptions = ['adelanto', 'castaic', 'fronteras'];
-
-  // Castaic-specific logic
   const isCastaicPage = cultivar.id === 'castaic';
-  const castaicComparisonOptions = ['adelanto', 'belvedere', 'fronteras'];
-
-  // Carpinteria-specific logic
   const isCarpinteriaPage = cultivar.id === 'carpinteria';
-  const carpinteriaComparisonOptions = ['monterey', 'cabrillo', 'alturas'];
-
-  // Brisbane-specific logic
   const isBrisbanePage = cultivar.id === 'brisbane';
-  const brisbaneComparisonOptions = ['monterey', 'cabrillo'];
-
-  // Sweet Carolina-specific logic
   const isSweetCarolinaPage = cultivar.id === 'sweet-carolina';
-  const sweetCarolinaComparisonOptions = ['ruby-june'];
 
-  // Mobile fixed pair for Alturas
-  const mobileFixedPair = isAlturasPage ? { 
-    primary: 'alturas', 
-    comparison: 'monterey' 
-  } : isAdelantoPage ? {
-    primary: 'adelanto',
-    comparison: 'belvedere'
-  } : isAlhambraPage ? {
-    primary: 'alhambra',
-    comparison: 'portola'
-  } : isArtesiaPage ? {
-    primary: 'artesia',
-    comparison: 'monterey'
-  } : isBelvederePage ? {
-    primary: 'belvedere',
-    comparison: undefined // Default to none for Belvedere
-  } : isCastaicPage ? {
-    primary: 'castaic',
-    comparison: 'fronteras' // Mobile fixed pair: Castaic vs Fronteras
-  } : isCarpinteriaPage ? {
-    primary: 'carpinteria',
-    comparison: 'monterey' // Mobile fixed pair: Carpinteria vs Monterey
-  } : isBrisbanePage ? {
-    primary: 'brisbane',
-    comparison: 'monterey' // Mobile fixed pair: Brisbane vs Monterey
-  } : isSweetCarolinaPage ? {
-    primary: 'sweet-carolina',
-    comparison: 'ruby-june'
-  } : null;
+  // Mobile fixed pair configuration
+  const mobileFixedPair = useMemo(() => {
+    const fixedPairs: { [key: string]: { primary: string, comparison: string | undefined } } = {
+      'alturas': { primary: 'alturas', comparison: 'monterey' },
+      'adelanto': { primary: 'adelanto', comparison: 'belvedere' },
+      'alhambra': { primary: 'alhambra', comparison: 'portola' },
+      'artesia': { primary: 'artesia', comparison: 'monterey' },
+      'belvedere': { primary: 'belvedere', comparison: undefined },
+      'castaic': { primary: 'castaic', comparison: 'fronteras' },
+      'carpinteria': { primary: 'carpinteria', comparison: 'monterey' },
+      'brisbane': { primary: 'brisbane', comparison: 'monterey' },
+      'sweet-carolina': { primary: 'sweet-carolina', comparison: 'ruby-june' }
+    };
+    return fixedPairs[cultivar.id] || null;
+  }, [cultivar.id]);
 
   // Reset comparison cultivar when switching between different cultivars
   useEffect(() => {
@@ -107,87 +134,27 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
 
   // Set initial default comparison for specific pages only once
   useEffect(() => {
-    if (isAlturasPage && comparisonCultivar === undefined) {
-      // Only set default if no comparison is set initially
-      const defaultComparison = getDefaultComparisonCultivar(cultivar.id);
-      if (defaultComparison && alturasComparisonOptions.includes(defaultComparison)) {
-        setComparisonCultivar(defaultComparison);
+    if (comparisonCultivar === undefined) {
+      if (cultivarConfig.hasDefaultComparison) {
+        const defaultComparison = getDefaultComparisonCultivar(cultivar.id);
+        if (defaultComparison && cultivarConfig.comparisonOptions.includes(defaultComparison)) {
+          setComparisonCultivar(defaultComparison);
+        } else {
+          setComparisonCultivar(undefined);
+        }
       } else {
+        // Default to None for cultivars without default comparison
         setComparisonCultivar(undefined);
       }
     }
-    
-    if (isAdelantoPage && comparisonCultivar === undefined) {
-      // Default to None for Adelanto
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isAlhambraPage && comparisonCultivar === undefined) {
-      // Default to None for Alhambra  
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isArtesiaPage && comparisonCultivar === undefined) {
-      // Default to None for Artesia
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isBelvederePage && comparisonCultivar === undefined) {
-      // Default to None for Belvedere
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isCastaicPage && comparisonCultivar === undefined) {
-      // Default to None for Castaic
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isCarpinteriaPage && comparisonCultivar === undefined) {
-      // Default to None for Carpinteria
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isBrisbanePage && comparisonCultivar === undefined) {
-      // Default to None for Brisbane
-      setComparisonCultivar(undefined);
-    }
-    
-    if (isSweetCarolinaPage && comparisonCultivar === undefined) {
-      // Default to None for Sweet Carolina  
-      setComparisonCultivar(undefined);
-    }
-  }, [isAlturasPage, isAdelantoPage, isAlhambraPage, isArtesiaPage, isBelvederePage, isCastaicPage, isCarpinteriaPage, isBrisbanePage, isSweetCarolinaPage, comparisonCultivar, cultivar.id]);
+  }, [cultivar.id, cultivarConfig, comparisonCultivar]);
 
-  // For specific pages, ensure selectedCultivar stays locked
+  // For specific pages, ensure selectedCultivar stays locked to current cultivar
   useEffect(() => {
-    if (isAlturasPage && selectedCultivar !== 'alturas') {
-      setSelectedCultivar('alturas');
+    if (selectedCultivar !== cultivar.id) {
+      setSelectedCultivar(cultivar.id);
     }
-    if (isAdelantoPage && selectedCultivar !== 'adelanto') {
-      setSelectedCultivar('adelanto');
-    }
-    if (isAlhambraPage && selectedCultivar !== 'alhambra') {
-      setSelectedCultivar('alhambra');
-    }
-    if (isArtesiaPage && selectedCultivar !== 'artesia') {
-      setSelectedCultivar('artesia');
-    }
-    if (isBelvederePage && selectedCultivar !== 'belvedere') {
-      setSelectedCultivar('belvedere');
-    }
-    if (isCastaicPage && selectedCultivar !== 'castaic') {
-      setSelectedCultivar('castaic');
-    }
-    if (isCarpinteriaPage && selectedCultivar !== 'carpinteria') {
-      setSelectedCultivar('carpinteria');
-    }
-    if (isBrisbanePage && selectedCultivar !== 'brisbane') {
-      setSelectedCultivar('brisbane');
-    }
-    if (isSweetCarolinaPage && selectedCultivar !== 'sweet-carolina') {
-      setSelectedCultivar('sweet-carolina');
-    }
-  }, [isAlturasPage, isAdelantoPage, isAlhambraPage, isArtesiaPage, isBelvederePage, isCastaicPage, isCarpinteriaPage, isBrisbanePage, isSweetCarolinaPage, selectedCultivar]);
+  }, [cultivar.id, selectedCultivar]);
 
   // Load cultivar content on mount and when language changes
   useEffect(() => {
@@ -211,16 +178,10 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
   const buttonConfigs = generateButtonConfigs(cultivar);
 
   const handleInfoClick = (buttonType: string) => {
-    console.log('DEBUG: handleInfoClick called with buttonType:', buttonType);
-    console.log('DEBUG: isMobile:', isMobile);
     const info = infoData[buttonType];
-    console.log('DEBUG: info found:', !!info, info);
     if (info) {
       setInfoOverlay({ key: buttonType, content: info });
       setShowInfoOverlay(true);
-      console.log('DEBUG: State set, showInfoOverlay should be:', true);
-    } else {
-      console.log('DEBUG: No info found for buttonType:', buttonType);
     }
   };
 
@@ -248,24 +209,19 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
 
 
   // Special intro page layout for debug cultivar
-  console.log('DEBUG: Checking cultivar.id === debug:', cultivar.id === 'debug', 'cultivar.id:', cultivar.id);
   if (cultivar.id === 'debug') {
-    console.log('DEBUG: Inside debug check - isMobile:', isMobile, 'isLandscape:', isLandscape);
-    console.log('DEBUG: About to check conditions - (isMobile && !isLandscape):', (isMobile && !isLandscape), '(isMobile && isLandscape):', (isMobile && isLandscape));
     // Mobile Portrait Layout for Debug
     if (isMobile && !isLandscape) {
-      console.log('DEBUG: Rendering mobile debug layout');
       return (
-        <div className="h-full w-full relative" style={{ margin: '0px' }}> {/* FIXED: Negative margin to counteract parent padding */}
+        <div className="h-full w-full relative" style={{ margin: '0px' }}>
           <div 
             className="w-full h-full overflow-hidden"
             style={{
-              background: 'transparent', // FIXED: Removed debug background
+              background: 'transparent',
               borderRadius: '20px',
               position: 'relative',
-              // FIXED: Removed debug border
-              height: '100vh', // FIXED: Use full viewport height
-              width: 'calc(100vw - 16px)' // FIXED: Account for horizontal margins
+              height: '100vh',
+              width: 'calc(100vw - 16px)'
               
             }}
 
@@ -288,16 +244,13 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                 height={1402} // 50% of 2803px original height
                 className="object-cover"
                 style={{ 
-                  borderRadius: '20px', // FIXED: Ensure mobile rounded corners
+                  borderRadius: '20px',
                   objectPosition: '75% center', // MOBILE: Show more of the right side (strawberry)
                   maxWidth: '100%',
-                  maxHeight: 'calc(100vh - 80px)', // FIXED: Account for horizontal margins
+                  maxHeight: 'calc(100vh - 80px)',
                   marginLeft: '6px'
-
                 }}
                 priority
-                onError={() => console.log('DEBUG: Mobile image failed to load')}
-                onLoad={() => console.log('DEBUG: Mobile image loaded successfully')}
               />
             </div>
             
@@ -400,8 +353,6 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                   height: '100%'
                 }}
                 priority
-                onError={() => console.log('DEBUG: Mobile landscape image failed to load')}
-                onLoad={() => console.log('DEBUG: Mobile landscape image loaded successfully')}
               />
             </div>
             
@@ -457,16 +408,15 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
     // Desktop Layout for Debug
     return (
       <div className="h-full w-full flex items-center justify-center">
-        {/* Intro Page Container - FIXED: Removed debug styling */}
+        {/* Intro Page Container */}
         <div 
           className="w-full h-full overflow-hidden"
           style={{
-            background: 'transparent', // FIXED: Removed debug background
+            background: 'transparent',
             borderRadius: '20px',
             position: 'relative',
-            // FIXED: Removed debug border
-            height: '100%', // FIXED: Explicit height instead of min-height
-            width: '100%' // FIXED: Explicit width instead of min-width
+            height: '100%',
+            width: '100%'
           }}
         >
           {/* Background Image - Full Container */}
@@ -476,22 +426,20 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
               borderRadius: '20px',
               overflow: 'hidden',
               zIndex: 1,
-              height: '100%', // FIXED: Ensure explicit height
-              width: '100%' // FIXED: Ensure explicit width
+              height: '100%',
+              width: '100%'
             }}
           >
             <Image 
               src="/images/backgrounds/open_page_bg.jpg"
               alt="CBC Cultivar Explorer Welcome"
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw" // FIXED: More specific sizes
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
               className="object-cover"
               style={{ 
                 borderRadius: '20px'
               }}
-              priority
-              onError={() => console.log('DEBUG: Image failed to load')}
-              onLoad={() => console.log('DEBUG: Image loaded successfully')}
+                priority
             />
           </div>
           
@@ -805,7 +753,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                   {buttonConfigs.map((button) => (
                     <span 
                       key={button.id}
-                      className={`${button.className} cultivar-tag whitespace-nowrap`}
+                      className={`theme-base-premium-button ${button.className} cultivar-tag whitespace-nowrap`}
                       onClick={() => handleInfoClick(button.id)}
                       style={{
                         fontSize: '0.95rem', // 15-20% smaller than 1.1rem
@@ -1257,7 +1205,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                     {buttonConfigs.map((button) => (
                       <span 
                         key={button.id}
-                        className={`${button.className} cultivar-tag whitespace-nowrap`}
+                        className={`theme-base-premium-button ${button.className} cultivar-tag whitespace-nowrap`}
                         onClick={() => handleInfoClick(button.id)}
                         style={{
                           fontSize: '0.95rem', // 15-20% smaller than 1.1rem
@@ -1464,7 +1412,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {alturasComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -1545,7 +1493,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {adelantoComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -1626,7 +1574,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {alhambraComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -1707,7 +1655,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {artesiaComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -1788,7 +1736,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {belvedereComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -1869,7 +1817,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {castaicComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -1950,7 +1898,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {carpinteriaComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -2031,7 +1979,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {brisbaneComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -2112,7 +2060,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
                             >
                               None
                             </button>
-                            {sweetCarolinaComparisonOptions.map((cultivarId) => (
+                            {comparisonOptions.map((cultivarId) => (
                               <button
                                 key={cultivarId}
                                 onClick={() => setComparisonCultivar(cultivarId)}
@@ -2178,10 +2126,6 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
       </div>
 
       {/* Info Overlay - Desktop */}
-      {(() => {
-        console.log('DEBUG: Desktop overlay condition - !isMobile:', !isMobile, 'showInfoOverlay:', showInfoOverlay, 'infoOverlay:', !!infoOverlay);
-        return null;
-      })()}
       {!isMobile && showInfoOverlay && infoOverlay && (
         (() => {
           // Determine if this overlay is cultivar-specific

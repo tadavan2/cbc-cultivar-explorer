@@ -149,9 +149,9 @@ export default function Home() {
       // Only true desktop/large tablets get the dock system
       const desktopOrWideTablet = width >= 740 && !mobile;
       
-      setIsLandscape(landscape);
-      setIsMobile(mobile);
-      setIsDesktopOrWideTablet(desktopOrWideTablet);
+        setIsLandscape(landscape);
+        setIsMobile(mobile);
+        setIsDesktopOrWideTablet(desktopOrWideTablet);
     };
 
     checkScreenSize();
@@ -593,7 +593,7 @@ export default function Home() {
                     setIsCultivarDrawerOpen(false);
                     setIsFilterDrawerOpen(false);
                   }}
-                    className={`
+                  className={`
                     flex-shrink-0 w-25 h-25 theme-base-card ${cultivar.id === 'debug' ? 'cultivar-theme-home' : getCultivarThemeClass(cultivar.id)} cursor-pointer relative
                     ${selectedCultivar.id === cultivar.id ? 'selected-glass' : ''}
                   `}

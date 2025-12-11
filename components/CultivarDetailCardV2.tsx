@@ -96,7 +96,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
     };
     return configs[cultivar.id] || { comparisonOptions: [], hasDefaultComparison: false };
   }, [cultivar.id]);
-
+  
   // Get comparison options for current cultivar
   const comparisonOptions = cultivarConfig.comparisonOptions;
 
@@ -136,16 +136,16 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
   useEffect(() => {
     if (comparisonCultivar === undefined) {
       if (cultivarConfig.hasDefaultComparison) {
-        const defaultComparison = getDefaultComparisonCultivar(cultivar.id);
+      const defaultComparison = getDefaultComparisonCultivar(cultivar.id);
         if (defaultComparison && cultivarConfig.comparisonOptions.includes(defaultComparison)) {
-          setComparisonCultivar(defaultComparison);
-        } else {
-          setComparisonCultivar(undefined);
-        }
+        setComparisonCultivar(defaultComparison);
       } else {
-        // Default to None for cultivars without default comparison
         setComparisonCultivar(undefined);
       }
+      } else {
+        // Default to None for cultivars without default comparison
+      setComparisonCultivar(undefined);
+    }
     }
   }, [cultivar.id, cultivarConfig, comparisonCultivar]);
 
@@ -439,7 +439,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
               style={{ 
                 borderRadius: '20px'
               }}
-                priority
+              priority
             />
           </div>
           

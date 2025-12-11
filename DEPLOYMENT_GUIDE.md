@@ -161,12 +161,12 @@ cbc-cultivar-explorer/
 ## 🚀 Deployment Process
 
 ### Branch Strategy
-- **Production Branch**: `feature/major-ui-redesign-with-carousels` (currently deployed to Vercel)
-- **Development Branch**: `refactor/clean-code-2025` (for refactoring work)
-- **Main Branch**: `main` (default branch)
+- **Production Branch**: `main` (deployed to Vercel at `cultivars.cbcberry.com`)
+
+> **Note (Dec 2025)**: The codebase was consolidated. The old `feature/major-ui-redesign-with-carousels` and `refactor/clean-code-2025` branches have been merged into `main` and deleted.
 
 ### Auto-Deployment
-The app auto-deploys when you push to the production branch:
+The app auto-deploys when you push to `main`:
 
 1. **GitHub** receives your push
 2. **Vercel** detects the change
@@ -314,10 +314,10 @@ git commit -m "Refactor: simplify useEffect patterns"
 1. **Develop**: `npm run dev` → make changes → test locally
 2. **Verify**: `npm run build` → check for errors
 3. **Commit**: `git add .` → `git commit -m "message"`
-4. **Deploy**: `git push` (to production branch)
+4. **Deploy**: `git push` (to `main`)
 5. **Monitor**: Check Vercel dashboard for deployment status
 
-**Remember**: Every `git push` to the production branch triggers a new deployment!
+**Remember**: Every `git push` to `main` triggers a new deployment!
 
 ---
 

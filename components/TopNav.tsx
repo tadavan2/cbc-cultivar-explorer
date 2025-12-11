@@ -81,8 +81,8 @@ export default function TopNav({ isMobile = false, isLandscape = false, onHeight
       ref={navRef}
       className={`sticky top-0 z-50 ${isMobile ? (isLandscape ? 'min-h-12' : 'min-h-16') : 'min-h-16'}`} 
       style={{ 
-        background: 'rgba(251, 239, 239)', 
-        borderBottom: '4px solid rgba(192, 21, 21, 0.6)'
+      background: 'rgba(251, 239, 239)', 
+      borderBottom: '4px solid rgba(192, 21, 21, 0.6)'
       }}
     >
       <div className={`flex items-center justify-between h-full ${isMobile ? 'px-4' : 'px-12'}`}>
@@ -122,12 +122,12 @@ export default function TopNav({ isMobile = false, isLandscape = false, onHeight
             <h1 
               className={`font-bold premium-heading ${isMobile ? (isLandscape ? 'text-xs' : 'text-xs') : 'topnav-title-responsive'}`} 
               style={{ 
-                lineHeight: '0.9', 
+              lineHeight: '0.9', 
                 fontSize: isMobile 
                   ? (isLandscape ? '22px' : '14px') 
                   : 'clamp(1.5rem, 4.5vw, 3.5rem)', // Responsive: min 1.5rem, preferred 4.5vw, max 3.5rem
-                letterSpacing: '-0.02em',
-                margin: 0,
+              letterSpacing: '-0.02em',
+              margin: 0,
                 padding: '8px 0',
                 whiteSpace: 'nowrap' // Prevent wrapping
               }}

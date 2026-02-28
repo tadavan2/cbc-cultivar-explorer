@@ -41,19 +41,19 @@ function isRateLimited(ip: string): boolean {
 // Function to get location from IP
 async function getLocationFromIP(ip: string) {
   try {
-    const response = await fetch(`https://ipapi.co/${ip}/json/`);
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query`);
     const data = await response.json();
 
-    if (!data.error) {
+    if (data.status === 'success') {
       return {
         city: data.city,
-        region: data.region,
-        country: data.country_name,
-        zip: data.postal,
+        region: data.regionName,
+        country: data.country,
+        zip: data.zip,
         timezone: data.timezone,
-        isp: data.org,
+        isp: data.isp,
         org: data.org,
-        coordinates: `${data.latitude}, ${data.longitude}`
+        coordinates: `${data.lat}, ${data.lon}`
       };
     }
   } catch (error) {

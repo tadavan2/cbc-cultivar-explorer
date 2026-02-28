@@ -156,12 +156,12 @@ export async function POST(request: NextRequest) {
     const safeViewportSize = viewportSize ? escapeHtml(String(viewportSize)) : '';
     const safeUserAgent = escapeHtml(userAgent);
     const safeIp = escapeHtml(ip);
-    const safeLocationCity = locationData ? escapeHtml(locationData.city) : '';
-    const safeLocationRegion = locationData ? escapeHtml(locationData.region) : '';
-    const safeLocationCountry = locationData ? escapeHtml(locationData.country) : '';
+    const safeLocationCity = locationData?.city ? escapeHtml(locationData.city) : '';
+    const safeLocationRegion = locationData?.region ? escapeHtml(locationData.region) : '';
+    const safeLocationCountry = locationData?.country ? escapeHtml(locationData.country) : '';
     const safeLocationZip = locationData?.zip ? escapeHtml(locationData.zip) : '';
-    const safeLocationTimezone = locationData ? escapeHtml(locationData.timezone) : '';
-    const safeLocationIsp = locationData ? escapeHtml(locationData.isp) : '';
+    const safeLocationTimezone = locationData?.timezone ? escapeHtml(locationData.timezone) : '';
+    const safeLocationIsp = locationData?.isp ? escapeHtml(locationData.isp) : '';
 
     // Send email using Resend
     const resend = getResend();

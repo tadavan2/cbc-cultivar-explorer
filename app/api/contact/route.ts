@@ -41,19 +41,19 @@ function isRateLimited(ip: string): boolean {
 // Function to get location from IP
 async function getLocationFromIP(ip: string) {
   try {
-    const response = await fetch(`https://ipapi.co/${ip}/json/`);
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query`);
     const data = await response.json();
 
-    if (!data.error) {
+    if (data.status === 'success') {
       return {
         city: data.city,
-        region: data.region,
-        country: data.country_name,
-        zip: data.postal,
+        region: data.regionName,
+        country: data.country,
+        zip: data.zip,
         timezone: data.timezone,
-        isp: data.org,
+        isp: data.isp,
         org: data.org,
-        coordinates: `${data.latitude}, ${data.longitude}`
+        coordinates: `${data.lat}, ${data.lon}`
       };
     }
   } catch (error) {
@@ -156,12 +156,12 @@ export async function POST(request: NextRequest) {
     const safeViewportSize = viewportSize ? escapeHtml(String(viewportSize)) : '';
     const safeUserAgent = escapeHtml(userAgent);
     const safeIp = escapeHtml(ip);
-    const safeLocationCity = locationData ? escapeHtml(locationData.city) : '';
-    const safeLocationRegion = locationData ? escapeHtml(locationData.region) : '';
-    const safeLocationCountry = locationData ? escapeHtml(locationData.country) : '';
+    const safeLocationCity = locationData?.city ? escapeHtml(locationData.city) : '';
+    const safeLocationRegion = locationData?.region ? escapeHtml(locationData.region) : '';
+    const safeLocationCountry = locationData?.country ? escapeHtml(locationData.country) : '';
     const safeLocationZip = locationData?.zip ? escapeHtml(locationData.zip) : '';
-    const safeLocationTimezone = locationData ? escapeHtml(locationData.timezone) : '';
-    const safeLocationIsp = locationData ? escapeHtml(locationData.isp) : '';
+    const safeLocationTimezone = locationData?.timezone ? escapeHtml(locationData.timezone) : '';
+    const safeLocationIsp = locationData?.isp ? escapeHtml(locationData.isp) : '';
 
     // Send email using Resend
     const resend = getResend();

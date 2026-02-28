@@ -106,10 +106,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased font-inter`}
       >
-        {/* Fixed background image */}
         <div className="background-image"></div>
-        {/* Background overlay for better readability - TEMPORARILY DISABLED */}
-        {/* <div className="background-overlay"></div> */}
         <LanguageProvider>
           <TranslationProvider>
             {children}

@@ -156,13 +156,14 @@ export default function Home() {
 
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
-    window.addEventListener('orientationchange', () => {
+    const handleOrientationChange = () => {
       setTimeout(checkScreenSize, 100); // Delay for orientation change
-    });
+    };
+    window.addEventListener('orientationchange', handleOrientationChange);
 
     return () => {
       window.removeEventListener('resize', checkScreenSize);
-      window.removeEventListener('orientationchange', checkScreenSize);
+      window.removeEventListener('orientationchange', handleOrientationChange);
     };
   }, []);
 
@@ -194,7 +195,6 @@ export default function Home() {
     return (
       <>
 
-        {/* IMPROVED: Fixed positioned cultivar drawer handle with bouncing animation - PILL SHAPED */}
         <button
           onClick={() => {
             setIsCultivarDrawerOpen(!isCultivarDrawerOpen);
@@ -218,7 +218,6 @@ export default function Home() {
             height: '33px', // 25% shorter (was 44px)
             transition: 'bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Back to original slow smooth timing
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.2)',
-            // NO MORE bouncing animation - user didn't like it
             transformOrigin: 'center center',
             willChange: 'bottom, transform' // Optimize for transitions
           }}
@@ -242,7 +241,6 @@ export default function Home() {
               </linearGradient>
             </defs>
             
-            {/* FIXED DIRECTION: When drawer is open, arrows point DOWN; when closed, arrows point UP */}
             {isCultivarDrawerOpen ? (
               /* Drawer is OPEN - show DOWN arrows with landing strip effect */
               <g fill="url(#buttonGradient2)">
@@ -392,7 +390,6 @@ export default function Home() {
                       key={cultivar.id}
                       onClick={() => {
                         handleCultivarChange(cultivar);
-                        // CLOSE BOTH DRAWERS: When cultivar is selected, close both drawers
                         setIsCultivarDrawerOpen(false);
                         setIsFilterDrawerOpen(false);
                       }}
@@ -589,7 +586,6 @@ export default function Home() {
                   key={cultivar.id}
                   onClick={() => {
                     handleCultivarChange(cultivar);
-                    // CLOSE BOTH DRAWERS: When cultivar is selected, close both drawers
                     setIsCultivarDrawerOpen(false);
                     setIsFilterDrawerOpen(false);
                   }}

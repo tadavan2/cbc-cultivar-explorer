@@ -107,13 +107,3 @@ export async function getCultivarContent(cultivarId: string, lang: string): Prom
     return null;
   }
 }
-
-export function getAllCultivarIds(): string[] {
-  // This would need to be updated to scan the directory or maintain a list
-  return ['debug', 'alturas', 'adelanto', 'alhambra', 'artesia', 'belvedere'];
-}
-
-export function getCultivarsByType(type: CultivarContent['type']): Promise<CultivarContent[]> {
-  // This would need to be implemented to load all cultivars and filter by type
-  return Promise.resolve([]);
-} 

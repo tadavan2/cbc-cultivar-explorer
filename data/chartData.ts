@@ -168,38 +168,6 @@ export const cultivarChartData: { [cultivarId: string]: CultivarChartData } = {
       { month: 'Dec', value: 8.7 },
       { month: 'Jan', value: 8.8 }
     ]
-  },
-  debug: {
-  cultivarId: 'debug',
-  cultivarName: 'Debug',
-  yield: [
-    { month: 'Sep', value: 1406 },
-    { month: 'Oct', value: 2413 },
-    { month: 'Nov', value: 671 },
-    { month: 'Dec', value: 589 },
-    { month: 'Jan', value: 223 }
-  ],
-  firmness: [
-    { month: 'Sep', value: 8.2 },
-    { month: 'Oct', value: 8.5 },
-    { month: 'Nov', value: 8.3 },
-    { month: 'Dec', value: 8.1 },
-    { month: 'Jan', value: 8.0 }
-  ],
-  size: [
-    { month: 'Sep', value: 18.5 },
-    { month: 'Oct', value: 19.1 },
-    { month: 'Nov', value: 18.8 },
-    { month: 'Dec', value: 17.2 },
-    { month: 'Jan', value: 17.5 }
-  ],
-  appearance: [
-    { month: 'Sep', value: 9.1 },
-    { month: 'Oct', value: 9.3 },
-    { month: 'Nov', value: 9.0 },
-    { month: 'Dec', value: 8.7 },
-    { month: 'Jan', value: 8.8 }
-  ]
   }
 };
 
@@ -306,27 +274,6 @@ export function getChartData(cultivarId: string, metricId: string, comparisonCul
     primaryCultivar: primaryData.cultivarName,
     comparisonCultivar: comparisonData?.cultivarName || null
   };
-}
-
-// Function to load data from CSV (for future implementation)
-export async function loadChartDataFromCSV(csvFilePath: string): Promise<CultivarChartData[]> {
-  // TODO: Implement CSV parsing
-  // Expected CSV format:
-  // cultivar,month,yield,firmness,size,appearance
-  // alturas,Sep,1406,8.2,18.5,9.1
-  // alturas,Oct,2413,8.5,19.1,9.3
-  // ...
-  return [];
-}
-
-// Function to get available cultivars for charts
-export function getAvailableCultivars(): string[] {
-  return Object.keys(cultivarChartData);
-}
-
-// Function to add new cultivar data (for dynamic loading)
-export function addCultivarData(data: CultivarChartData) {
-  cultivarChartData[data.cultivarId] = data;
 }
 
 // Dynamic CSV loading functions

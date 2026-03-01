@@ -24,6 +24,104 @@ Largest files (the ones needing the most attention):
 
 ---
 
+## Phase 3.5: URL Routing — Deep Links for Every Cultivar (HIGH PRIORITY)
+
+### The Problem
+The entire app is a single `page.tsx` that manages cultivar selection via `useState`. The URL **never changes** — it's always `cultivars.cbcberry.com/` regardless of which cultivar is displayed. Clicking "Alhambra" just calls `setSelectedCultivar('alhambra')` and swaps the component in place.
+
+**This breaks:**
+- **QR codes on field signs** — can't link to `cultivars.cbcberry.com/alhambra`
+- **Sharing links** — can't send someone a direct link to a cultivar
+- **Browser back/forward** — selecting a cultivar is a dead end, back button leaves the site
+- **SEO** — Google sees one page with zero cultivar-specific content
+- **Analytics** — every cultivar view registers as the same URL in Vercel Analytics
+
+### Current Architecture
+```
+app/
+  page.tsx          ← Everything lives here (homepage + all cultivar views)
+  layout.tsx        ← Root layout
+  api/contact/      ← Contact form API
+```
+
+Selection flow: `onClick → setSelectedCultivar(cultivar) → conditional render` — pure React state, no routing.
+
+### Proposed Architecture — Next.js App Router Dynamic Routes
+```
+app/
+  page.tsx                    ← Homepage only (cultivars.cbcberry.com/)
+  [cultivarId]/
+    page.tsx                  ← Cultivar detail (cultivars.cbcberry.com/alhambra)
+  layout.tsx                  ← Root layout (unchanged)
+  api/contact/                ← Contact form API (unchanged)
+```
+
+### Implementation Plan
+
+**3.5A. Create the dynamic route `app/[cultivarId]/page.tsx`**
+
+1. Create `app/[cultivarId]/page.tsx` with `generateStaticParams()` to pre-render all cultivar pages at build time
+2. Look up cultivar by `params.cultivarId` from `data/cultivars.ts`
+3. Return 404 for invalid cultivar IDs
+4. Render `CultivarDetailCardV2` directly (no state-based switching)
+5. Add per-cultivar `generateMetadata()` for SEO:
+   ```tsx
+   // cultivars.cbcberry.com/alhambra gets:
+   // <title>Alhambra — CBC Cultivar Explorer</title>
+   // <meta name="description" content="Summer plant variety renowned for its exceptional flavor..." />
+   // <meta property="og:title" content="Alhambra — CBC Cultivar Explorer" />
+   // <meta property="og:image" content="/images/icons/alhambra_card_icon.png" />
+   ```
+
+**3.5B. Create shared layout for cultivar navigation**
+
+1. Extract the bottom cultivar card bar + filter panel into a shared layout or component
+2. Both homepage and cultivar pages render the same navigation chrome
+3. Cultivar card clicks become `<Link href="/alhambra">` instead of `onClick → setState`
+4. HOME button becomes `<Link href="/">`
+5. Use `usePathname()` to highlight the active cultivar card (replaces `selectedCultivar.id === cultivar.id` check)
+
+**3.5C. Simplify `page.tsx` to homepage only**
+
+1. Remove all cultivar selection state (`selectedCultivar`, `displayedCultivar`, `isTransitioning`)
+2. `page.tsx` becomes just: render `<Homepage />`
+3. Filter state + drawer state move to layout or context (shared across routes)
+
+**3.5D. Update all cultivar card `onClick` to Next.js `<Link>`**
+
+1. Replace `onClick={() => handleCultivarChange(cultivar)}` with `<Link href={`/${cultivar.id}`}>`
+2. The fade transition effect can use Next.js `loading.tsx` or `useTransition()` from React
+3. Mobile drawer auto-closes on navigation via `usePathname()` change detection
+
+**3.5E. Handle the `debug` cultivar**
+
+The `debug` entry in `cultivars.ts` is a synthetic "home" cultivar used to represent the homepage. With real routing:
+1. Remove `debug` from the cultivars array entirely
+2. The homepage is just `/` — no fake cultivar needed
+3. Filter logic no longer needs `if (cultivar.id === 'debug') return true`
+
+### What This Enables
+
+| Capability | Before | After |
+|-----------|--------|-------|
+| QR code → specific cultivar | Impossible | `cultivars.cbcberry.com/alhambra` |
+| Share cultivar link | Impossible | Direct URL works |
+| Browser back button | Exits site | Goes to previous cultivar |
+| SEO per cultivar | None (1 page) | Unique title, description, OG tags per cultivar |
+| Analytics per cultivar | All same URL | Distinct pageviews per cultivar |
+| Pre-rendering | Client-only | Static generation at build time (faster loads) |
+| New cultivar addition | Edit page.tsx state logic | Just add data + assets (route auto-created) |
+
+### Risk & Migration Notes
+
+- **Low risk**: Next.js App Router is designed for exactly this pattern
+- **No data changes**: `cultivars.ts`, content JSON, CSV files all stay the same
+- **Backward compatible**: Old links to `cultivars.cbcberry.com/` still work (it's the homepage)
+- **The fade transition** needs rethinking — currently uses `setTimeout` chains with `isTransitioning` state. With routing, this becomes a page transition (can use `loading.tsx` or CSS view transitions)
+- **Mobile drawers** need to work across route changes — move state to layout or context
+
+---
+
 ## Phase 4: Extract Shared Hooks (Duplicate Logic)
 
 ### 4A. `useHorizontalScroll()` hook
@@ -344,23 +442,25 @@ After these changes, adding a new cultivar would require:
 
 | Priority | Phase | Impact | Risk | Est. Scope |
 |----------|-------|--------|------|------------|
-| 1 | **6A** CSS duplicate cleanup | High | Low | Small — delete dupes |
-| 2 | **6B** CSS variables | High | Low | Medium — find-replace |
-| 3 | **4B** `useResponsive()` hook | High | Medium | Medium — touches 3 files |
-| 4 | **4A** `useHorizontalScroll()` hook | Medium | Low | Small — extract + replace |
-| 5 | **5A** `HomeButton` component | Medium | Low | Small — extract |
-| 6 | **5B** Glass container CSS class | High | Low | Medium — replace inline styles |
-| 7 | **8A** Data-driven themes | High | Low | Small — add field + simplify function |
-| 8 | **8B** Centralize comparisons | Medium | Low | Small — move config to data |
-| 9 | **7A** Break up CultivarDetailCardV2 | High | Medium | Large — 2,193 line file |
-| 10 | **7B** Reduce page.tsx state | Medium | Medium | Medium — depends on hooks |
-| 11 | **9A-C** DOM anti-patterns | Medium | Low | Small — targeted fixes |
-| 12 | **6C-D** Drawer fix + media queries | Medium | Medium | Medium |
-| 13 | **5C** Button styling | Low | Low | Small |
-| 14 | **4C** `useDrawer()` hook | Low | Low | Small |
-| 15 | **10A-D** Minor quality | Low | Low | Small |
+| **1** | **3.5** URL routing (deep links) | **Critical** | Medium | Large — architectural change |
+| 2 | **6A** CSS duplicate cleanup | High | Low | Small — delete dupes |
+| 3 | **6B** CSS variables | High | Low | Medium — find-replace |
+| 4 | **4B** `useResponsive()` hook | High | Medium | Medium — touches 3 files |
+| 5 | **4A** `useHorizontalScroll()` hook | Medium | Low | Small — extract + replace |
+| 6 | **5A** `HomeButton` component | Medium | Low | Small — extract |
+| 7 | **5B** Glass container CSS class | High | Low | Medium — replace inline styles |
+| 8 | **8A** Data-driven themes | High | Low | Small — add field + simplify function |
+| 9 | **8B** Centralize comparisons | Medium | Low | Small — move config to data |
+| 10 | **7A** Break up CultivarDetailCardV2 | High | Medium | Large — 2,193 line file |
+| 11 | **7B** Reduce page.tsx state | Medium | Medium | Medium — depends on hooks |
+| 12 | **9A-C** DOM anti-patterns | Medium | Low | Small — targeted fixes |
+| 13 | **6C-D** Drawer fix + media queries | Medium | Medium | Medium |
+| 14 | **5C** Button styling | Low | Low | Small |
+| 15 | **4C** `useDrawer()` hook | Low | Low | Small |
+| 16 | **10A-D** Minor quality | Low | Low | Small |
 
 **Suggested grouping into work batches:**
+- **Batch 0 (foundational):** 3.5 — URL routing. Do this first. It changes how page.tsx works, so doing other refactors first would create throwaway work.
 - **Batch A (low risk, high impact):** 6A + 6B + 10D — CSS cleanup, variables, dead code
 - **Batch B (extractions):** 4A + 4B + 5A + 5B — Hooks and components
 - **Batch C (data architecture):** 8A + 8B — Future cultivar friendliness
@@ -373,10 +473,13 @@ After these changes, adding a new cultivar would require:
 
 The codebase has the classic vibe-coding fingerprint: **working product, but copy-paste duplication and inline everything**. The main structural problems are:
 
-1. **CultivarDetailCardV2.tsx at 2,193 lines** — needs decomposition
-2. **50+ hard-coded color values** — need CSS variables
-3. **3+ copies of screen detection logic** — needs a shared hook
-4. **15+ copies of glass morphism inline styles** — needs CSS classes
-5. **Cultivar theme/comparison config scattered across code** — needs data-driven approach
+1. **No URL routing** — the entire app is one page with React state, making deep links (QR codes, sharing, SEO) impossible
+2. **CultivarDetailCardV2.tsx at 2,193 lines** — needs decomposition
+3. **50+ hard-coded color values** — need CSS variables
+4. **3+ copies of screen detection logic** — needs a shared hook
+5. **15+ copies of glass morphism inline styles** — needs CSS classes
+6. **Cultivar theme/comparison config scattered across code** — needs data-driven approach
 
 None of these are bugs. The app works. But each one makes it harder to add the next cultivar, change the theme, or fix a mobile layout issue without breaking something else. The plan above addresses all of them in dependency order with minimal risk.
+
+**The URL routing change (Phase 3.5) should be done first** — it restructures `page.tsx` fundamentally, so any other refactoring done beforehand would need to be redone. It also delivers the most immediate business value (QR codes on field signs, shareable links, SEO).

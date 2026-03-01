@@ -64,10 +64,14 @@ const getCultivarThemeClass = (cultivarId: string): string => {
 };
 
 export default function Home() {
-  const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
-  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
+  // Resolve deep link on initial render to avoid homepage flash (e.g., /adelanto from QR code)
+  const initialPath = typeof window !== 'undefined' ? window.location.pathname.replace(/^\//, '') : '';
+  const initialCultivar = initialPath ? cultivars.find(c => c.id === initialPath) : null;
+
+  const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(initialCultivar || cultivars[0]);
+  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(initialCultivar || cultivars[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isHomepage, setIsHomepage] = useState(true); // Start on homepage
+  const [isHomepage, setIsHomepage] = useState(!initialCultivar);
   
   const [filters, setFilters] = useState<FilterState>({
     flowerType: [],
@@ -95,7 +99,10 @@ export default function Home() {
     
     // Switch to cultivar view
     setIsHomepage(false);
-    
+
+    // Keep URL in sync with displayed cultivar
+    window.history.replaceState({}, '', '/' + newCultivar.id);
+
     // IMMEDIATE: Update the focused state right away for responsive UI
     setSelectedCultivar(newCultivar);
     setIsTransitioning(true);
@@ -131,6 +138,7 @@ export default function Home() {
   // Handle homepage navigation
   const handleHomepageClick = () => {
     setIsHomepage(true);
+    window.history.replaceState({}, '', '/');
     setIsTransitioning(true);
     
     setTimeout(() => {
@@ -167,19 +175,8 @@ export default function Home() {
     };
   }, []);
 
-  // Deep link support: if URL is /adelanto, auto-select that cultivar on load
-  // Works with next.config.ts rewrites that serve root page for cultivar URLs
-  useEffect(() => {
-    const path = window.location.pathname.replace(/^\//, ''); // "adelanto"
-    if (path) {
-      const cultivar = cultivars.find(c => c.id === path);
-      if (cultivar) {
-        setSelectedCultivar(cultivar);
-        setDisplayedCultivar(cultivar);
-        setIsHomepage(false);
-      }
-    }
-  }, []);
+  // Deep link resolution now happens at initialization (above useState calls)
+  // so there's no flash of homepage content before the correct cultivar appears.
 
   // Filter cultivars based on active filters
   const filteredCultivars = cultivars.filter(cultivar => {

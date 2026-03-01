@@ -167,6 +167,20 @@ export default function Home() {
     };
   }, []);
 
+  // Deep link support: if URL is /adelanto, auto-select that cultivar on load
+  // Works with next.config.ts rewrites that serve root page for cultivar URLs
+  useEffect(() => {
+    const path = window.location.pathname.replace(/^\//, ''); // "adelanto"
+    if (path) {
+      const cultivar = cultivars.find(c => c.id === path);
+      if (cultivar) {
+        setSelectedCultivar(cultivar);
+        setDisplayedCultivar(cultivar);
+        setIsHomepage(false);
+      }
+    }
+  }, []);
+
   // Filter cultivars based on active filters
   const filteredCultivars = cultivars.filter(cultivar => {
     // ALWAYS include the debug cultivar (intro page) regardless of filters

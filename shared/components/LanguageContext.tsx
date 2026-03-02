@@ -58,8 +58,16 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+const VALID_LANG_CODES = new Set(SUPPORTED_LANGUAGES.map((l) => l.code));
+
+function getInitialLanguage(): string {
+  if (typeof window === 'undefined') return 'en';
+  const lang = new URLSearchParams(window.location.search).get('lang');
+  return lang && VALID_LANG_CODES.has(lang) ? lang : 'en';
+}
+
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(getInitialLanguage);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, supportedLanguages: SUPPORTED_LANGUAGES }}>

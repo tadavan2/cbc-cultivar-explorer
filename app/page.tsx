@@ -35,7 +35,8 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Cultivar, FilterState } from '../types/cultivar';
 import { cultivars } from '../data/cultivars';
 import TopNav from '../components/TopNav';
@@ -64,10 +65,20 @@ const getCultivarThemeClass = (cultivarId: string): string => {
 };
 
 export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
+  const searchParams = useSearchParams();
+
   const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
   const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isHomepage, setIsHomepage] = useState(true); // Start on homepage
+  const [isHomepage, setIsHomepage] = useState(true);
   
   const [filters, setFilters] = useState<FilterState>({
     flowerType: [],
@@ -95,7 +106,10 @@ export default function Home() {
     
     // Switch to cultivar view
     setIsHomepage(false);
-    
+
+    // Keep URL in sync with displayed cultivar
+    window.history.replaceState({}, '', '/' + newCultivar.id);
+
     // IMMEDIATE: Update the focused state right away for responsive UI
     setSelectedCultivar(newCultivar);
     setIsTransitioning(true);
@@ -131,6 +145,7 @@ export default function Home() {
   // Handle homepage navigation
   const handleHomepageClick = () => {
     setIsHomepage(true);
+    window.history.replaceState({}, '', '/');
     setIsTransitioning(true);
     
     setTimeout(() => {
@@ -166,6 +181,22 @@ export default function Home() {
       window.removeEventListener('orientationchange', handleOrientationChange);
     };
   }, []);
+
+  // Deep link support: next.config.ts rewrites /adelanto → /?cultivar=adelanto
+  // useSearchParams is SSR-safe so this avoids hydration mismatches
+  useEffect(() => {
+    const cultivarId = searchParams.get('cultivar');
+    if (cultivarId) {
+      const cultivar = cultivars.find(c => c.id === cultivarId);
+      if (cultivar) {
+        setSelectedCultivar(cultivar);
+        setDisplayedCultivar(cultivar);
+        setIsHomepage(false);
+        // Show the clean /adelanto URL instead of /?cultivar=adelanto
+        window.history.replaceState({}, '', '/' + cultivarId);
+      }
+    }
+  }, [searchParams]);
 
   // Filter cultivars based on active filters
   const filteredCultivars = cultivars.filter(cultivar => {

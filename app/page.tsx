@@ -35,8 +35,7 @@
 
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { Cultivar, FilterState } from '../types/cultivar';
 import { cultivars } from '../data/cultivars';
 import TopNav from '../components/TopNav';
@@ -65,16 +64,6 @@ const getCultivarThemeClass = (cultivarId: string): string => {
 };
 
 export default function Home() {
-  return (
-    <Suspense>
-      <HomeContent />
-    </Suspense>
-  );
-}
-
-function HomeContent() {
-  const searchParams = useSearchParams();
-
   const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
   const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -182,21 +171,19 @@ function HomeContent() {
     };
   }, []);
 
-  // Deep link support: next.config.ts rewrites /adelanto → /?cultivar=adelanto
-  // useSearchParams is SSR-safe so this avoids hydration mismatches
+  // Deep link support: resolve /adelanto on first mount
+  // Reading window.location inside useEffect is SSR-safe (only runs on client)
   useEffect(() => {
-    const cultivarId = searchParams.get('cultivar');
-    if (cultivarId) {
-      const cultivar = cultivars.find(c => c.id === cultivarId);
+    const path = window.location.pathname.replace(/^\//, '');
+    if (path) {
+      const cultivar = cultivars.find(c => c.id === path);
       if (cultivar) {
         setSelectedCultivar(cultivar);
         setDisplayedCultivar(cultivar);
         setIsHomepage(false);
-        // Show the clean /adelanto URL instead of /?cultivar=adelanto
-        window.history.replaceState({}, '', '/' + cultivarId);
       }
     }
-  }, [searchParams]);
+  }, []);
 
   // Filter cultivars based on active filters
   const filteredCultivars = cultivars.filter(cultivar => {

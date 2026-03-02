@@ -309,8 +309,8 @@ export default function Home() {
             <TopNav isMobile={true} isLandscape={isLandscape} />
           </div>
 
-          {/* Main Content Area - PROPERLY CENTERED */}
-          <div className="flex-1 relative overflow-x-visible overflow-y-hidden">
+          {/* Main Content Area - PROPERLY CENTERED (zIndex 2 so .dark-theme::after light-sweep stays behind) */}
+          <div className="flex-1 relative overflow-x-visible overflow-y-hidden" style={{ zIndex: 2 }}>
             <div className="absolute inset-0">
               <div 
                 className={`w-full ${isLandscape ? 'p-4' : 'p-6'} transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
@@ -449,8 +449,8 @@ export default function Home() {
     <div className="dark-theme h-screen w-screen overflow-hidden flex flex-col scrollbar-hidden">
       <TopNav onHeightChange={setTopNavHeight} />
       
-      {/* Main Layout Container */}
-      <div className="flex-1 flex h-full w-full overflow-hidden relative">
+      {/* Main Layout Container (zIndex 2 so .dark-theme::after light-sweep stays behind) */}
+      <div className="flex-1 flex h-full w-full overflow-hidden relative" style={{ zIndex: 2 }}>
         {/* Main Content Area - Dynamic width based on filter panel state */}
         <div 
           className="flex flex-col h-full overflow-hidden transition-all duration-500 ease-in-out"

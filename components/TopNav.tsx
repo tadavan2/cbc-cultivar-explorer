@@ -144,6 +144,29 @@ export default function TopNav({ isMobile = false, isLandscape = false, onHeight
         </div>
         
         <div className="flex items-center space-x-4">
+          {!isMobile && (
+            <a
+              href="https://cbcberry.com/resources"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="theme-base-premium-button premium-button-glass"
+              style={{
+                padding: '6px 16px',
+                fontSize: '15px',
+                fontWeight: 700,
+                borderRadius: '12px',
+                border: '2px solid #22c55e',
+                outline: 'none',
+                boxShadow: '0 4px 16px rgba(34,197,94,0.13), 0 1.5px 6px rgba(0,0,0,0.08)',
+                background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+                color: '#fff',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Resources
+            </a>
+          )}
           {/* Language Switcher */}
           <LanguageSwitcher />
           {!isMobile && (

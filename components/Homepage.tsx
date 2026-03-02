@@ -75,7 +75,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
             />
           </div>
           
-          {/* Mobile text overlay - Welcome message */}
+          {/* Mobile text overlay - Welcome message (no background box) */}
           <div 
             className="absolute top-16 left-6"
             style={{
@@ -86,19 +86,16 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
               pointerEvents: 'none',
               maxWidth: 'calc(100vw - 48px)',
-              padding: '8px 12px',
-              borderRadius: '8px', 
               marginLeft: '18px',
-              marginRight: '8px', 
+              marginRight: '8px',
               marginTop: '12px',
               marginBottom: '12px',
-              backgroundColor: 'rgba(241, 0, 0, 0.5)',
             }}
           >
             {t('cultivarExplorer')}
           </div>
 
-          {/* Mobile text overlay - Instructions */}
+          {/* Mobile text overlay - Instructions (no background box) */}
           <div 
             className="absolute left-6"
             style={{
@@ -110,16 +107,36 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
               pointerEvents: 'none',
               maxWidth: 'calc(100vw - 48px)',
-              padding: '8px 12px',
-              borderRadius: '8px', 
               marginLeft: '14px',
-              marginRight: '8px', 
+              marginRight: '8px',
               lineHeight: '1.3',
-              backgroundColor: 'rgba(0, 0, 0, 0.3)',
             }}
           >
             {t('tapToExplore')}
           </div>
+
+          {/* Mobile portrait: Resources link below instructions (extra spacing/return before link) */}
+          <a
+            href="https://cbcberry.com/resources"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute left-6"
+            style={{
+              top: '185px',
+              zIndex: 20,
+              color: '#ffffff',
+              fontSize: '18px',
+              fontWeight: '500',
+              fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
+              textDecoration: 'underline',
+              maxWidth: 'calc(100vw - 48px)',
+              marginLeft: '14px',
+              marginRight: '8px',
+              lineHeight: '1.3',
+            }}
+          >
+            {t('resourcesLinkLabel')}
+          </a>
           
           {/* Optional overlay */}
           <div 
@@ -177,7 +194,7 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
             />
           </div>
           
-          {/* Mobile Landscape text overlay - Match mobile portrait style */}
+          {/* Mobile Landscape title - light background to mask diagonal line from bg image/sweep */}
           <div 
             className="absolute top-8 left-6"
             style={{
@@ -188,19 +205,19 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
               pointerEvents: 'none',
               maxWidth: 'calc(100vw - 48px)',
-              padding: '6px 10px',
-              borderRadius: '8px', 
               marginLeft: '12px',
-              marginRight: '8px', 
+              marginRight: '8px',
               marginTop: '8px',
               marginBottom: '8px',
-              backgroundColor: 'rgba(241, 0, 0, 0.5)',
+              padding: '4px 8px',
+              borderRadius: '6px',
+              backgroundColor: 'rgba(255, 248, 242, 1)',
             }}
           >
             {t('cultivarExplorer')}
           </div>
 
-          {/* Mobile Landscape instructions */}
+          {/* Mobile Landscape instructions (no background box) */}
           <div 
             className="absolute left-6"
             style={{
@@ -212,16 +229,36 @@ export default function Homepage({ isMobile, isLandscape }: HomepageProps) {
               fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
               pointerEvents: 'none',
               maxWidth: 'calc(100vw - 48px)',
-              padding: '6px 10px',
-              borderRadius: '8px', 
               marginLeft: '12px',
-              marginRight: '8px', 
+              marginRight: '8px',
               lineHeight: '1.3',
-              backgroundColor: 'rgba(0, 0, 0, 0.3)',
             }}
           >
             {t('tapToExplore')}
           </div>
+
+          {/* Mobile landscape: Resources link below instructions (before overlay so zIndex 20 is on top) */}
+          <a
+            href="https://cbcberry.com/resources"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute left-6"
+            style={{
+              top: '115px',
+              zIndex: 20,
+              color: '#ffffff',
+              fontSize: '14px',
+              fontWeight: '500',
+              fontFamily: 'Futura, -apple-system, BlinkMacSystemFont, sans-serif',
+              textDecoration: 'underline',
+              maxWidth: 'calc(100vw - 48px)',
+              marginLeft: '12px',
+              marginRight: '8px',
+              lineHeight: '1.3',
+            }}
+          >
+            {t('resourcesLinkLabel')}
+          </a>
           
           {/* Gradient overlay */}
           <div 

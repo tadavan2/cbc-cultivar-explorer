@@ -35,7 +35,8 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Cultivar, FilterState } from '../types/cultivar';
 import { cultivars } from '../data/cultivars';
 import TopNav from '../components/TopNav';
@@ -64,14 +65,20 @@ const getCultivarThemeClass = (cultivarId: string): string => {
 };
 
 export default function Home() {
-  // Resolve deep link on initial render to avoid homepage flash (e.g., /adelanto from QR code)
-  const initialPath = typeof window !== 'undefined' ? window.location.pathname.replace(/^\//, '') : '';
-  const initialCultivar = initialPath ? cultivars.find(c => c.id === initialPath) : null;
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
+  );
+}
 
-  const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(initialCultivar || cultivars[0]);
-  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(initialCultivar || cultivars[0]);
+function HomeContent() {
+  const searchParams = useSearchParams();
+
+  const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
+  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isHomepage, setIsHomepage] = useState(!initialCultivar);
+  const [isHomepage, setIsHomepage] = useState(true);
   
   const [filters, setFilters] = useState<FilterState>({
     flowerType: [],
@@ -175,8 +182,21 @@ export default function Home() {
     };
   }, []);
 
-  // Deep link resolution now happens at initialization (above useState calls)
-  // so there's no flash of homepage content before the correct cultivar appears.
+  // Deep link support: next.config.ts rewrites /adelanto → /?cultivar=adelanto
+  // useSearchParams is SSR-safe so this avoids hydration mismatches
+  useEffect(() => {
+    const cultivarId = searchParams.get('cultivar');
+    if (cultivarId) {
+      const cultivar = cultivars.find(c => c.id === cultivarId);
+      if (cultivar) {
+        setSelectedCultivar(cultivar);
+        setDisplayedCultivar(cultivar);
+        setIsHomepage(false);
+        // Show the clean /adelanto URL instead of /?cultivar=adelanto
+        window.history.replaceState({}, '', '/' + cultivarId);
+      }
+    }
+  }, [searchParams]);
 
   // Filter cultivars based on active filters
   const filteredCultivars = cultivars.filter(cultivar => {

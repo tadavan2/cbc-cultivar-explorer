@@ -167,7 +167,7 @@ export async function POST(request: NextRequest) {
     const resend = getResend();
     await resend.emails.send({
       from: 'CBC Cultivar Explorer <explorer@cbcberry.com>',
-      to: [process.env.CONTACT_EMAIL || 'kyle@cbcberry.com'],
+      to: [process.env.CONTACT_EMAIL || 'admin@cbcberry.com'],
       subject: `New Contact: ${safeName}${safeCompany ? ` from ${safeCompany}` : ''}${safeCultivar ? ` - Interested in ${safeCultivar}` : ''}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

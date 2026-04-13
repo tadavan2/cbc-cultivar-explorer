@@ -137,37 +137,41 @@ export const cultivarFirmnessRange: { [cultivarId: string]: [number, number] } =
 
 // Base cultivar data - can be loaded from CSV/Excel
 export const cultivarChartData: { [cultivarId: string]: CultivarChartData } = {
+  // Fallback only (CSV preferred). Mirrors public/data/csv/alturas.csv — DN season Mar–Sep; firmness only where measured.
   alturas: {
     cultivarId: 'alturas',
     cultivarName: 'Alturas',
     yield: [
-      { month: 'Sep', value: 1406 },
-      { month: 'Oct', value: 2413 },
-      { month: 'Nov', value: 671 },
-      { month: 'Dec', value: 589 },
-      { month: 'Jan', value: 223 }
+      { month: 'Mar', value: 37 },
+      { month: 'Apr', value: 313 },
+      { month: 'May', value: 647 },
+      { month: 'Jun', value: 1223 },
+      { month: 'Jul', value: 1039 },
+      { month: 'Aug', value: 441 },
+      { month: 'Sep', value: 255 },
     ],
     firmness: [
-      { month: 'Sep', value: 8.2 },
-      { month: 'Oct', value: 8.5 },
-      { month: 'Nov', value: 8.3 },
-      { month: 'Dec', value: 8.1 },
-      { month: 'Jan', value: 8.0 }
+      { month: 'May', value: 1.15 },
+      { month: 'Jun', value: 1.11 },
+      { month: 'Jul', value: 1.05 },
     ],
     size: [
-      { month: 'Sep', value: 18.5 },
-      { month: 'Oct', value: 19.1 },
-      { month: 'Nov', value: 18.8 },
-      { month: 'Dec', value: 17.2 },
-      { month: 'Jan', value: 17.5 }
+      { month: 'Mar', value: 41.3 },
+      { month: 'Apr', value: 42 },
+      { month: 'May', value: 48.4 },
+      { month: 'Jun', value: 41.6 },
+      { month: 'Jul', value: 31.7 },
+      { month: 'Aug', value: 26.9 },
+      { month: 'Sep', value: 23.9 },
     ],
     appearance: [
-      { month: 'Sep', value: 9.1 },
-      { month: 'Oct', value: 9.3 },
-      { month: 'Nov', value: 9.0 },
-      { month: 'Dec', value: 8.7 },
-      { month: 'Jan', value: 8.8 }
-    ]
+      { month: 'Apr', value: 3.34 },
+      { month: 'May', value: 3.88 },
+      { month: 'Jun', value: 4.12 },
+      { month: 'Jul', value: 4.26 },
+      { month: 'Aug', value: 3.82 },
+      { month: 'Sep', value: 3.89 },
+    ],
   }
 };
 

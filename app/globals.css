@@ -93,6 +93,14 @@
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
 }
 
+/* Scoped to custom 404 only — matches www marketing page body font + kills default anchor underline / visited purple. */
+.cbc-marketing-not-found {
+  font-family: var(--font-body);
+}
+.cbc-marketing-not-found a {
+  text-decoration-line: none;
+}
+
 /* Shared reusable theme styles are imported in layout.tsx */
 
 /* ============================================================================

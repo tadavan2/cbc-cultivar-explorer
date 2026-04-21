@@ -1,13 +1,13 @@
 import Link from "next/link";
 
 /**
- * Mirrors cbc-homepage `app/not-found.tsx` layout/classes; URLs target www + cultivars home.
+ * Mirrors cbc-homepage marketing 404; URLs target www + cultivars home.
  */
 
 export default function NotFound() {
   return (
-    <div className="cbc-marketing-not-found relative z-10 min-h-screen bg-[var(--cbc-blue)] flex items-center justify-center px-4">
-      <div className="text-center max-w-xl">
+    <div className="cbc-marketing-not-found relative z-10 min-h-screen bg-[var(--cbc-blue)] flex items-center justify-center px-4 py-14 sm:py-16">
+      <div className="w-full max-w-xl text-center">
         <div className="inline-block bg-[var(--cbc-red)] text-white text-sm font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-wider">
           Page Not Found
         </div>
@@ -17,56 +17,56 @@ export default function NotFound() {
           doesn&apos;t exist.
         </h1>
 
-        <p className="text-white/80 text-lg mb-8 leading-relaxed">
+        <p className="text-white/80 text-lg mb-10 leading-relaxed">
           The page you&apos;re looking for may have moved or no longer exists.
           <br />
           Let&apos;s get you back on track.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
+        <div className="not-found-actions">
           <Link
             href="/"
-            className="btn-hover-gold inline-flex items-center justify-center shrink-0 max-w-[min(100%,20rem)] text-balance bg-[var(--cbc-gold)] text-black px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm leading-snug no-underline decoration-transparent visited:text-black focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:outline-none sm:max-w-none sm:whitespace-nowrap"
+            className="not-found-btn not-found-btn--primary btn-hover-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cbc-blue)]"
           >
             Back to Cultivar Explorer
           </Link>
           <a
             href="https://www.cbcberry.com"
-            className="btn-hover-ghost inline-flex items-center justify-center shrink-0 bg-white/10 border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm no-underline decoration-transparent hover:bg-white/20 visited:text-white focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:outline-none"
+            className="not-found-btn not-found-btn--ghost btn-hover-ghost focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cbc-blue)]"
           >
             CBC Homepage
           </a>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/20">
-          <p className="text-white/60 text-sm mb-4">Quick Links</p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center text-sm">
+        <nav className="mt-16 border-t border-white/20 pt-10" aria-label="Quick links to main site">
+          <p className="text-white/60 text-sm mb-5">Quick Links</p>
+          <div className="not-found-quicklinks text-sm">
             <Link
               href="https://www.cbcberry.com/breeding"
-              className="text-[var(--cbc-gold)] no-underline decoration-transparent hover:text-white visited:text-[var(--cbc-gold)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:outline-none rounded"
+              className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
             >
               Breeding Program
             </Link>
             <Link
               href="https://www.cbcberry.com/about"
-              className="text-[var(--cbc-gold)] no-underline decoration-transparent hover:text-white visited:text-[var(--cbc-gold)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:outline-none rounded"
+              className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
             >
               About Us
             </Link>
             <Link
               href="https://www.cbcberry.com/contact"
-              className="text-[var(--cbc-gold)] no-underline decoration-transparent hover:text-white visited:text-[var(--cbc-gold)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:outline-none rounded"
+              className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
             >
               Contact
             </Link>
             <Link
               href="https://www.cbcberry.com/careers"
-              className="text-[var(--cbc-gold)] no-underline decoration-transparent hover:text-white visited:text-[var(--cbc-gold)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:outline-none rounded"
+              className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
             >
               Careers
             </Link>
           </div>
-        </div>
+        </nav>
       </div>
     </div>
   );

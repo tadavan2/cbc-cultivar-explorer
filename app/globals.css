@@ -101,6 +101,81 @@
   text-decoration-line: none;
 }
 
+/* Explicit layout fallbacks (some agent/tailwind stacks collapse flex gap or link spacing). */
+.cbc-marketing-not-found .not-found-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .cbc-marketing-not-found .not-found-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+}
+
+.cbc-marketing-not-found .not-found-actions .not-found-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 3.5rem;
+  padding: 1.125rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: 100%;
+  max-width: 22rem;
+}
+@media (min-width: 640px) {
+  .cbc-marketing-not-found .not-found-actions .not-found-btn {
+    width: auto;
+    min-width: 17.5rem;
+    max-width: none;
+    padding-inline: 2rem;
+  }
+}
+
+.cbc-marketing-not-found .not-found-actions .not-found-btn--primary {
+  color: #000000 !important;
+  background-color: var(--cbc-gold);
+  border: none;
+}
+.cbc-marketing-not-found .not-found-actions .not-found-btn--primary:visited {
+  color: #000000 !important;
+}
+
+.cbc-marketing-not-found .not-found-actions .not-found-btn--ghost {
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.cbc-marketing-not-found .not-found-actions .not-found-btn--ghost:visited {
+  color: #ffffff !important;
+}
+
+.cbc-marketing-not-found .not-found-quicklinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.5rem;
+  row-gap: 0.75rem;
+}
+.cbc-marketing-not-found .not-found-quicklinks a {
+  display: inline-block;
+  flex: 0 1 auto;
+  white-space: nowrap;
+}
+
 /* Shared reusable theme styles are imported in layout.tsx */
 
 /* ============================================================================

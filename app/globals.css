@@ -123,24 +123,28 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 3.5rem;
-  padding: 1.125rem 1.75rem;
+  min-height: 3.625rem;
+  padding: 1.25rem 1.5rem;
   border-radius: 9999px;
   font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.35rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   width: 100%;
-  max-width: 22rem;
+  max-width: 20rem;
 }
 @media (min-width: 640px) {
   .cbc-marketing-not-found .not-found-actions .not-found-btn {
-    width: auto;
-    min-width: 17.5rem;
-    max-width: none;
-    padding-inline: 2rem;
+    /* Equal-width pills; room for long “Back to Cultivar Explorer” line-wrapping. */
+    width: 16.5rem;
+    min-width: unset;
+    max-width: 16.5rem;
+    padding-inline: 1.25rem;
+    min-height: 3.75rem;
+    font-size: 0.75rem;
+    line-height: 1.2rem;
   }
 }
 

@@ -47,10 +47,51 @@
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CBC marketing tokens + utilities — parity with cbc-homepage not-found (custom 404 only). */
+:root {
+  --cbc-blue: #355e82;
+  --cbc-blue-light: #c4daf4;
+  --cbc-gold: #fdbd51;
+  --cbc-green: #6e903c;
+  --cbc-red-dark: #920000;
+  --cbc-red: #c93834;
+  --cbc-red-bright: #ff3b3b;
+  --cbc-bg-cream: #f7f6f2;
+  --font-display: "Jost", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Standardized button hover utilities — glow + inset highlight, no filter (homepage parity) */
+.btn-hover-gold {
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+.btn-hover-gold:hover {
+  box-shadow:
+    0 0 20px rgba(253, 189, 81, 0.35),
+    inset 0 0 24px rgba(255, 255, 255, 0.12);
+}
+
+.btn-hover-ghost {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.btn-hover-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
 
 /* Shared reusable theme styles are imported in layout.tsx */
 

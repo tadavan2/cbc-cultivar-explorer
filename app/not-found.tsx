@@ -31,53 +31,59 @@ export default function NotFound() {
           </p>
           <p className="mb-10 text-sm text-white/60">Pick a destination below.</p>
 
-          <div className="not-found-actions">
-            <Link
-              href="/"
-              className="not-found-btn not-found-btn--primary btn-hover-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cbc-blue)]"
-            >
-              Back to Cultivar Explorer
-            </Link>
-            <a
-              href="https://www.cbcberry.com"
-              className="not-found-btn not-found-btn--ghost btn-hover-ghost focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cbc-blue)]"
-            >
-              CBC Homepage
-            </a>
-          </div>
-
-          <nav
-            className="mt-14 border-t border-white/20 pt-9"
-            aria-label="Quick links to main site"
-          >
-            <p className="mb-4 text-sm text-white/60">Quick Links</p>
-            <div className="not-found-quicklinks text-sm">
+          <div className="not-found-main-actions flex flex-col gap-12 sm:gap-16">
+            <div className="not-found-actions">
               <Link
-                href="https://www.cbcberry.com/breeding"
-                className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
+                href="/"
+                className="not-found-btn not-found-btn--primary btn-hover-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cbc-blue)]"
               >
-                Breeding Program
+                Back to Cultivar Explorer
               </Link>
-              <Link
-                href="https://www.cbcberry.com/about"
-                className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
+              <a
+                href="https://www.cbcberry.com"
+                className="not-found-btn not-found-btn--ghost btn-hover-ghost focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cbc-blue)]"
               >
-                About Us
-              </Link>
-              <Link
-                href="https://www.cbcberry.com/contact"
-                className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
-              >
-                Contact
-              </Link>
-              <Link
-                href="https://www.cbcberry.com/careers"
-                className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
-              >
-                Careers
-              </Link>
+                CBC Homepage
+              </a>
             </div>
-          </nav>
+
+            <nav
+              className="not-found-quicklinks-nav w-full"
+              aria-label="Quick links to main site"
+            >
+              <div
+                className="not-found-section-rule mx-auto mb-8 h-px max-w-[12rem] bg-white/25 sm:mb-10 sm:max-w-[18rem]"
+                aria-hidden="true"
+              />
+              <p className="mb-4 text-sm text-white/60">Quick Links</p>
+              <div className="not-found-quicklinks text-sm">
+                <Link
+                  href="https://www.cbcberry.com/breeding"
+                  className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
+                >
+                  Breeding Program
+                </Link>
+                <Link
+                  href="https://www.cbcberry.com/about"
+                  className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
+                >
+                  About Us
+                </Link>
+                <Link
+                  href="https://www.cbcberry.com/contact"
+                  className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="https://www.cbcberry.com/careers"
+                  className="text-[var(--cbc-gold)] transition-colors hover:text-white visited:text-[var(--cbc-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cbc-gold)] rounded"
+                >
+                  Careers
+                </Link>
+              </div>
+            </nav>
+          </div>
         </div>
       </div>
 

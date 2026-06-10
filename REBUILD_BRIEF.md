@@ -13,38 +13,40 @@ Copy-paste this to start tomorrow (start the session with BOTH repos:
 `cbc-cultivar-explorer` and the homepage repo):
 
 ```
-We're rebuilding the CBC Cultivar Explorer UI to match the cbcberry.com homepage
-design language. The strategy, design tokens, salvage/scrap lists, and build
-sequence are already decided and documented — read these two files in the
-cbc-cultivar-explorer repo first and follow them:
+This is an EXECUTION session — do not re-audit and do not write a new plan.
+The audit and rebuild plan are finished and merged. We are rebuilding the CBC
+Cultivar Explorer frontend to match the cbcberry.com homepage design language:
+a full new UI, keeping the existing backend/data logic (content JSONs, CSVs,
+charts, i18n, contact API).
 
-1. REBUILD_BRIEF.md       — the plan for THIS rebuild (read fully, it's the spec)
-2. REFACTOR_AUDIT_2026-06.md — the audit; explains what's broken and why we're
-   rebuilding instead of refactoring (skim §0 and §1)
+Read REBUILD_BRIEF.md in cbc-cultivar-explorer — it is the spec. Follow its
+salvage/scrap lists, design tokens, and decisions-already-made section without
+relitigating them. The audit (REFACTOR_AUDIT_2026-06.md) is reference only.
+data/cultivarRegistry.ts already exists and is the single source of truth for
+all per-cultivar config — build everything against it.
 
-Also already prepared: data/cultivarRegistry.ts — the unified cultivar registry
-(single source of truth consolidating 9 scattered legacy lists). The rebuild
-consumes this; legacy data files stay untouched until cutover.
+From the homepage repo, lift the real design system: its Tailwind v4 setup,
+the --cbc-* tokens, nav/header, card grid, pill buttons, eyebrow labels. The
+explorer must feel like the same product as the homepage.
 
-From the homepage repo, extract the real design system: Tailwind v4 setup
-(globals/theme CSS), the --cbc-* token definitions, nav/header, card grid,
-pill button, and eyebrow-label components. The explorer should feel like the
-same product as the homepage.
+Start building immediately, in this order (Phases R1→R2 from the brief; keep
+going into R3 if time allows):
+1. New routes: app/[cultivarId]/page.tsx with generateStaticParams from
+   registry routableIds, content.json loaded server-side, per-cultivar
+   metadata. Proper Tailwind v4 setup (preflight ON) + cbc-tokens.css ported
+   from the homepage.
+2. Explorer home: cultivar grid in homepage card language, trait filters
+   (port the AND-logic from CultivarFilterPanel, new UI), mobile-first nav.
+3. Detail page: banner, carousel (reuse ImageCarousel), trait chips + info
+   overlays, metrics, recommendations, charts (reuse CultivarChart/
+   SpiderChart), ONE comparison selector driven by registry.comparison,
+   contact form (reuse ContactForm).
 
-Today's goal — Phase R1 from REBUILD_BRIEF.md:
-- New route structure: app/page.tsx (homepage/grid) + app/[cultivarId]/page.tsx,
-  generateStaticParams from registry routableIds, content.json loaded
-  server-side, metadata per cultivar.
-- Proper Tailwind v4 setup copied from the homepage repo (preflight ON from the
-  start — nothing legacy depends on the new routes yet).
-- cbc-tokens.css ported from the homepage as the canonical token file.
-- A bare-but-correctly-styled cultivar page shell (banner, name, description
-  from content.json) proving the pipeline end to end on mobile viewport sizes.
-
-Build the new UI alongside the old app on a branch; do not modify the legacy
-page.tsx / CultivarDetailCardV2 / globals.css until cutover. Verify with
-`npm run build` and screenshots at 390×844 (iPhone), 820×1180 (iPad), and
-desktop. Mobile-first: this product's primary audience is iPhone/iPad users.
+Rules: build alongside the old app on a branch; never modify legacy page.tsx,
+CultivarDetailCardV2, globals.css, or cultivar-themes.css until cutover.
+Verify with npm run build and screenshots at 390×844 (iPhone) and 820×1180
+(iPad) before desktop — primary audience is iPhone/iPad users. Commit and
+push as each phase lands.
 ```
 
 ---

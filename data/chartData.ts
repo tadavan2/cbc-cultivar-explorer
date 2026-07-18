@@ -38,6 +38,7 @@
  */
 
 import { Cultivar } from '../types/cultivar';
+import { cultivarUIConfigs, cultivarConfigById, GROUP_INFO } from './cultivarConfig';
 
 // Chart data interfaces
 export interface MonthlyDataPoint {
@@ -109,31 +110,16 @@ export const chartMetrics: { [key: string]: ChartMetric } = {
 };
 
 // Cultivar-specific yield y-axis maximums (overrides default 1000)
-export const cultivarYieldMax: { [cultivarId: string]: number } = {
-  'alturas': 1250,        // High yielding, peak values ~2400
-  'castaic': 1100,        // High yielding short-day
-  'carpinteria': 1000,    // Moderate-high yielding
-  'adelanto': 900,       // Early high yielding 
-  'belvedere': 900,       // Lower yielding but premium
-  'alhambra': 500,        // Summer plant, lower yield
-  'artesia': 1000,        // Moderate yielding
-  'brisbane': 1000,
-  'sweet-carolina': 500, // Moderate yielding
-  // Others will use default 1000
-};
+// Values are declared per-cultivar in data/cultivarConfig.ts
+export const cultivarYieldMax: { [cultivarId: string]: number } = Object.fromEntries(
+  cultivarUIConfigs.filter(c => c.yieldMax !== undefined).map(c => [c.id, c.yieldMax as number])
+);
 
 // Cultivar-specific firmness y-axis ranges (overrides default [0.75, 1.75])
-export const cultivarFirmnessRange: { [cultivarId: string]: [number, number] } = {
-  'alturas': [1, 1.4],
-  'castaic': [1.1, 1.5], 
-  'carpinteria': [1, 1.5],
-  'adelanto': [1.1, 1.6],
-  'belvedere': [1, 1.6],
-  'alhambra': [1, 1.4],
-  'artesia': [1, 1.6],
-  'brisbane': [1, 1.4],
-  // Others will use default [0.75, 1.75]
-};
+// Values are declared per-cultivar in data/cultivarConfig.ts
+export const cultivarFirmnessRange: { [cultivarId: string]: [number, number] } = Object.fromEntries(
+  cultivarUIConfigs.filter(c => c.firmnessRange !== undefined).map(c => [c.id, c.firmnessRange as [number, number]])
+);
 
 // Base cultivar data - can be loaded from CSV/Excel
 export const cultivarChartData: { [cultivarId: string]: CultivarChartData } = {
@@ -329,44 +315,17 @@ export async function loadCultivarDataFromCSV(cultivarId: string): Promise<Culti
   }
 }
 
-// Get available cultivars from CSV files
+// Get available cultivars for the chart selector (order = declaration order in cultivarConfig.ts)
 export function getAvailableCultivarsFromCSV(): string[] {
-  return [
-    // Day-Neutral (March-October)
-    'alturas', 'san-andreas', 'cabrillo', 'monterey', 'brisbane', 'carpinteria', 'artesia',
-    // Short-Day (December-May) 
-    'adelanto', 'belvedere', 'castaic', 'fronteras',
-    // Summer Plant Day-Neutral (October-January)
-    'portola', 'alhambra'
-  ];
+  return cultivarUIConfigs.filter(c => c.inChartSelector).map(c => c.id);
 }
 
-// Get cultivar type and season info
+// Get cultivar type and season info (group declared in cultivarConfig.ts)
 export function getCultivarInfo(cultivarId: string): { type: string; season: string; months: string[] } {
-  const dayNeutralCultivars = ['alturas', 'san-andreas', 'cabrillo', 'monterey', 'brisbane', 'carpinteria', 'artesia'];
-  const shortDayCultivars = ['adelanto', 'belvedere', 'castaic', 'fronteras'];
-  const summerPlantCultivars = ['portola', 'alhambra'];
-  
-  if (dayNeutralCultivars.includes(cultivarId)) {
-    return { 
-      type: 'Day-Neutral', 
-      season: 'Spring-Fall',
-      months: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
-    };
-  } else if (shortDayCultivars.includes(cultivarId)) {
-    return { 
-      type: 'Short-Day', 
-      season: 'Winter-Spring',
-      months: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May']
-    };
-  } else if (summerPlantCultivars.includes(cultivarId)) {
-    return { 
-      type: 'Summer Plant Day-Neutral', 
-      season: 'Fall-Winter',
-      months: ['Oct', 'Nov', 'Dec', 'Jan']
-    };
+  const group = cultivarConfigById[cultivarId]?.group;
+  if (group) {
+    return GROUP_INFO[group];
   }
-  
   return { type: 'Unknown', season: 'Unknown', months: [] };
 }
 
@@ -464,25 +423,17 @@ export async function getChartDataFromCSV(
 
 // Get smart comparison cultivars based on selected cultivar
 export function getSmartComparisonCultivars(selectedCultivarId: string): string[] {
-  const selectedInfo = getCultivarInfo(selectedCultivarId);
-  const allCultivars = getAvailableCultivarsFromCSV();
-  
-  // Group cultivars by type for smart suggestions
-  const dayNeutralCultivars = ['alturas', 'san-andreas', 'cabrillo', 'monterey', 'brisbane', 'carpinteria', 'artesia'];
-  const shortDayCultivars = ['adelanto', 'belvedere', 'castaic', 'fronteras'];
-  const summerPlantCultivars = ['portola', 'alhambra'];
-  
-  // Return cultivars of the same type, excluding the selected one
-  if (dayNeutralCultivars.includes(selectedCultivarId)) {
-    return dayNeutralCultivars.filter(id => id !== selectedCultivarId);
-  } else if (shortDayCultivars.includes(selectedCultivarId)) {
-    return shortDayCultivars.filter(id => id !== selectedCultivarId);
-  } else if (summerPlantCultivars.includes(selectedCultivarId)) {
-    return summerPlantCultivars.filter(id => id !== selectedCultivarId);
+  const group = cultivarConfigById[selectedCultivarId]?.group;
+
+  // Return chart-selector cultivars of the same group, excluding the selected one
+  if (group) {
+    return cultivarUIConfigs
+      .filter(c => c.group === group && c.inChartSelector && c.id !== selectedCultivarId)
+      .map(c => c.id);
   }
-  
+
   // Fallback: return all except selected
-  return allCultivars.filter(id => id !== selectedCultivarId);
+  return getAvailableCultivarsFromCSV().filter(id => id !== selectedCultivarId);
 }
 
 // Get default comparison cultivar for a given primary cultivar

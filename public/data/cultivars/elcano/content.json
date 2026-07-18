@@ -1,0 +1,37 @@
+{
+  "id": "elcano",
+  "name": "Elcano",
+  "displayName": "Elcano™",
+  "type": "short-day",
+  "description": {
+    "title": "Elcano™ - Large Fruit, High Firmness Short Day Strawberry",
+    "paragraphs": [
+      "Elcano™ (CBC027) is a short-day strawberry variety developed by California Berry Cultivars with excellent performance under macrotunnels in Huelva, Spain and central Mexico. It produces extra-large, firm fruit with 9–11 °Brix on average — among the highest values of all materials evaluated, reaching up to 14 in juice fruit.",
+      "In Huelva trials, Elcano™ accumulated 1,317 g/plant from January through April of the 2026 season (in progress), following a complete 2025 season of 1,335 g/plant with a March peak of 484 g/plant. In Zamora, Michoacán, Elcano™ outperformed Bounty by more than 35% on yield during December.",
+      "Fruit averages 36–38 grams — extra large and very uniform — with firmness of 1.01–1.09 lb/in² for excellent shelf life. Appearance scores are consistent across plots, and the variety performs reliably under macrotunnel production.",
+      "Elcano™ offers real flexibility: plant plugs for early harvest or bare root for larger fruit late in the cycle. Recommended spacing is 35 cm, which delivered 28% higher yield than 23 cm in Huelva. Available through CBC and Eurosemillas."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/elcano/banner.jpg",
+    "carousel": []
+  },
+  "features": [
+    "Extra-large, uniform fruit (36–38 g)",
+    "9–11 °Brix average — highest evaluated",
+    "Excellent shelf life (1.01–1.09 lb/in²)",
+    "Proven under macrotunnels in Huelva and central Mexico"
+  ],
+  "performanceMetrics": {
+    "yield": "1,317 grams/plant (Jan–Apr 2026)",
+    "size": "36–38 grams",
+    "appearance": "3.0 average",
+    "firmness": "1.01–1.09 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Central Mexico (macrotunnel): Aug 15 · Huelva, Spain: October",
+    "chill": "Standard short-day chill programs apply. Consult your CBC representative for site-specific recommendations.",
+    "fertility": "Standard pre-plant and in-season fertility programs for short-day macrotunnel production. Consult your CBC representative for site-specific recommendations.",
+    "other": "Standard spray programs for powdery mildew, botrytis, and mites. Plant plugs for early harvest or bare root for larger late-cycle fruit. Recommended spacing 35 cm (+28% yield vs 23 cm in Huelva). Available through CBC and Eurosemillas."
+  }
+}

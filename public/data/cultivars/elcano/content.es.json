@@ -1,0 +1,37 @@
+{
+  "id": "elcano",
+  "name": "Elcano",
+  "displayName": "Elcano™",
+  "type": "short-day",
+  "description": {
+    "title": "Elcano™ - Fresa de Día Corto de Fruta Grande y Alta Firmeza",
+    "paragraphs": [
+      "Elcano™ (CBC027) es una variedad de fresa de día corto desarrollada por California Berry Cultivars, con excelente rendimiento bajo macrotúneles en Huelva, España y en el centro de México. Produce fruta extra grande y firme, con 9–11 °Brix en promedio — entre los valores más altos de todos los materiales evaluados, alcanzando hasta 14 en fruta para jugo.",
+      "En los ensayos de Huelva, Elcano™ acumuló 1,317 g/planta de enero a abril de la temporada 2026 (en curso), tras una temporada 2025 completa de 1,335 g/planta con un pico de 484 g/planta en marzo. En Zamora, Michoacán, Elcano™ superó a Bounty por más del 35% en rendimiento durante diciembre.",
+      "La fruta promedia 36–38 gramos — extra grande y muy uniforme — con firmeza de 1.01–1.09 lb/in² para una excelente vida de anaquel. Las puntuaciones de apariencia son consistentes entre parcelas, y la variedad rinde de manera confiable bajo producción en macrotúnel.",
+      "Elcano™ ofrece verdadera flexibilidad: planta en cepellón para cosecha temprana o raíz desnuda para mayor tamaño al final del ciclo. El espaciado recomendado es de 35 cm, que entregó 28% más rendimiento que 23 cm en Huelva. Disponible por medio de CBC y Eurosemillas."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/elcano/banner.jpg",
+    "carousel": []
+  },
+  "features": [
+    "Fruta extra grande y uniforme (36–38 g)",
+    "9–11 °Brix en promedio — el más alto evaluado",
+    "Excelente vida de anaquel (1.01–1.09 lb/in²)",
+    "Probada bajo macrotúneles en Huelva y el centro de México"
+  ],
+  "performanceMetrics": {
+    "yield": "1,317 gramos/planta (ene–abr 2026)",
+    "size": "36–38 gramos",
+    "appearance": "3.0 promedio",
+    "firmness": "1.01–1.09 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Centro de México (macrotúnel): 15 de agosto · Huelva, España: octubre",
+    "chill": "Aplican programas estándar de frío para día corto. Consulte a su representante de CBC para recomendaciones específicas del sitio.",
+    "fertility": "Programas estándar de fertilidad pre-plantación y durante la temporada para producción de día corto en macrotúnel. Consulte a su representante de CBC para recomendaciones específicas del sitio.",
+    "other": "Programas estándar de aspersión para oídio (cenicilla), botrytis y ácaros. Planta en cepellón para cosecha temprana o raíz desnuda para mayor tamaño al final del ciclo. Espaciado recomendado 35 cm (+28% de rendimiento vs 23 cm en Huelva). Disponible por medio de CBC y Eurosemillas."
+  }
+}

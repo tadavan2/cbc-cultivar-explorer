@@ -1,0 +1,37 @@
+{
+  "id": "dunsmuir",
+  "name": "Dunsmuir",
+  "displayName": "Dunsmuir™",
+  "type": "short-day",
+  "description": {
+    "title": "Dunsmuir™ - High-Yield Fusarium Resistant Short Day",
+    "paragraphs": [
+      "Dunsmuir™ is California Berry Cultivars' newest short-day release, combining class-leading yield with strong Fusarium resistance confirmed in advanced greenhouse trials. In 2026 Oxnard trials it outperformed Adelanto™ and Belvedere™ by 22% on yield, with better appearance scores and larger fruit.",
+      "Across multi-year Oxnard trials (2021–2025), Dunsmuir™ led the field at 1,693 g/plant with 36.6 gram average fruit size, a 3.79 appearance score, and firmness of 1.19 lb/in² — squarely in the normal short-day range for excellent handling and shelf life.",
+      "Commercial performance backs up the trial data: at Petit Ranch in Oxnard, Dunsmuir™ delivered 7,450 trays per acre across the 2025–26 season, with 553 trays picked before February 1 — a strong early-production indicator when seasonal prices peak.",
+      "Dunsmuir™ is a licensed-access variety, available in limited quantities from CBC in fall 2026 and from California nurseries in fall 2027. Contact CBC early to secure your allocation."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/dunsmuir/banner.jpg",
+    "carousel": []
+  },
+  "features": [
+    "High-yield short-day new release",
+    "Strong Fusarium resistance",
+    "Larger fruit and better appearance than Adelanto",
+    "Licensed access — limited quantities fall 2026"
+  ],
+  "performanceMetrics": {
+    "yield": "1,693 grams/plant (multi-year OX)",
+    "size": "36.6 grams",
+    "appearance": "3.79 average",
+    "firmness": "1.19 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Oxnard, CA: standard fall planting windows",
+    "chill": "Standard short-day chill programs apply. Consult your CBC representative for site-specific recommendations.",
+    "fertility": "Standard pre-plant and in-season fertility programs for short-day varieties. Consult your CBC representative for site-specific recommendations.",
+    "other": "Strong Fusarium resistance confirmed in advanced greenhouse trials. Firmness 1.20 lb/in² is within the normal short-day range. Licensed access: available in limited quantities from CBC in fall 2026, and from California nurseries in fall 2027."
+  }
+}

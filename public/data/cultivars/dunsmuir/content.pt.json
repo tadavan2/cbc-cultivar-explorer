@@ -1,0 +1,37 @@
+{
+  "id": "dunsmuir",
+  "name": "Dunsmuir",
+  "displayName": "Dunsmuir™",
+  "type": "short-day",
+  "description": {
+    "title": "Dunsmuir™ - Dia Curto de Alto Rendimento Resistente a Fusarium",
+    "paragraphs": [
+      "Dunsmuir™ é o mais novo lançamento de dia curto da California Berry Cultivars, combinando rendimento líder em sua classe com forte resistência a Fusarium confirmada em ensaios avançados de estufa. Nos ensaios de Oxnard 2026, superou Adelanto™ e Belvedere™ em 22% no rendimento, com melhores notas de aparência e frutos maiores.",
+      "Em ensaios plurianuais de Oxnard (2021–2025), Dunsmuir™ liderou o grupo com 1.693 g/planta, tamanho médio de fruto de 36,6 gramas, nota de aparência de 3,79 e firmeza de 1,19 lb/in² — dentro da faixa normal de dia curto para excelente manuseio e vida de prateleira.",
+      "O desempenho comercial confirma os dados dos ensaios: na Petit Ranch em Oxnard, Dunsmuir™ entregou 7.450 bandejas por acre na temporada 2025–26, com 553 bandejas colhidas antes de 1º de fevereiro — um forte indicador de produção precoce quando os preços sazonais atingem o pico.",
+      "Dunsmuir™ é uma variedade de acesso licenciado, disponível em quantidades limitadas pela CBC no outono de 2026 e em viveiros da Califórnia no outono de 2027. Entre em contato com a CBC com antecedência para garantir sua alocação."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/dunsmuir/banner.jpg",
+    "carousel": []
+  },
+  "features": [
+    "Novo lançamento de dia curto de alto rendimento",
+    "Forte resistência a Fusarium",
+    "Frutos maiores e melhor aparência que Adelanto",
+    "Acesso licenciado — quantidades limitadas outono 2026"
+  ],
+  "performanceMetrics": {
+    "yield": "1.693 gramas/planta (plurianual OX)",
+    "size": "36,6 gramas",
+    "appearance": "3,79 média",
+    "firmness": "1,19 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Oxnard, CA: janelas padrão de plantio de outono",
+    "chill": "Aplicam-se programas padrão de frio para dia curto. Consulte seu representante CBC para recomendações específicas do local.",
+    "fertility": "Programas padrão de fertilidade pré-plantio e durante a temporada para variedades de dia curto. Consulte seu representante CBC para recomendações específicas do local.",
+    "other": "Forte resistência a Fusarium confirmada em ensaios avançados de estufa. Firmeza de 1,20 lb/in² está dentro da faixa normal de dia curto. Acesso licenciado: disponível em quantidades limitadas pela CBC no outono de 2026, e em viveiros da Califórnia no outono de 2027."
+  }
+}

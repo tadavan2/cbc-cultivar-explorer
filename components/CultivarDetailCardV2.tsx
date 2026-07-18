@@ -59,6 +59,7 @@ import ContactForm from './ContactForm';
 import ImageCarousel from './ImageCarousel';
 import InfoOverlayMobile from './InfoOverlayMobile';
 import { getDefaultComparisonCultivar } from '../data/chartData';
+import { cultivarConfigById } from '../data/cultivarConfig';
 import { getCultivarContent, CultivarContent } from '../data/cultivarContent';
 import { useLanguage, useTranslation } from './LanguageContext';
 
@@ -81,20 +82,13 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
   const [selectedCultivar, setSelectedCultivar] = useState(cultivar.id);
   const [comparisonCultivar, setComparisonCultivar] = useState<string | undefined>(undefined);
 
-  // Cultivar-specific configuration
+  // Cultivar-specific configuration (declared in data/cultivarConfig.ts)
   const cultivarConfig = useMemo(() => {
-    const configs: { [key: string]: { comparisonOptions: string[], hasDefaultComparison: boolean } } = {
-      'alturas': { comparisonOptions: ['monterey', 'cabrillo', 'carpinteria'], hasDefaultComparison: true },
-      'adelanto': { comparisonOptions: ['belvedere', 'castaic', 'fronteras'], hasDefaultComparison: false },
-      'alhambra': { comparisonOptions: ['portola'], hasDefaultComparison: false },
-      'artesia': { comparisonOptions: ['monterey', 'cabrillo'], hasDefaultComparison: false },
-      'belvedere': { comparisonOptions: ['adelanto', 'castaic', 'fronteras'], hasDefaultComparison: false },
-      'castaic': { comparisonOptions: ['adelanto', 'belvedere', 'fronteras'], hasDefaultComparison: false },
-      'carpinteria': { comparisonOptions: ['monterey', 'cabrillo', 'alturas'], hasDefaultComparison: false },
-      'brisbane': { comparisonOptions: ['monterey', 'cabrillo'], hasDefaultComparison: false },
-      'sweet-carolina': { comparisonOptions: ['ruby-june'], hasDefaultComparison: false }
+    const config = cultivarConfigById[cultivar.id];
+    return {
+      comparisonOptions: config?.comparisonOptions ?? [],
+      hasDefaultComparison: config?.hasDefaultComparison ?? false,
     };
-    return configs[cultivar.id] || { comparisonOptions: [], hasDefaultComparison: false };
   }, [cultivar.id]);
   
   // Get comparison options for current cultivar
@@ -111,20 +105,12 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
   const isBrisbanePage = cultivar.id === 'brisbane';
   const isSweetCarolinaPage = cultivar.id === 'sweet-carolina';
 
-  // Mobile fixed pair configuration
+  // Mobile fixed pair configuration (declared in data/cultivarConfig.ts;
+  // string = fixed comparison, null = fixed pair with no comparison, undefined = no pair)
   const mobileFixedPair = useMemo(() => {
-    const fixedPairs: { [key: string]: { primary: string, comparison: string | undefined } } = {
-      'alturas': { primary: 'alturas', comparison: 'monterey' },
-      'adelanto': { primary: 'adelanto', comparison: 'belvedere' },
-      'alhambra': { primary: 'alhambra', comparison: 'portola' },
-      'artesia': { primary: 'artesia', comparison: 'monterey' },
-      'belvedere': { primary: 'belvedere', comparison: undefined },
-      'castaic': { primary: 'castaic', comparison: 'fronteras' },
-      'carpinteria': { primary: 'carpinteria', comparison: 'monterey' },
-      'brisbane': { primary: 'brisbane', comparison: 'monterey' },
-      'sweet-carolina': { primary: 'sweet-carolina', comparison: 'ruby-june' }
-    };
-    return fixedPairs[cultivar.id] || null;
+    const pair = cultivarConfigById[cultivar.id]?.mobileFixedPair;
+    if (pair === undefined) return null;
+    return { primary: cultivar.id, comparison: pair ?? undefined };
   }, [cultivar.id]);
 
   // Reset comparison cultivar when switching between different cultivars

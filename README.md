@@ -100,6 +100,19 @@ The app includes multiple strawberry cultivars with the following information:
 - **Images**: Marketing banners and photo galleries
 - **Content**: Detailed descriptions and marketing copy
 
+### Adding a cultivar
+
+Per-cultivar UI configuration (chart grouping, comparison options, axis
+ranges, card icon availability, deep-link rewrites) is consolidated in
+**`data/cultivarConfig.ts`** — the full step-by-step checklist is in that
+file's header comment. Display data (name, traits, stats) lives in
+`data/cultivars.ts`; rich page content in `public/data/cultivars/{id}/`;
+chart data in `public/data/csv/{id}.csv` (+ a row in `spider_traits.csv`).
+Deep links (`/{id}`) derive automatically from `data/cultivars.ts`.
+
+Asset specs: banner 1200×400 jpg; card icon 859×275 png
+(`public/images/icons/{id}_card_icon.png`, plus `_es`/`_pt` variants).
+
 ## Responsive Design
 
 The application adapts to different screen sizes:

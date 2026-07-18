@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import { cultivars } from "./data/cultivars";
+
+// Every real cultivar page is deep-linkable ('debug' is the intro card, not a page)
+const deepLinkIds = cultivars.map(c => c.id).filter(id => id !== 'debug');
 
 const nextConfig: NextConfig = {
   // Allow cross-origin requests from mobile devices during development
@@ -9,11 +13,12 @@ const nextConfig: NextConfig = {
   ],
 
   // Deep link support: /adelanto → /?cultivar=adelanto
-  // Allows QR codes and direct URLs to open a specific cultivar
+  // Allows QR codes and direct URLs to open a specific cultivar.
+  // The id list derives from data/cultivars.ts — new cultivars deep-link automatically.
   async rewrites() {
     return [
       {
-        source: '/:cultivarId(alturas|adelanto|alhambra|artesia|belvedere|brisbane|castaic|carpinteria|sweet-carolina)',
+        source: `/:cultivarId(${deepLinkIds.join('|')})`,
         destination: '/?cultivar=:cultivarId',
       },
     ];

@@ -20,8 +20,8 @@
  * - imageGallery: Legacy image array (not actively used)
  * 
  * CULTIVAR COUNT:
- * Currently 11 cultivars: debug (home page), alturas, adelanto, alhambra, artesia,
- * belvedere, brisbane, castaic, carpinteria, sweet-carolina
+ * Currently 12 cultivars: debug (home page), alturas, adelanto, alhambra, artesia,
+ * belvedere, brisbane, castaic, carpinteria, sweet-carolina, dunsmuir, elcano
  * 
  * DATA FLOW:
  * - This file is imported by app/page.tsx for the cultivar list
@@ -217,6 +217,42 @@ export const cultivars: Cultivar[] = [
     },
     description: 'Cold-tolerant eastern variety with regional adaptation.',
     imageGallery: ['/images/sweet-carolina-1.jpg', '/images/sweet-carolina-2.jpg']
+  },
+  {
+    id: 'dunsmuir',
+    name: 'Dunsmuir',
+    emoji: '🚂',
+    imageUrl: '/images/dunsmuir.jpg',
+    flowerType: 'SD',
+    marketType: 'fall plant',
+    attributes: ['fusarium resistant'],
+    attribute2: ['high yields'],
+    stats: {
+      yieldKgPerHa: 47000,
+      brix: 8.5,
+      shelfLifeDays: 8,
+      fruitWeight: 36.6
+    },
+    description: 'High-yield short-day new release with strong Fusarium resistance — outperformed Adelanto and Belvedere by 22% in 2026 Oxnard trials.',
+    imageGallery: ['/images/dunsmuir-1.jpg', '/images/dunsmuir-2.jpg']
+  },
+  {
+    id: 'elcano',
+    name: 'Elcano',
+    emoji: '🧭',
+    imageUrl: '/images/elcano.jpg',
+    flowerType: 'SD',
+    marketType: 'fall plant',
+    attributes: ['excellent flavor', 'premium quality'],
+    attribute2: [],
+    stats: {
+      yieldKgPerHa: 40000,
+      brix: 10.0,
+      shelfLifeDays: 9,
+      fruitWeight: 37.0
+    },
+    description: 'Short-day variety for macrotunnel production in Huelva and central Mexico — extra-large firm fruit with the highest Brix of any CBC evaluation.',
+    imageGallery: ['/images/elcano-1.jpg', '/images/elcano-2.jpg']
   }
 ];
 

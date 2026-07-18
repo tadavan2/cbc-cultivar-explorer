@@ -1,0 +1,37 @@
+{
+  "id": "dunsmuir",
+  "name": "Dunsmuir",
+  "displayName": "Dunsmuir™",
+  "type": "short-day",
+  "description": {
+    "title": "Dunsmuir™ - Día Corto de Alto Rendimiento Resistente a Fusarium",
+    "paragraphs": [
+      "Dunsmuir™ es el lanzamiento de día corto más reciente de California Berry Cultivars, combinando rendimiento líder en su clase con fuerte resistencia a Fusarium confirmada en ensayos avanzados de invernadero. En los ensayos de Oxnard 2026 superó a Adelanto™ y Belvedere™ por 22% en rendimiento, con mejores puntuaciones de apariencia y fruta más grande.",
+      "En ensayos multianuales de Oxnard (2021–2025), Dunsmuir™ lideró el grupo con 1,693 g/planta, tamaño promedio de fruta de 36.6 gramos, puntuación de apariencia de 3.79 y firmeza de 1.19 lb/in² — dentro del rango normal de día corto para excelente manejo y vida de anaquel.",
+      "El desempeño comercial respalda los datos de los ensayos: en Petit Ranch en Oxnard, Dunsmuir™ entregó 7,450 charolas por acre en la temporada 2025–26, con 553 charolas cosechadas antes del 1 de febrero — un fuerte indicador de producción temprana cuando los precios estacionales alcanzan su máximo.",
+      "Dunsmuir™ es una variedad de acceso licenciado, disponible en cantidades limitadas de CBC en otoño de 2026 y de viveros de California en otoño de 2027. Contacte a CBC con anticipación para asegurar su asignación."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/dunsmuir/banner.jpg",
+    "carousel": []
+  },
+  "features": [
+    "Nuevo lanzamiento de día corto de alto rendimiento",
+    "Fuerte resistencia a Fusarium",
+    "Fruta más grande y mejor apariencia que Adelanto",
+    "Acceso licenciado — cantidades limitadas otoño 2026"
+  ],
+  "performanceMetrics": {
+    "yield": "1,693 gramos/planta (multianual OX)",
+    "size": "36.6 gramos",
+    "appearance": "3.79 promedio",
+    "firmness": "1.19 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Oxnard, CA: ventanas estándar de plantación de otoño",
+    "chill": "Aplican programas estándar de frío para día corto. Consulte a su representante de CBC para recomendaciones específicas del sitio.",
+    "fertility": "Programas estándar de fertilidad pre-plantación y durante la temporada para variedades de día corto. Consulte a su representante de CBC para recomendaciones específicas del sitio.",
+    "other": "Fuerte resistencia a Fusarium confirmada en ensayos avanzados de invernadero. La firmeza de 1.20 lb/in² está dentro del rango normal de día corto. Acceso licenciado: disponible en cantidades limitadas de CBC en otoño de 2026, y de viveros de California en otoño de 2027."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "elcano",
+  "name": "Elcano",
+  "displayName": "Elcano™",
+  "type": "short-day",
+  "description": {
+    "title": "Elcano™ - Morango de Dia Curto de Fruto Grande e Alta Firmeza",
+    "paragraphs": [
+      "Elcano™ (CBC027) é uma variedade de morango de dia curto desenvolvida pela California Berry Cultivars, com excelente desempenho sob macrotúneis em Huelva, Espanha e no centro do México. Produz frutos extragrandes e firmes, com 9–11 °Brix em média — entre os valores mais altos de todos os materiais avaliados, chegando a 14 em frutos para suco.",
+      "Nos ensaios de Huelva, Elcano™ acumulou 1.317 g/planta de janeiro a abril da temporada 2026 (em andamento), após uma temporada 2025 completa de 1.335 g/planta com pico de 484 g/planta em março. Em Zamora, Michoacán, Elcano™ superou Bounty em mais de 35% no rendimento durante dezembro.",
+      "Os frutos têm em média 36–38 gramas — extragrandes e muito uniformes — com firmeza de 1,01–1,09 lb/in² para excelente vida de prateleira. As notas de aparência são consistentes entre parcelas, e a variedade produz de forma confiável sob macrotúnel.",
+      "Elcano™ oferece verdadeira flexibilidade: mudas com torrão para colheita precoce ou raiz nua para frutos maiores no final do ciclo. O espaçamento recomendado é de 35 cm, que entregou 28% mais rendimento que 23 cm em Huelva. Disponível através da CBC e Eurosemillas."
+    ]
+  },
+  "images": {
+    "banner": "/images/cultivars/elcano/banner.jpg",
+    "carousel": []
+  },
+  "features": [
+    "Frutos extragrandes e uniformes (36–38 g)",
+    "9–11 °Brix em média — o mais alto avaliado",
+    "Excelente vida de prateleira (1,01–1,09 lb/in²)",
+    "Comprovada sob macrotúneis em Huelva e centro do México"
+  ],
+  "performanceMetrics": {
+    "yield": "1.317 gramas/planta (jan–abr 2026)",
+    "size": "36–38 gramas",
+    "appearance": "3,0 média",
+    "firmness": "1,01–1,09 lb/in²"
+  },
+  "recommendations": {
+    "plantingDate": "Centro do México (macrotúnel): 15 de agosto · Huelva, Espanha: outubro",
+    "chill": "Aplicam-se programas padrão de frio para dia curto. Consulte seu representante CBC para recomendações específicas do local.",
+    "fertility": "Programas padrão de fertilidade pré-plantio e durante a temporada para produção de dia curto em macrotúnel. Consulte seu representante CBC para recomendações específicas do local.",
+    "other": "Programas padrão de pulverização para oídio, botrytis e ácaros. Mudas com torrão para colheita precoce ou raiz nua para frutos maiores no final do ciclo. Espaçamento recomendado de 35 cm (+28% de rendimento vs 23 cm em Huelva). Disponível através da CBC e Eurosemillas."
+  }
+}

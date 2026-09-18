@@ -101,7 +101,6 @@ export default function RootLayout({
         {/* Additional SEO meta tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#00ff88" />
-        <link rel="canonical" href="https://cultivars.cbcberry.com" />
       </head>
       <body
         className={`${inter.variable} antialiased font-inter`}

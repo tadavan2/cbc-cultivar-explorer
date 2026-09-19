@@ -65,17 +65,18 @@ import { useLanguage, useTranslation } from './LanguageContext';
 
 interface CultivarDetailCardV2Props {
   cultivar: Cultivar;
+  initialContent?: CultivarContent;
   isMobile: boolean;
   isLandscape: boolean;
 }
 
-export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }: CultivarDetailCardV2Props) {
+export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape, initialContent }: CultivarDetailCardV2Props) {
   const { language } = useLanguage();
   const { t, getInfoOverlay } = useTranslation();
   const [showInfoOverlay, setShowInfoOverlay] = useState(false);
   const [infoOverlay, setInfoOverlay] = useState<{ key: string, content: InfoOverlayContent } | null>(null);
-  const [cultivarContent, setCultivarContent] = useState<CultivarContent | null>(null);
-  const [contentLoading, setContentLoading] = useState(true);
+  const [cultivarContent, setCultivarContent] = useState<CultivarContent | null>(initialContent?.id === cultivar.id ? initialContent : null);
+  const [contentLoading, setContentLoading] = useState(initialContent?.id !== cultivar.id);
   const [screenWidth, setScreenWidth] = useState(400); // Default width for SSR
   
   // Chart state management
@@ -144,6 +145,11 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
 
   // Load cultivar content on mount and when language changes
   useEffect(() => {
+    if (language === 'en' && initialContent?.id === cultivar.id) {
+      setCultivarContent(initialContent);
+      setContentLoading(false);
+      return;
+    }
     const loadContent = async () => {
       setContentLoading(true);
       try {
@@ -157,7 +163,7 @@ export default function CultivarDetailCardV2({ cultivar, isMobile, isLandscape }
       }
     };
     loadContent();
-  }, [cultivar.id, language]);
+  }, [cultivar.id, language, initialContent]);
 
   // Get info overlay data and button configs for this specific cultivar
   const infoData = getInfoOverlayData(cultivar.id);

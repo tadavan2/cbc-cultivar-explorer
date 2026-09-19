@@ -18,10 +18,15 @@ class Metadata(HTMLParser):
         super().__init__()
         self.canonicals, self.titles, self.meta = [], [], {}
         self.in_title = False
+        self.text, self.links, self.skip = [], [], 0
         self.feed(markup)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag in ('script', 'style'):
+            self.skip += 1
+        if tag == 'a':
+            self.links.append(attrs.get('href'))
         if tag == 'link' and attrs.get('rel') == 'canonical':
             self.canonicals.append(attrs.get('href'))
         if tag == 'meta':
@@ -32,10 +37,14 @@ class Metadata(HTMLParser):
             self.titles.append('')
 
     def handle_endtag(self, tag):
+        if tag in ('script', 'style'):
+            self.skip -= 1
         if tag == 'title':
             self.in_title = False
 
     def handle_data(self, data):
+        if not self.skip and not self.in_title:
+            self.text.append(data)
         if self.in_title:
             self.titles[-1] += data
 
@@ -53,6 +62,7 @@ def fetch(origin, path, agent):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--origin', default='http://127.0.0.1:3011')
+    parser.add_argument('--expect-alturas-pilot', action='store_true')
     args = parser.parse_args()
     ids = re.findall(r"id: '([^']+)'", (ROOT / 'data/cultivars.ts').read_text())
     ids = [value for value in ids if value != 'debug']
@@ -76,6 +86,13 @@ def main():
             if path in paths:
                 assert meta.titles[0] not in titles, (path, 'duplicate title')
                 titles.add(meta.titles[0])
+            if args.expect_alturas_pilot:
+                assert set('/' + value for value in ids) <= set(meta.links), (path, 'missing cultivar links')
+                if path == '/alturas':
+                    content = json.loads((ROOT / 'public/data/cultivars/alturas/content.json').read_text())
+                    visible = ' '.join(' '.join(meta.text).split())
+                    for fact in content['description']['paragraphs'] + list(content['recommendations'].values()):
+                        assert ' '.join(fact.split()) in visible, (path, 'missing initial HTML fact', fact)
             rows.append({'path': path, 'agent': agent, 'status': status, 'title': meta.titles[0], 'canonical': meta.canonicals[0]})
     for path in ['/debug', '/not-a-cultivar']:
         status, body = fetch(args.origin, path, 'Googlebot')

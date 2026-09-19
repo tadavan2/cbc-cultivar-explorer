@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import alturasContent from '../public/data/cultivars/alturas/content.json';
+import type { CultivarContent } from '../data/cultivarContent';
 import Explorer from '../components/Explorer';
 import { getExplorerSeo } from '../lib/explorer-seo';
 
 type Props = {
-  searchParams: Promise<{ cultivar?: string | string[] }>;
+  searchParams: Promise<{ cultivar?: string | string[]; lang?: string }>;
 };
 
 // Existing /:cultivarId rewrites supply this query parameter. Keep those routes
@@ -33,6 +35,12 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   };
 }
 
-export default function Page() {
-  return <Explorer />;
+export default async function Page({ searchParams }: Props) {
+  const { cultivar, lang } = await searchParams;
+  const id = Array.isArray(cultivar) ? cultivar[0] : cultivar;
+  // Bounded pilot: reuse Alturas's published English content in the initial HTML.
+  // Other cultivars and explicit non-English query links retain their existing loader.
+  const initialContent = id === 'alturas' && (!lang || lang === 'en')
+    ? alturasContent as CultivarContent : undefined;
+  return <Explorer initialContent={initialContent} />;
 }

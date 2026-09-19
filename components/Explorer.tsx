@@ -37,6 +37,7 @@
 
 import { useState, useEffect } from 'react';
 import { syncExplorerMetadata } from '../lib/explorer-seo-client';
+import type { CultivarContent } from '../data/cultivarContent';
 import { Cultivar, FilterState } from '../types/cultivar';
 import { cultivars } from '../data/cultivars';
 import TopNav from '../components/TopNav';
@@ -64,11 +65,12 @@ const getCultivarThemeClass = (cultivarId: string): string => {
   return 'cultivar-card-glass';
 };
 
-export default function Home() {
-  const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(cultivars[0]);
-  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(cultivars[0]);
+export default function Home({ initialContent }: { initialContent?: CultivarContent }) {
+  const initialCultivar = cultivars.find(c => c.id === initialContent?.id) ?? cultivars[0];
+  const [selectedCultivar, setSelectedCultivar] = useState<Cultivar>(initialCultivar);
+  const [displayedCultivar, setDisplayedCultivar] = useState<Cultivar>(initialCultivar);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isHomepage, setIsHomepage] = useState(true);
+  const [isHomepage, setIsHomepage] = useState(initialCultivar.id === 'debug');
   
   const [filters, setFilters] = useState<FilterState>({
     flowerType: [],
@@ -330,6 +332,7 @@ export default function Home() {
                 ) : (
                   <CultivarDetailCardV2 
                     cultivar={displayedCultivar} 
+                  initialContent={initialContent}
                     isMobile={isMobile}
                     isLandscape={isLandscape}
                   />
@@ -408,9 +411,12 @@ export default function Home() {
                 
                 <div className="flex overflow-x-auto scrollbar-hidden pb-2 h-full items-end" style={{paddingLeft: '107px'}}>
                   {filteredCultivars.filter(cultivar => cultivar.id !== 'debug').map((cultivar, index) => (
-                    <div
+                    <a
                       key={cultivar.id}
-                      onClick={() => {
+                      href={'/' + cultivar.id}
+                  onClick={(event) => {
+                    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                    event.preventDefault();
                         handleCultivarChange(cultivar);
                         setIsCultivarDrawerOpen(false);
                         setIsFilterDrawerOpen(false);
@@ -429,7 +435,7 @@ export default function Home() {
                           <div className="w-2 h-2 bg-green-400 rounded-full pulse-glow-glass shadow-lg"></div>
                         </div>
                       )}
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -473,6 +479,7 @@ export default function Home() {
               ) : (
                 <CultivarDetailCardV2 
                   cultivar={displayedCultivar} 
+                  initialContent={initialContent}
                   isMobile={isMobile}
                   isLandscape={isLandscape}
                 />
@@ -604,9 +611,12 @@ export default function Home() {
               }}
             >
               {filteredCultivars.filter(cultivar => cultivar.id !== 'debug').map((cultivar, index) => (
-                <div
+                <a
                   key={cultivar.id}
-                  onClick={() => {
+                  href={'/' + cultivar.id}
+                  onClick={(event) => {
+                    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                    event.preventDefault();
                     handleCultivarChange(cultivar);
                     setIsCultivarDrawerOpen(false);
                     setIsFilterDrawerOpen(false);
@@ -626,7 +636,7 @@ export default function Home() {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/10 rounded-2xl pointer-events-none"></div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
